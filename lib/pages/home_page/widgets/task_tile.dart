@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/constants.dart';
 
+import '../../../helper_functions.dart';
 import '../../../models/task.dart';
 
 class TaskTile extends StatelessWidget {
@@ -21,7 +22,7 @@ class TaskTile extends StatelessWidget {
         key: UniqueKey(),
         background: buildBackground(context, DismissDirection.startToEnd),
         secondaryBackground: buildBackground(context, DismissDirection.endToStart),
-        child: builTaskTile(context),
+        child: builTaskTileRow(context),
       ),
     );
   }
@@ -64,41 +65,88 @@ class TaskTile extends StatelessWidget {
     );
   }
 
-  Widget builTaskTile(BuildContext context) {
+  Widget buildTaskTile(BuildContext context) {
+    return ListTile(
+      contentPadding: EdgeInsets.only(top: isFirst ? appElevationSmall : 0.0),
+      isThreeLine: task.deadLine != null,
+      leading: Checkbox(value: task.isComplited, onChanged: (newVAlue) {}),
+      title: Text(
+        task.text,
+        maxLines: 3,
+        overflow: TextOverflow.ellipsis,
+      ),
+      subtitle: task.deadLine != null ? Text(formatDateTime(context, task.deadLine!)) : null,
+      trailing: IconButton(
+        onPressed: () {},
+        icon: const Icon(Icons.info_outline),
+      ),
+    );
+  }
+
+  Widget builTaskTileRow(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: isFirst ? appElevationSmall : 0.0),
       color: Colors.transparent,
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: appPaddingSmall),
-            child: Checkbox(value: task.isComplited, onChanged: (newVAlue) {}),
-          ),
-          Builder(builder: (context) {
-            if (task.ImportanceType == TaskImportanceTypes.Hight) {
-              return Padding(
-                padding: const EdgeInsets.only(right: appPaddingSmall),
-                child: Text(
-                  "!!",
-                  style:
-                      Theme.of(context).textTheme.headlineSmall?.copyWith(color: Theme.of(context).colorScheme.primary),
-                ),
-              );
-            }
+          Row(
+            children: [
+              // Checkbox
+              Padding(
+                padding: const EdgeInsets.only(left: appPaddingSmall),
+                child: Checkbox(value: task.isComplited, onChanged: (newVAlue) {}),
+              ),
 
-            return Container();
-          }),
-          Expanded(
-            child: Text(
-              task.text,
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-            ),
+              // Mark importance
+              Builder(builder: (context) {
+                if (task.ImportanceType == TaskImportanceTypes.Hight) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: appPaddingSmall),
+                    child: Text(
+                      "!!",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall
+                          ?.copyWith(color: Theme.of(context).colorScheme.primary),
+                    ),
+                  );
+                }
+
+                return Container();
+              }),
+
+              // Main Text
+              Expanded(
+                child: Text(
+                  task.text,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+
+              // Inform icon button
+              IconButton(
+                padding: const EdgeInsets.only(right: appPaddingSmall),
+                onPressed: () {},
+                icon: const Icon(Icons.info_outline),
+              ),
+            ],
           ),
-          IconButton(
-            padding: const EdgeInsets.only(right: appPaddingSmall),
-            onPressed: () {},
-            icon: const Icon(Icons.info_outline),
+          Builder(
+            builder: (context) {
+              if (task.deadLine != null) {
+                // 56 - это размеры чек бокса, почему не спрашивайт
+                return Padding(
+                  padding: const EdgeInsets.only(
+                    left: 56,
+                  ),
+                  child: Text(formatDateTime(context, task.deadLine!)),
+                );
+              }
+
+              return Container();
+            },
           ),
         ],
       ),

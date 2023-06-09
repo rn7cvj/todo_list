@@ -10,20 +10,10 @@ class HomePortrait extends StatelessWidget {
 
   final List<Task> Tasks = [
     Task("Купить что-то 1", null, false, TaskImportanceTypes.Not),
-    Task("Купить что-то 2", null, true, TaskImportanceTypes.Low),
+    Task("Купить что-то 2", DateTime.now(), true, TaskImportanceTypes.Low),
     Task("Купить что-то 3", null, false, TaskImportanceTypes.Low),
     Task("Купить что-то 4", null, true, TaskImportanceTypes.Hight),
     Task("Купить что-то 5", DateTime.now(), false, TaskImportanceTypes.Hight),
-    // Task("Купить что-то 5", null, false),
-    // Task("Купить что-то 6", null, false),
-    // Task("Купить что-то 7", null, false),
-    // Task("Купить что-то 8", null, false),
-    // Task("Купить что-то 9", null, false),
-    // Task("Купить что-то 10", null, false),
-    // Task("Купить что-то 11", null, false),
-    // Task("Купить что-то 12", null, false),
-    // Task("Купить что-то 13", null, false),
-    // Task("Купить что-то 14", null, false),
   ];
 
   @override
