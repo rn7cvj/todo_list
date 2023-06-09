@@ -9,10 +9,11 @@ class HomePortrait extends StatelessWidget {
   HomePortrait({super.key});
 
   final List<Task> Tasks = [
-    Task("Купить что-то 1", null, false),
-    Task("Купить что-то 2", null, true),
-    Task("Купить что-то 3", null, false),
-    Task("Купить что-то 4", null, false),
+    Task("Купить что-то 1", null, false, TaskImportanceTypes.Not),
+    Task("Купить что-то 2", null, true, TaskImportanceTypes.Low),
+    Task("Купить что-то 3", null, false, TaskImportanceTypes.Low),
+    Task("Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task("Купить что-то 5", DateTime.now(), false, TaskImportanceTypes.Hight),
     // Task("Купить что-то 5", null, false),
     // Task("Купить что-то 6", null, false),
     // Task("Купить что-то 7", null, false),
@@ -44,27 +45,46 @@ class HomePortrait extends StatelessWidget {
   }
 
   Widget buildMainContent(BuildContext context) {
-    List<Widget> taskTiles = Tasks.map((task) => TaskTile(task: task)).toList();
+    List<Widget> taskTiles = [];
 
-    // Так не работает я хз почему
-    // taskTiles.add(buildAddNewTaskButton(context));
+    if (Tasks.isNotEmpty) {
+      // ignore: unnecessary_cast
+      taskTiles.add(TaskTile(task: Tasks.first, isFirst: true) as Widget);
+    }
+
+    // Тут нужен этот каст иначе не получается добавить кнопку новое которая внизу
+    // ignore: unnecessary_cast
+    taskTiles.addAll(Tasks.sublist(1).map((task) => TaskTile(
+          task: task,
+          isFirst: false,
+        ) as Widget));
+
+    taskTiles.add(buildAddNewTaskButton(context));
 
     return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(appRoundRadiusMedium)),
       margin: const EdgeInsets.all(appMargingMedium),
-      child: Padding(
-        padding: const EdgeInsets.all(appPaddingSmall),
-        child: Column(children: taskTiles),
-      ),
+      child: Column(children: taskTiles),
     );
   }
 
   Widget buildAddNewTaskButton(BuildContext context) {
-    return InkResponse(
+    return InkWell(
+      borderRadius: const BorderRadius.only(
+        bottomLeft: Radius.circular(appRoundRadiusMedium),
+        bottomRight: Radius.circular(appRoundRadiusMedium),
+      ),
+      onTap: () {},
       child: Container(
-        height: 100,
-        width: double.infinity,
+        // 56 - это размеры чек бокса, почему не спрашивайте
+        padding: const EdgeInsets.only(
+          left: 56,
+          top: appPaddingMedium,
+          bottom: appPaddingMedium + appElevationSmall,
+        ),
         color: Colors.transparent,
-        child: Center(child: Text(t.common.add_new)),
+        width: double.infinity,
+        child: Text(t.common.add_new),
       ),
     );
   }
