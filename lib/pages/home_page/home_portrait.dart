@@ -14,6 +14,16 @@ class HomePortrait extends StatelessWidget {
     Task("Купить что-то 3", null, false, TaskImportanceTypes.Low),
     Task("Купить что-то 4", null, true, TaskImportanceTypes.Hight),
     Task("Купить что-то 5", DateTime.now(), false, TaskImportanceTypes.Hight),
+    Task("Купить что-то 1", null, false, TaskImportanceTypes.Not),
+    Task("Купить что-то 2", DateTime.now(), true, TaskImportanceTypes.Low),
+    Task("Купить что-то 3", null, false, TaskImportanceTypes.Low),
+    Task("Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task("Купить что-то 5", DateTime.now(), false, TaskImportanceTypes.Hight),
+    Task("Купить что-то 1", null, false, TaskImportanceTypes.Not),
+    Task("Купить что-то 2", DateTime.now(), true, TaskImportanceTypes.Low),
+    Task("Купить что-то 3", null, false, TaskImportanceTypes.Low),
+    Task("Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task("Купить что-то 5", DateTime.now(), false, TaskImportanceTypes.Hight),
   ];
 
   @override
@@ -69,8 +79,8 @@ class HomePortrait extends StatelessWidget {
         // 56 - это размеры чек бокса, почему не спрашивайте
         padding: const EdgeInsets.only(
           left: 56,
-          top: appPaddingMedium,
-          bottom: appPaddingMedium + appElevationSmall,
+          top: appElevationMedium,
+          bottom: appElevationMedium + appPaddingSmall,
         ),
         color: Colors.transparent,
         width: double.infinity,

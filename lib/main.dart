@@ -10,7 +10,9 @@ var logger = Logger(
 );
 
 void main() {
-  // setUpSystemUIOverlay();
+  WidgetsFlutterBinding.ensureInitialized();
+
+  setUpSystemUIOverlay();
 
   runApp(const App());
 }
@@ -36,7 +38,7 @@ class App extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         useMaterial3: true,
       ),
-      home: AddTaskPage(),
+      home: HomePage(),
     );
   }
 }
