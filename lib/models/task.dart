@@ -1,11 +1,13 @@
 class Task {
-  Task(this.text, this.deadLine, this.isComplited, this.ImportanceType);
+  Task(this.id, this.text, this.deadLine, this.isComplited, this.importanceType);
+
+  final int id;
 
   final String text;
   final DateTime? deadLine;
-  final bool isComplited;
+  bool isComplited;
 
-  final TaskImportanceTypes ImportanceType;
+  final TaskImportanceTypes importanceType;
 }
 
 enum TaskImportanceTypes {

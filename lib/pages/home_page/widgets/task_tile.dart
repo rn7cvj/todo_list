@@ -1,66 +1,47 @@
-import 'package:flutter/material.dart';
-import 'package:todo_list/constants.dart';
+import 'dart:ui';
 
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
+import 'package:todo_list/constants.dart';
 import '../../../helper_functions.dart';
 import '../../../models/task.dart';
 
 class TaskTile extends StatelessWidget {
-  const TaskTile({super.key, required this.task, required this.isFirst});
+  TaskTile({super.key, required this.task, required this.isFirst});
 
   final Task task;
 
   final bool isFirst;
 
+  final Observable<double> iconExtraPadding = 0.0.obs();
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       child: Dismissible(
+        confirmDismiss: (direction) async => false,
+        key: UniqueKey(),
         dismissThresholds: const {
           DismissDirection.startToEnd: 0.4,
           DismissDirection.endToStart: 0.4,
         },
-        key: UniqueKey(),
-        background: buildBackground(context, DismissDirection.startToEnd),
-        secondaryBackground: buildBackground(context, DismissDirection.endToStart),
-        child: builTaskTileRow(context),
-      ),
-    );
-  }
-
-  Widget buildBackground(BuildContext context, DismissDirection dismissDirection) {
-    Color backgroundColor = dismissDirection == DismissDirection.startToEnd
-        ? Theme.of(context).colorScheme.secondary
-        : Theme.of(context).colorScheme.error;
-
-    Alignment iconAligment =
-        dismissDirection == DismissDirection.startToEnd ? Alignment.centerLeft : Alignment.centerRight;
-
-    IconData iconData = dismissDirection == DismissDirection.startToEnd ? Icons.check : Icons.delete;
-
-    EdgeInsets iconPadding = dismissDirection == DismissDirection.startToEnd
-        ? const EdgeInsets.only(left: appPaddingLarge)
-        : const EdgeInsets.only(right: appPaddingLarge);
-
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: isFirst
-            ? const BorderRadius.only(
-                topLeft: Radius.circular(appRoundRadiusMedium),
-                topRight: Radius.circular(appRoundRadiusMedium),
-              )
-            : null,
-        color: backgroundColor,
-      ),
-      width: double.infinity,
-      child: Align(
-        alignment: iconAligment,
-        child: Padding(
-          padding: iconPadding,
-          child: Icon(
-            iconData,
-            color: Theme.of(context).colorScheme.onError,
-          ),
+        onUpdate: (details) {
+          runInAction(() => iconExtraPadding.value = details.progress);
+        },
+        background: Background(
+          isFirst: isFirst,
+          dismissDirection: DismissDirection.startToEnd,
+          iconExtraPadding: iconExtraPadding,
         ),
+        secondaryBackground: Background(
+          isFirst: isFirst,
+          dismissDirection: DismissDirection.endToStart,
+          iconExtraPadding: iconExtraPadding,
+        ),
+        child: buildTaskTile(context),
       ),
     );
   }
@@ -68,7 +49,8 @@ class TaskTile extends StatelessWidget {
   Widget buildTaskTile(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.only(top: isFirst ? appElevationSmall : 0.0),
-      isThreeLine: task.deadLine != null,
+      // isThreeLine: true,
+      visualDensity: VisualDensity.compact,
       leading: Checkbox(value: task.isComplited, onChanged: (newVAlue) {}),
       title: Text(
         task.text,
@@ -100,7 +82,7 @@ class TaskTile extends StatelessWidget {
 
               // Mark importance
               Builder(builder: (context) {
-                if (task.ImportanceType == TaskImportanceTypes.Hight) {
+                if (task.importanceType == TaskImportanceTypes.Hight) {
                   return Padding(
                     padding: const EdgeInsets.only(right: appPaddingSmall),
                     child: Text(
@@ -149,6 +131,66 @@ class TaskTile extends StatelessWidget {
             },
           ),
         ],
+      ),
+    );
+  }
+}
+
+class Background extends StatelessWidget {
+  const Background({
+    super.key,
+    required this.isFirst,
+    required this.dismissDirection,
+    required this.iconExtraPadding,
+  });
+
+  final bool isFirst;
+  final DismissDirection dismissDirection;
+  final Observable<double> iconExtraPadding;
+
+  @override
+  Widget build(BuildContext context) {
+    Color backgroundColor = dismissDirection == DismissDirection.startToEnd
+        ? Theme.of(context).colorScheme.secondary
+        : Theme.of(context).colorScheme.error;
+
+    Alignment iconAligment =
+        dismissDirection == DismissDirection.startToEnd ? Alignment.centerLeft : Alignment.centerRight;
+
+    IconData iconData = dismissDirection == DismissDirection.startToEnd ? Icons.check : Icons.delete;
+
+    EdgeInsets iconPadding = dismissDirection == DismissDirection.startToEnd
+        ? const EdgeInsets.only(left: appPaddingLarge)
+        : const EdgeInsets.only(right: appPaddingLarge);
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: isFirst
+            ? const BorderRadius.only(
+                topLeft: Radius.circular(appRoundRadiusMedium),
+                topRight: Radius.circular(appRoundRadiusMedium),
+              )
+            : null,
+        color: backgroundColor,
+      ),
+      // width: double.infinity,
+      child: Align(
+        alignment: iconAligment,
+        child: Observer(
+          builder: (_) {
+            EdgeInsets iconAnimationPadding = dismissDirection == DismissDirection.startToEnd
+                ? EdgeInsets.only(left: iconExtraPadding.value)
+                : EdgeInsets.only(right: iconExtraPadding.value);
+
+            return Padding(
+              padding: iconPadding.add(iconAnimationPadding),
+              child: Icon(
+                iconData,
+                color: Theme.of(context).colorScheme.onError,
+              ),
+            );
+          },
+        ),
       ),
     );
   }

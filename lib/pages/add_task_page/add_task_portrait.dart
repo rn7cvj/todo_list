@@ -98,6 +98,35 @@ class AddTaskPortrait extends StatelessWidget {
   }
 
   Widget buildDeadlineSelector(BuildContext context) {
+    return SwitchListTile(
+      title: Text(
+        t.addtask.deadline,
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
+      subtitle: InkWell(
+        borderRadius: BorderRadius.circular(appRoundRadiusMedium),
+        onTap: () async {
+          // DateTime? newDeadLine = await showDatePicker(
+          //   context: context,
+          //   initialDate: DateTime.now(),
+          //   firstDate: DateTime.now(),
+          //   lastDate: DateTime(3000),
+          // );
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(top: appPaddingSmall, bottom: appPaddingSmall),
+          child: Text(
+            formatDateTime(context, DateTime.now()),
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.primary),
+          ),
+        ),
+      ),
+      value: false,
+      onChanged: (bool value) {},
+    );
+  }
+
+  Widget buildDeadlineSelectorRow(BuildContext context) {
     return Row(children: [
       Expanded(
         child: Column(
@@ -110,12 +139,12 @@ class AddTaskPortrait extends StatelessWidget {
             InkWell(
               borderRadius: BorderRadius.circular(appRoundRadiusMedium),
               onTap: () async {
-                DateTime? newDeadLine = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime.now(),
-                  lastDate: DateTime(3000),
-                );
+                // DateTime? newDeadLine = await showDatePicker(
+                //   context: context,
+                //   initialDate: DateTime.now(),
+                //   firstDate: DateTime.now(),
+                //   lastDate: DateTime(3000),
+                // );
               },
               child: Padding(
                 padding: const EdgeInsets.only(top: appPaddingSmall, bottom: appPaddingSmall),

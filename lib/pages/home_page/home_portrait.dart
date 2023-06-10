@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/constants.dart';
+import 'package:todo_list/controlles/home.dart';
 import 'package:todo_list/models/task.dart';
 import 'package:todo_list/pages/home_page/widgets/task_tile.dart';
 
@@ -8,23 +9,7 @@ import '../../i18n/strings.g.dart';
 class HomePortrait extends StatelessWidget {
   HomePortrait({super.key});
 
-  final List<Task> Tasks = [
-    Task("Купить что-то 1", null, false, TaskImportanceTypes.Not),
-    Task("Купить что-то 2", DateTime.now(), true, TaskImportanceTypes.Low),
-    Task("Купить что-то 3", null, false, TaskImportanceTypes.Low),
-    Task("Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task("Купить что-то 5", DateTime.now(), false, TaskImportanceTypes.Hight),
-    Task("Купить что-то 1", null, false, TaskImportanceTypes.Not),
-    Task("Купить что-то 2", DateTime.now(), true, TaskImportanceTypes.Low),
-    Task("Купить что-то 3", null, false, TaskImportanceTypes.Low),
-    Task("Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task("Купить что-то 5", DateTime.now(), false, TaskImportanceTypes.Hight),
-    Task("Купить что-то 1", null, false, TaskImportanceTypes.Not),
-    Task("Купить что-то 2", DateTime.now(), true, TaskImportanceTypes.Low),
-    Task("Купить что-то 3", null, false, TaskImportanceTypes.Low),
-    Task("Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task("Купить что-то 5", DateTime.now(), false, TaskImportanceTypes.Hight),
-  ];
+  final contoller = HomeController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,28 +23,30 @@ class HomePortrait extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {},
       ),
     );
   }
 
   Widget buildMainContent(BuildContext context) {
+    List<Task> tasks = contoller.tasks;
+
     List<Widget> taskTiles = [];
 
-    if (Tasks.isNotEmpty) {
+    if (tasks.isNotEmpty) {
       // ignore: unnecessary_cast
-      taskTiles.add(TaskTile(task: Tasks.first, isFirst: true) as Widget);
+      taskTiles.add(TaskTile(task: tasks.first, isFirst: true) as Widget);
     }
 
     // Тут нужен этот каст иначе не получается добавить кнопку новое которая внизу
     // ignore: unnecessary_cast
-    taskTiles.addAll(Tasks.sublist(1).map((task) => TaskTile(
+    taskTiles.addAll(tasks.sublist(1).map((task) => TaskTile(
           task: task,
           isFirst: false,
         ) as Widget));
 
-    taskTiles.add(buildAddNewTaskButton(context));
+    taskTiles.add(buildAddNewTaskButton(context, tasks.isEmpty));
 
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(appRoundRadiusMedium)),
@@ -68,7 +55,23 @@ class HomePortrait extends StatelessWidget {
     );
   }
 
-  Widget buildAddNewTaskButton(BuildContext context) {
+  Widget buildAddNewTaskButton(BuildContext context, bool isTasksListEmpty) {
+    return ListTile(
+      shape: RoundedRectangleBorder(
+        borderRadius: isTasksListEmpty
+            ? BorderRadius.circular(appRoundRadiusMedium)
+            : const BorderRadius.only(
+                bottomLeft: Radius.circular(appElevationMedium),
+                bottomRight: Radius.circular(appElevationMedium),
+              ),
+      ),
+      onTap: () {},
+      title: Text(t.common.add_new),
+      leading: Icon(Icons.add),
+    );
+  }
+
+  Widget buildAddNewTaskButtonInkWell(BuildContext context) {
     return InkWell(
       borderRadius: const BorderRadius.only(
         bottomLeft: Radius.circular(appRoundRadiusMedium),
