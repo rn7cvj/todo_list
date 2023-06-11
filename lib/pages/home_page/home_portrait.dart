@@ -9,7 +9,7 @@ import '../../i18n/strings.g.dart';
 class HomePortrait extends StatelessWidget {
   HomePortrait({super.key});
 
-  final contoller = HomeController();
+  // final contoller = HomeController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,8 @@ class HomePortrait extends StatelessWidget {
   }
 
   Widget buildMainContent(BuildContext context) {
-    List<Task> tasks = contoller.tasks;
+    // List<Task> tasks = contoller.tasks;
+    List<Task> tasks = [];
 
     List<Widget> taskTiles = [];
 

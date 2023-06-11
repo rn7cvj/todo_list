@@ -1,13 +1,26 @@
-class Task {
-  Task(this.id, this.text, this.deadLine, this.isComplited, this.importanceType);
+import 'package:mobx/mobx.dart';
+
+part 'task.g.dart';
+
+// ignore: library_private_types_in_public_api
+class Task = _Task with _$Task;
+
+abstract class _Task with Store {
+  _Task(this.id, this.text, this.deadLine, this.isComplited, this.importanceType);
 
   final int id;
 
-  final String text;
-  final DateTime? deadLine;
+  @observable
+  String text;
+
+  @observable
+  DateTime? deadLine;
+
+  @observable
   bool isComplited;
 
-  final TaskImportanceTypes importanceType;
+  @observable
+  TaskImportanceTypes importanceType;
 }
 
 enum TaskImportanceTypes {
