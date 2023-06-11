@@ -8,6 +8,7 @@ import 'package:todo_list/pages/home_page/widgets/task_tile.dart';
 
 import '../../i18n/strings.g.dart';
 import '../../navigator.dart';
+import 'widgets/home_appbar.dart';
 
 class HomePortrait extends StatelessWidget {
   HomePortrait({super.key});
@@ -15,27 +16,18 @@ class HomePortrait extends StatelessWidget {
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
   final NavigationManager navigationManager = GetIt.I<NavigationManager>();
 
+  final ScrollController scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.home.my_task),
-        actions: [
-          IconButton(
-            onPressed: contoller.toogleComplitedTaskVisibilty,
-            icon: Observer(
-              builder: (context) => Icon(
-                contoller.isComplitedTaskVisible ? Icons.visibility_off : Icons.visibility,
-              ),
-            ),
-          ),
-        ],
-      ),
       body: CustomScrollView(
+        controller: scrollController,
         slivers: [
+          HomeAppBar(scrollController: scrollController),
           SliverToBoxAdapter(
             child: Observer(
-              builder: (context) => buildMainContent(context, contoller.getTasks),
+              builder: (context) => buildTaskList(context, contoller.getTasks),
             ),
           ),
         ],
@@ -47,7 +39,7 @@ class HomePortrait extends StatelessWidget {
     );
   }
 
-  Widget buildMainContent(BuildContext context, List<Task> tasks) {
+  Widget buildTaskList(BuildContext context, List<Task> tasks) {
     List<Widget> taskTiles = [];
 
     if (tasks.isNotEmpty) {
@@ -86,26 +78,4 @@ class HomePortrait extends StatelessWidget {
       leading: const Icon(Icons.add),
     );
   }
-
-  // Old code
-  // Widget buildAddNewTaskButtonInkWell(BuildContext context) {
-  //   return InkWell(
-  //     borderRadius: const BorderRadius.only(
-  //       bottomLeft: Radius.circular(appRoundRadiusMedium),
-  //       bottomRight: Radius.circular(appRoundRadiusMedium),
-  //     ),
-  //     onTap: navigationManager.openAddTask,
-  //     child: Container(
-  //       // 56 - это размеры чек бокса, почему не спрашивайте
-  //       padding: const EdgeInsets.only(
-  //         left: 56,
-  //         top: appElevationMedium,
-  //         bottom: appElevationMedium + appPaddingSmall,
-  //       ),
-  //       color: Colors.transparent,
-  //       width: double.infinity,
-  //       child: Text(t.common.add_new),
-  //     ),
-  //   );
-  // }
 }

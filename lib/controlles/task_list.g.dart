@@ -16,6 +16,13 @@ mixin _$TaskListContoller on _TaskListContoller, Store {
       (_$getTasksComputed ??= Computed<List<Task>>(() => super.getTasks,
               name: '_TaskListContoller.getTasks'))
           .value;
+  Computed<int>? _$complitedTaskCountComputed;
+
+  @override
+  int get complitedTaskCount => (_$complitedTaskCountComputed ??= Computed<int>(
+          () => super.complitedTaskCount,
+          name: '_TaskListContoller.complitedTaskCount'))
+      .value;
 
   late final _$tasksAtom =
       Atom(name: '_TaskListContoller.tasks', context: context);
@@ -52,6 +59,30 @@ mixin _$TaskListContoller on _TaskListContoller, Store {
 
   late final _$_TaskListContollerActionController =
       ActionController(name: '_TaskListContoller', context: context);
+
+  @override
+  void addNewTask(Task newTask) {
+    final _$actionInfo = _$_TaskListContollerActionController.startAction(
+        name: '_TaskListContoller.addNewTask');
+    try {
+      return super.addNewTask(newTask);
+    } finally {
+      _$_TaskListContollerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void addNewTaskByDetails(String taskDiscirption, DateTime? deadLine,
+      TaskImportanceTypes importanceType) {
+    final _$actionInfo = _$_TaskListContollerActionController.startAction(
+        name: '_TaskListContoller.addNewTaskByDetails');
+    try {
+      return super
+          .addNewTaskByDetails(taskDiscirption, deadLine, importanceType);
+    } finally {
+      _$_TaskListContollerActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void toogleTaksComplitedStatus(int id) {
@@ -113,7 +144,8 @@ mixin _$TaskListContoller on _TaskListContoller, Store {
     return '''
 tasks: ${tasks},
 isComplitedTaskVisible: ${isComplitedTaskVisible},
-getTasks: ${getTasks}
+getTasks: ${getTasks},
+complitedTaskCount: ${complitedTaskCount}
     ''';
   }
 }

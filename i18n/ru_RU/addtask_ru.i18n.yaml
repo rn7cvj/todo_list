@@ -4,3 +4,4 @@ importance_no: Нет
 importance_low: Низкая
 importance_high: Высокая
 deadline: Сделать до
+select_deadline: Выберите дату

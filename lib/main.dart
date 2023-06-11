@@ -3,10 +3,8 @@ import 'package:flutter/services.dart';
 
 import 'package:logger/logger.dart';
 import 'package:get_it/get_it.dart';
-import 'package:todo_list/controlles/task_list.dart';
 
-import 'package:todo_list/pages/add_task_page/add_task_page.dart';
-import 'package:todo_list/pages/home_page/home_page.dart';
+import 'package:todo_list/controlles/task_list.dart';
 
 import 'navigator.dart';
 import 'routes.dart';
