@@ -20,7 +20,8 @@ class AddTaskPortrait extends StatelessWidget {
   final NavigationManager navigationManager = GetIt.I<NavigationManager>();
 
   final List<DropdownMenuEntry> importanceEntries = TaskImportanceTypes.values
-      .map((importance) => DropdownMenuEntry(label: importance.lable, value: importance))
+      .map((importance) =>
+          DropdownMenuEntry(leadingIcon: Icon(importance.icon), label: importance.lable, value: importance))
       .toList();
 
   final TextEditingController whatToDoController = TextEditingController();

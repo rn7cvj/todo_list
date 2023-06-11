@@ -67,10 +67,15 @@ class TaskTile extends StatelessWidget {
           contoller.toogleTaksComplitedStatus(task.id);
         },
       ),
-      title: Text(
-        task.text,
-        maxLines: 3,
-        overflow: TextOverflow.ellipsis,
+      title: Row(
+        children: [
+          buildImportanceIcon(context) ?? Container(),
+          Text(
+            task.text,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
       ),
       subtitle: task.deadLine != null ? Text(formatDateTime(context, task.deadLine!)) : null,
       trailing: IconButton(
@@ -146,6 +151,17 @@ class TaskTile extends StatelessWidget {
             },
           ),
         ],
+      ),
+    );
+  }
+
+  Widget? buildImportanceIcon(BuildContext context) {
+    if (task.importanceType.icon == null) return null;
+    return Padding(
+      padding: const EdgeInsets.only(right: appPaddingSmall),
+      child: Icon(
+        task.importanceType.icon,
+        size: Theme.of(context).textTheme.bodyMedium!.fontSize,
       ),
     );
   }
