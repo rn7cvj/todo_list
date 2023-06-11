@@ -3,7 +3,7 @@
 /// Locales: 2
 /// Strings: 22 (11 per locale)
 ///
-/// Built on 2023-06-09 at 17:02 UTC
+/// Built on 2023-06-11 at 09:45 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -163,7 +163,7 @@ class _StringsAddtaskEn {
 	String get importance => 'Importance';
 	String get importance_no => 'Not';
 	String get importance_low => 'Low';
-	String get importance_High => 'High';
+	String get importance_high => 'High';
 	String get deadline => 'Deadline';
 }
 
@@ -231,7 +231,7 @@ class _StringsAddtaskRu implements _StringsAddtaskEn {
 	@override String get importance => 'Важность';
 	@override String get importance_no => 'Нет';
 	@override String get importance_low => 'Низкая';
-	@override String get importance_High => 'Высокая';
+	@override String get importance_high => 'Высокая';
 	@override String get deadline => 'Сделать до';
 }
 
@@ -268,7 +268,7 @@ extension on _StringsEn {
 			case 'addtask.importance': return 'Importance';
 			case 'addtask.importance_no': return 'Not';
 			case 'addtask.importance_low': return 'Low';
-			case 'addtask.importance_High': return 'High';
+			case 'addtask.importance_high': return 'High';
 			case 'addtask.deadline': return 'Deadline';
 			case 'common.add_new': return 'New';
 			case 'common.delete': return 'Delete';
@@ -287,7 +287,7 @@ extension on _StringsRu {
 			case 'addtask.importance': return 'Важность';
 			case 'addtask.importance_no': return 'Нет';
 			case 'addtask.importance_low': return 'Низкая';
-			case 'addtask.importance_High': return 'Высокая';
+			case 'addtask.importance_high': return 'Высокая';
 			case 'addtask.deadline': return 'Сделать до';
 			case 'common.add_new': return 'Новое';
 			case 'common.delete': return 'Удалить';

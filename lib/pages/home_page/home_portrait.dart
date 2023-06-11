@@ -1,38 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:todo_list/constants.dart';
-import 'package:todo_list/controlles/home.dart';
+import 'package:todo_list/controlles/task_list.dart';
 import 'package:todo_list/models/task.dart';
 import 'package:todo_list/pages/home_page/widgets/task_tile.dart';
 
 import '../../i18n/strings.g.dart';
+import '../../navigator.dart';
 
 class HomePortrait extends StatelessWidget {
   HomePortrait({super.key});
 
-  // final contoller = HomeController();
+  final TaskListContoller contoller = GetIt.I<TaskListContoller>();
+  final NavigationManager navigationManager = GetIt.I<NavigationManager>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(t.home.my_task),
+        actions: [
+          IconButton(
+            onPressed: contoller.toogleComplitedTaskVisibilty,
+            icon: Observer(
+              builder: (context) => Icon(
+                contoller.isComplitedTaskVisible ? Icons.visibility_off : Icons.visibility,
+              ),
+            ),
+          ),
+        ],
       ),
       body: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(child: buildMainContent(context)),
+          SliverToBoxAdapter(
+            child: Observer(
+              builder: (context) => buildMainContent(context, contoller.getTasks),
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        onPressed: navigationManager.openAddTask,
         child: const Icon(Icons.add),
-        onPressed: () {},
       ),
     );
   }
 
-  Widget buildMainContent(BuildContext context) {
-    // List<Task> tasks = contoller.tasks;
-    List<Task> tasks = [];
-
+  Widget buildMainContent(BuildContext context, List<Task> tasks) {
     List<Widget> taskTiles = [];
 
     if (tasks.isNotEmpty) {
@@ -66,30 +81,31 @@ class HomePortrait extends StatelessWidget {
                 bottomRight: Radius.circular(appElevationMedium),
               ),
       ),
-      onTap: () {},
+      onTap: navigationManager.openAddTask,
       title: Text(t.common.add_new),
-      leading: Icon(Icons.add),
+      leading: const Icon(Icons.add),
     );
   }
 
-  Widget buildAddNewTaskButtonInkWell(BuildContext context) {
-    return InkWell(
-      borderRadius: const BorderRadius.only(
-        bottomLeft: Radius.circular(appRoundRadiusMedium),
-        bottomRight: Radius.circular(appRoundRadiusMedium),
-      ),
-      onTap: () {},
-      child: Container(
-        // 56 - это размеры чек бокса, почему не спрашивайте
-        padding: const EdgeInsets.only(
-          left: 56,
-          top: appElevationMedium,
-          bottom: appElevationMedium + appPaddingSmall,
-        ),
-        color: Colors.transparent,
-        width: double.infinity,
-        child: Text(t.common.add_new),
-      ),
-    );
-  }
+  // Old code
+  // Widget buildAddNewTaskButtonInkWell(BuildContext context) {
+  //   return InkWell(
+  //     borderRadius: const BorderRadius.only(
+  //       bottomLeft: Radius.circular(appRoundRadiusMedium),
+  //       bottomRight: Radius.circular(appRoundRadiusMedium),
+  //     ),
+  //     onTap: navigationManager.openAddTask,
+  //     child: Container(
+  //       // 56 - это размеры чек бокса, почему не спрашивайте
+  //       padding: const EdgeInsets.only(
+  //         left: 56,
+  //         top: appElevationMedium,
+  //         bottom: appElevationMedium + appPaddingSmall,
+  //       ),
+  //       color: Colors.transparent,
+  //       width: double.infinity,
+  //       child: Text(t.common.add_new),
+  //     ),
+  //   );
+  // }
 }

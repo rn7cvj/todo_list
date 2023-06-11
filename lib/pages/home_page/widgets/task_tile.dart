@@ -1,11 +1,10 @@
-import 'dart:ui';
-
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:todo_list/constants.dart';
+import '../../../controlles/task_list.dart';
 import '../../../helper_functions.dart';
 import '../../../models/task.dart';
 
@@ -18,17 +17,26 @@ class TaskTile extends StatelessWidget {
 
   final Observable<double> iconExtraPadding = 0.0.obs();
 
+  final TaskListContoller contoller = GetIt.I<TaskListContoller>();
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       child: Dismissible(
-        confirmDismiss: (direction) async => false,
+        confirmDismiss: (direction) async => direction != DismissDirection.startToEnd,
         key: UniqueKey(),
         dismissThresholds: const {
           DismissDirection.startToEnd: 0.4,
           DismissDirection.endToStart: 0.4,
         },
+        onDismissed: (direction) {
+          if (direction == DismissDirection.startToEnd) contoller.toogleTaksComplitedStatus(task.id);
+          if (direction == DismissDirection.endToStart) contoller.deleteTask(task.id);
+        },
         onUpdate: (details) {
+          if (details.reached && details.direction == DismissDirection.startToEnd) {
+            contoller.markTaskAsComplited(task.id);
+          }
           runInAction(() => iconExtraPadding.value = details.progress);
         },
         background: Background(
@@ -41,7 +49,9 @@ class TaskTile extends StatelessWidget {
           dismissDirection: DismissDirection.endToStart,
           iconExtraPadding: iconExtraPadding,
         ),
-        child: buildTaskTile(context),
+        child: Observer(
+          builder: (context) => buildTaskTile(context),
+        ),
       ),
     );
   }
@@ -51,7 +61,12 @@ class TaskTile extends StatelessWidget {
       contentPadding: EdgeInsets.only(top: isFirst ? appElevationSmall : 0.0),
       // isThreeLine: true,
       visualDensity: VisualDensity.compact,
-      leading: Checkbox(value: task.isComplited, onChanged: (newVAlue) {}),
+      leading: Checkbox(
+        value: task.isComplited,
+        onChanged: (newVAlue) {
+          contoller.toogleTaksComplitedStatus(task.id);
+        },
+      ),
       title: Text(
         task.text,
         maxLines: 3,

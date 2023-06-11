@@ -1,23 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:todo_list/constants.dart';
 import 'package:todo_list/helper_functions.dart';
 
+import '../../controlles/task_list.dart';
 import '../../i18n/strings.g.dart';
 import '../../models/task.dart';
+import '../../navigator.dart';
 
 class AddTaskPortrait extends StatelessWidget {
   AddTaskPortrait({super.key});
 
-  final List<DropdownMenuEntry> importanceEntries = [
-    DropdownMenuEntry(label: t.addtask.importance_no, value: TaskImportanceTypes.Not),
-    DropdownMenuEntry(label: t.addtask.importance_low, value: TaskImportanceTypes.Low),
-    DropdownMenuEntry(label: t.addtask.importance_High, value: TaskImportanceTypes.Hight),
-  ];
+  final TaskListContoller contoller = GetIt.I<TaskListContoller>();
+  final NavigationManager navigationManager = GetIt.I<NavigationManager>();
+
+  // final List<DropdownMenuEntry> importanceEntries = [
+  //   DropdownMenuEntry(label: t.addtask.importance_no, value: TaskImportanceTypes.Not),
+  //   DropdownMenuEntry(label: t.addtask.importance_low, value: TaskImportanceTypes.Low),
+  //   DropdownMenuEntry(label: t.addtask.importance_High, value: TaskImportanceTypes.Hight),
+  // ];
+
+  final List<DropdownMenuEntry> importanceEntries = TaskImportanceTypes.values
+      .map((importance) => DropdownMenuEntry(label: importance.lable, value: importance))
+      .toList();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: navigationManager.popToHome,
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: appPaddingSmall),
