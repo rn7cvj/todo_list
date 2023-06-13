@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/pages/add_task_page/add_task_page.dart';
+import 'package:todo_list/pages/edit_task_page/edit_task_page.dart';
 
 import 'pages/home_page/home_page.dart';
 
@@ -10,6 +11,7 @@ abstract class RouteNames {
 
   static const taskList = '/taskList';
   static const addTask = '/addTask';
+  static const editTask = '/editTask';
 }
 
 abstract class RoutesBuilder {
@@ -18,6 +20,7 @@ abstract class RoutesBuilder {
   static final routes = <String, Widget Function(BuildContext)>{
     RouteNames.taskList: (_) => const HomePage(),
     RouteNames.addTask: (_) => const AddTaskPage(),
+    RouteNames.editTask: (context) => EditTaskPage(taskId: ModalRoute.of(context)?.settings.arguments as int),
   };
 
   static Route<Object?>? onGenerateRoute(RouteSettings settings) {
@@ -31,6 +34,13 @@ abstract class RoutesBuilder {
       case RouteNames.addTask:
         return MaterialPageRoute(
           builder: (_) => const AddTaskPage(),
+          settings: settings,
+        );
+      case RouteNames.editTask:
+        return MaterialPageRoute(
+          builder: (_) => EditTaskPage(
+            taskId: settings.arguments as int,
+          ),
           settings: settings,
         );
     }

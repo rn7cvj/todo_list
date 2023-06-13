@@ -27,6 +27,14 @@ abstract class _TaskListContoller with Store {
   @computed
   int get complitedTaskCount => tasks.where((task) => task.isComplited).length;
 
+  Task? getTaskById(int id) {
+    int index = tasks.indexWhere((task) => task.id == id);
+    if (index == -1) {
+      return null;
+    }
+    return tasks[index];
+  }
+
   @action
   void addNewTask(Task newTask) {
     tasks.add(newTask);
@@ -37,6 +45,17 @@ abstract class _TaskListContoller with Store {
     Task newTask = Task(currnetTaskLastId, taskDiscirption, deadLine, false, importanceType);
     currnetTaskLastId += 1;
     tasks.add(newTask);
+  }
+
+  @action
+  void editTask(int id, String taskDiscirption, DateTime? deadLine, TaskImportanceTypes importanceType) {
+    int index = tasks.indexWhere((task) => task.id == id);
+
+    if (index == -1) return;
+
+    tasks[index].text = taskDiscirption;
+    tasks[index].deadLine = deadLine;
+    tasks[index].importanceType = importanceType;
   }
 
   @action

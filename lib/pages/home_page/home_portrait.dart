@@ -26,14 +26,23 @@ class HomePortrait extends StatelessWidget {
         slivers: [
           HomeAppBar(scrollController: scrollController),
           SliverToBoxAdapter(
-            child: Observer(
-              builder: (context) => buildTaskList(context, contoller.getTasks),
+            child: Card(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(appRoundRadiusMedium)),
+              margin: const EdgeInsets.all(appMargingMedium),
+              child: Column(
+                children: [
+                  Observer(
+                    builder: (context) => buildTaskList(context, contoller.getTasks),
+                  ),
+                  buildAddNewTaskButton(context, true)
+                ],
+              ),
             ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: navigationManager.openAddTask,
+        onPressed: navigationManager.openAddTaskPage,
         child: const Icon(Icons.add),
       ),
     );
@@ -64,36 +73,38 @@ class HomePortrait extends StatelessWidget {
       ));
     }
 
-    tiles.add(buildAddNewTaskButton(context, tasks.isEmpty));
-
     return AnimatedSize(
-      duration: const Duration(milliseconds: 300),
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(appRoundRadiusMedium)),
-        margin: const EdgeInsets.all(appMargingMedium),
-        child: Column(children: tiles),
+      alignment: Alignment.topCenter,
+      duration: const Duration(milliseconds: 200),
+      child: Column(
+        children: tiles,
       ),
     );
   }
 
   Widget buildAddNewTaskButton(BuildContext context, bool isTasksListEmpty) {
-    return ListTile(
-      // У листайла который таск есть свои паддинги которые переорпеделяют стандартные а
-      // из-за того что так чекбокс я вообще хз какие ставить надо разобраться
-      // contentPadding: EdgeInsets.symmetric(horizontal: 12),
+    ShapeBorder shape = RoundedRectangleBorder(
+      borderRadius: isTasksListEmpty
+          ? BorderRadius.circular(appRoundRadiusMedium)
+          : const BorderRadius.only(
+              bottomLeft: Radius.circular(appElevationMedium),
+              bottomRight: Radius.circular(appElevationMedium),
+            ),
+    );
 
-      visualDensity: VisualDensity.compact,
-      shape: RoundedRectangleBorder(
-        borderRadius: isTasksListEmpty
-            ? BorderRadius.circular(appRoundRadiusMedium)
-            : const BorderRadius.only(
-                bottomLeft: Radius.circular(appElevationMedium),
-                bottomRight: Radius.circular(appElevationMedium),
-              ),
+    return ListTile(
+      contentPadding: const EdgeInsets.only(
+        left: appPaddingSmall,
+        right: appPaddingSmall,
       ),
-      onTap: navigationManager.openAddTask,
+      shape: shape,
+      onTap: navigationManager.openAddTaskPage,
       title: Text(t.common.add_new),
-      leading: const Icon(Icons.add),
+      // Чтобы плючик был на уровне с чебоксами подвибрал на глаз
+      leading: const Padding(
+        padding: EdgeInsets.all(13),
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

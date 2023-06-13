@@ -9,15 +9,19 @@ class NavigationManager {
 
   NavigatorState get _navigator => key.currentState!;
 
-  void openAddTask() {
+  void openAddTaskPage() {
     _navigator.pushNamed(RouteNames.addTask);
+  }
+
+  void openEditTaskPage(int id) {
+    _navigator.pushNamed(RouteNames.editTask, arguments: id);
   }
 
   void pop() {
     _navigator.pop();
   }
 
-  void popToHome() {
+  void popToHomePage() {
     _navigator.popUntil(ModalRoute.withName(RouteNames.taskList));
   }
 }

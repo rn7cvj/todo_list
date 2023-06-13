@@ -1,9 +1,9 @@
 /// Generated file. Do not edit.
 ///
 /// Locales: 2
-/// Strings: 24 (12 per locale)
+/// Strings: 26 (13 per locale)
 ///
-/// Built on 2023-06-11 at 10:05 UTC
+/// Built on 2023-06-13 at 18:38 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -178,6 +178,7 @@ class _StringsCommonEn {
 	String get add_new => 'New';
 	String get delete => 'Delete';
 	String get save => 'Save';
+	String get edit => 'Edit';
 }
 
 // Path: home
@@ -247,6 +248,7 @@ class _StringsCommonRu implements _StringsCommonEn {
 	@override String get add_new => 'Новое';
 	@override String get delete => 'Удалить';
 	@override String get save => 'Сохранить';
+	@override String get edit => 'Изменить';
 }
 
 // Path: home
@@ -276,6 +278,7 @@ extension on _StringsEn {
 			case 'common.add_new': return 'New';
 			case 'common.delete': return 'Delete';
 			case 'common.save': return 'Save';
+			case 'common.edit': return 'Edit';
 			case 'home.my_task': return 'My task';
 			case 'home.complited': return 'Complited';
 			default: return null;
@@ -296,6 +299,7 @@ extension on _StringsRu {
 			case 'common.add_new': return 'Новое';
 			case 'common.delete': return 'Удалить';
 			case 'common.save': return 'Сохранить';
+			case 'common.edit': return 'Изменить';
 			case 'home.my_task': return 'Мои дела';
 			case 'home.complited': return 'Выполненно';
 			default: return null;

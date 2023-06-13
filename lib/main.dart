@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:logger/logger.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:todo_list/controlles/task_list.dart';
 
+import 'i18n/strings.g.dart';
 import 'navigator.dart';
 import 'routes.dart';
 
@@ -19,7 +21,7 @@ void main() {
   GetIt.I.registerSingleton<TaskListContoller>(TaskListContoller());
   GetIt.I.registerSingleton<NavigationManager>(NavigationManager());
 
-  runApp(const App());
+  runApp(TranslationProvider(child: App()));
 }
 
 void setUpSystemUIOverlay() {
@@ -45,6 +47,9 @@ class App extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         useMaterial3: true,
       ),
+      locale: TranslationProvider.of(context).flutterLocale,
+      supportedLocales: AppLocaleUtils.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       navigatorKey: GetIt.I<NavigationManager>().key,
       initialRoute: RouteNames.initialRoute,
       routes: RoutesBuilder.routes,

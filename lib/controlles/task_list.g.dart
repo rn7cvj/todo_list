@@ -85,6 +85,18 @@ mixin _$TaskListContoller on _TaskListContoller, Store {
   }
 
   @override
+  void editTask(int id, String taskDiscirption, DateTime? deadLine,
+      TaskImportanceTypes importanceType) {
+    final _$actionInfo = _$_TaskListContollerActionController.startAction(
+        name: '_TaskListContoller.editTask');
+    try {
+      return super.editTask(id, taskDiscirption, deadLine, importanceType);
+    } finally {
+      _$_TaskListContollerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void toogleTaksComplitedStatus(int id) {
     final _$actionInfo = _$_TaskListContollerActionController.startAction(
         name: '_TaskListContoller.toogleTaksComplitedStatus');

@@ -1,20 +1,30 @@
-import 'dart:ui';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
-import 'package:todo_list/constants.dart';
-import 'package:todo_list/helper_functions.dart';
 
+import '../../constants.dart';
 import '../../controlles/task_list.dart';
+import '../../helper_functions.dart';
 import '../../i18n/strings.g.dart';
 import '../../models/task.dart';
 import '../../navigator.dart';
 
-class AddTaskPortrait extends StatelessWidget {
-  AddTaskPortrait({super.key});
+class EditTaskPortait extends StatelessWidget {
+  EditTaskPortait({super.key, required this.taskId}) {
+    Task? task = contoller.getTaskById(taskId);
+    if (task == null) {
+      navigationManager.popToHomePage();
+      return;
+    }
+
+    whatToDoController.text = task.text;
+    runInAction(() {
+      importanceType.value = task.importanceType;
+      haveDeadLine.value = task.deadLine != null;
+      deadLine.value = task.deadLine;
+    });
+  }
 
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
   final NavigationManager navigationManager = GetIt.I<NavigationManager>();
@@ -23,6 +33,8 @@ class AddTaskPortrait extends StatelessWidget {
       .map((importance) =>
           DropdownMenuEntry(leadingIcon: Icon(importance.icon), label: importance.lable, value: importance))
       .toList();
+
+  final int taskId;
 
   final TextEditingController whatToDoController = TextEditingController();
   final Observable<bool> haveDeadLine = false.obs();
@@ -43,9 +55,9 @@ class AddTaskPortrait extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: appPaddingSmall),
             child: TextButton(
-              onPressed: saveNewTask,
+              onPressed: editTask,
               child: Text(
-                t.common.save,
+                t.common.edit,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
             ),
@@ -69,7 +81,7 @@ class AddTaskPortrait extends StatelessWidget {
                       ),
                     ),
                     AnimatedSize(
-                      duration: Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 300),
                       child: buildDeadlineSelector(context),
                     ),
                   ],
@@ -78,6 +90,17 @@ class AddTaskPortrait extends StatelessWidget {
             ),
           ),
           const Divider(height: 2),
+          Padding(
+            padding: const EdgeInsets.only(top: appElevationSmall, bottom: appElevationSmall),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                onPressed: deleteTask,
+                icon: const Icon(Icons.delete),
+                label: Text(t.common.delete),
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -110,7 +133,7 @@ class AddTaskPortrait extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: DropdownMenu(
           label: Text(t.addtask.importance),
-          initialSelection: importanceEntries.first.value,
+          initialSelection: importanceType.value,
           dropdownMenuEntries: importanceEntries,
           onSelected: (newImportance) => importanceType.value = newImportance,
         ),
@@ -167,8 +190,13 @@ class AddTaskPortrait extends StatelessWidget {
     );
   }
 
-  void saveNewTask() {
-    contoller.addNewTaskByDetails(whatToDoController.text, deadLine.value, importanceType.value);
+  void deleteTask() {
+    navigationManager.popToHomePage();
+    contoller.deleteTask(taskId);
+  }
+
+  void editTask() {
+    contoller.editTask(taskId, whatToDoController.text, deadLine.value, importanceType.value);
     navigationManager.popToHomePage();
   }
 }

@@ -13,3 +13,5 @@ const double appMargingLarge = 24.0;
 const double appRoundRadiusSmall = 8.0;
 const double appRoundRadiusMedium = 16.0;
 const double appRoundRadiusLarge = 24.0;
+
+const Duration animationDurationFast = Duration(milliseconds: 300);
