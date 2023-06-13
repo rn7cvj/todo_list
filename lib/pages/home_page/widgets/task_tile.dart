@@ -23,7 +23,8 @@ class TaskTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       child: Dismissible(
-        confirmDismiss: (direction) async => direction != DismissDirection.startToEnd,
+        confirmDismiss: (direction) async =>
+            direction == DismissDirection.endToStart || !contoller.isComplitedTaskVisible,
         key: UniqueKey(),
         dismissThresholds: const {
           DismissDirection.startToEnd: 0.4,
@@ -34,7 +35,7 @@ class TaskTile extends StatelessWidget {
           if (direction == DismissDirection.endToStart) contoller.deleteTask(task.id);
         },
         onUpdate: (details) {
-          if (details.reached && details.direction == DismissDirection.startToEnd) {
+          if (contoller.isComplitedTaskVisible && details.direction == DismissDirection.startToEnd && details.reached) {
             contoller.markTaskAsComplited(task.id);
           }
           runInAction(() => iconExtraPadding.value = details.progress);
@@ -81,76 +82,6 @@ class TaskTile extends StatelessWidget {
       trailing: IconButton(
         onPressed: () {},
         icon: const Icon(Icons.info_outline),
-      ),
-    );
-  }
-
-  Widget builTaskTileRow(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: isFirst ? appElevationSmall : 0.0),
-      color: Colors.transparent,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              // Checkbox
-              Padding(
-                padding: const EdgeInsets.only(left: appPaddingSmall),
-                child: Checkbox(value: task.isComplited, onChanged: (newVAlue) {}),
-              ),
-
-              // Mark importance
-              Builder(builder: (context) {
-                if (task.importanceType == TaskImportanceTypes.Hight) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: appPaddingSmall),
-                    child: Text(
-                      "!!",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall
-                          ?.copyWith(color: Theme.of(context).colorScheme.primary),
-                    ),
-                  );
-                }
-
-                return Container();
-              }),
-
-              // Main Text
-              Expanded(
-                child: Text(
-                  task.text,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-
-              // Inform icon button
-              IconButton(
-                padding: const EdgeInsets.only(right: appPaddingSmall),
-                onPressed: () {},
-                icon: const Icon(Icons.info_outline),
-              ),
-            ],
-          ),
-          Builder(
-            builder: (context) {
-              if (task.deadLine != null) {
-                // 56 - это размеры чек бокса, почему не спрашивайт
-                return Padding(
-                  padding: const EdgeInsets.only(
-                    left: 56,
-                  ),
-                  child: Text(formatDateTime(context, task.deadLine!)),
-                );
-              }
-
-              return Container();
-            },
-          ),
-        ],
       ),
     );
   }

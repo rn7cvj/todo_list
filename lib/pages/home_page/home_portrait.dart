@@ -40,31 +40,49 @@ class HomePortrait extends StatelessWidget {
   }
 
   Widget buildTaskList(BuildContext context, List<Task> tasks) {
-    List<Widget> taskTiles = [];
+    List<Widget> tiles = [];
 
     if (tasks.isNotEmpty) {
       // ignore: unnecessary_cast
-      taskTiles.add(TaskTile(task: tasks.first, isFirst: true) as Widget);
+      tiles.add(TaskTile(task: tasks.first, isFirst: true) as Widget);
     }
 
-    // Тут нужен этот каст иначе не получается добавить кнопку новое которая внизу
-    // ignore: unnecessary_cast
-    taskTiles.addAll(tasks.sublist(1).map((task) => TaskTile(
-          task: task,
-          isFirst: false,
-        ) as Widget));
+    if (tasks.length > 1) {
+      // Тут нужен этот каст иначе не получается добавить кнопку новое которая внизу
+      // ignore: unnecessary_cast
+      tiles.addAll(tasks.sublist(1).map((task) => TaskTile(
+            task: task,
+            isFirst: false,
+          ) as Widget));
+    }
 
-    taskTiles.add(buildAddNewTaskButton(context, tasks.isEmpty));
+    if (tasks.isNotEmpty) {
+      tiles.add(const Divider(
+        indent: appPaddingMedium,
+        endIndent: appPaddingMedium,
+        height: 0,
+      ));
+    }
 
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(appRoundRadiusMedium)),
-      margin: const EdgeInsets.all(appMargingMedium),
-      child: Column(children: taskTiles),
+    tiles.add(buildAddNewTaskButton(context, tasks.isEmpty));
+
+    return AnimatedSize(
+      duration: const Duration(milliseconds: 300),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(appRoundRadiusMedium)),
+        margin: const EdgeInsets.all(appMargingMedium),
+        child: Column(children: tiles),
+      ),
     );
   }
 
   Widget buildAddNewTaskButton(BuildContext context, bool isTasksListEmpty) {
     return ListTile(
+      // У листайла который таск есть свои паддинги которые переорпеделяют стандартные а
+      // из-за того что так чекбокс я вообще хз какие ставить надо разобраться
+      // contentPadding: EdgeInsets.symmetric(horizontal: 12),
+
+      visualDensity: VisualDensity.compact,
       shape: RoundedRectangleBorder(
         borderRadius: isTasksListEmpty
             ? BorderRadius.circular(appRoundRadiusMedium)

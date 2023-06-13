@@ -68,7 +68,10 @@ class AddTaskPortrait extends StatelessWidget {
                         height: 2,
                       ),
                     ),
-                    buildDeadlineSelector(context),
+                    AnimatedSize(
+                      duration: Duration(milliseconds: 300),
+                      child: buildDeadlineSelector(context),
+                    ),
                   ],
                 ),
               ),
@@ -122,13 +125,12 @@ class AddTaskPortrait extends StatelessWidget {
   Widget buildDeadlineSelector(BuildContext context) {
     return Observer(
       builder: (context) => SwitchListTile(
-        visualDensity: const VisualDensity(
-          horizontal: VisualDensity.minimumDensity,
-          vertical: VisualDensity.minimumDensity,
-        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(appRoundRadiusMedium),
         ),
+        visualDensity: VisualDensity.comfortable,
+        // Переопределить стандартные отступы
+        contentPadding: const EdgeInsets.all(0),
         title: Padding(
           padding: EdgeInsets.all(haveDeadLine.value ? 8.0 : 0.0),
           child: Text(
@@ -143,8 +145,8 @@ class AddTaskPortrait extends StatelessWidget {
     );
   }
 
-  Widget? buildDeadlineViewer(BuildContext context) {
-    if (!haveDeadLine.value) return null;
+  Widget buildDeadlineViewer(BuildContext context) {
+    if (!haveDeadLine.value) return Container();
 
     String deadLineText = deadLine.value != null ? formatDateTime(context, deadLine.value!) : t.addtask.select_deadline;
 
