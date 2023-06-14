@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:todo_list/logger.dart';
 
 import '../models/task.dart';
 
@@ -62,6 +63,8 @@ abstract class _TaskListContoller with Store {
     Task newTask = Task(currnetTaskLastId, taskDiscirption, deadLine, false, importanceType);
     currnetTaskLastId += 1;
     tasks.add(newTask);
+
+    logger.i("Add new task\n$newTask");
   }
 
   @action
@@ -81,6 +84,8 @@ abstract class _TaskListContoller with Store {
 
     if (index == -1) return;
 
+    logger.i("Task toodle complited status, task id = $id");
+
     tasks[index].isComplited = !tasks[index].isComplited;
   }
 
@@ -89,6 +94,8 @@ abstract class _TaskListContoller with Store {
     int index = tasks.indexWhere((task) => task.id == id);
 
     if (index == -1) return;
+
+    logger.i("Task mark as complited, task id = $id");
 
     tasks[index].isComplited = true;
   }
@@ -99,6 +106,8 @@ abstract class _TaskListContoller with Store {
 
     if (index == -1) return;
 
+    logger.i("Task mark as un complited, task id = $id");
+
     tasks[index].isComplited = false;
   }
 
@@ -106,6 +115,9 @@ abstract class _TaskListContoller with Store {
   void deleteTask(int id) {
     int index = tasks.indexWhere((task) => task.id == id);
     if (index == -1) return;
+
+    logger.w("Delete task, task id = $id");
+
     tasks.removeAt(index);
   }
 
