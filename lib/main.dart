@@ -18,9 +18,9 @@ void main() {
   GetIt.I.registerSingleton<TaskListContoller>(TaskListContoller());
   GetIt.I.registerSingleton<NavigationManager>(NavigationManager());
 
-  AppMetrica.activate("b9a048c5-39a3-4eee-ae2a-cb8b11068e1a");
+  // AppMetrica.activate("b9a048c5-39a3-4eee-ae2a-cb8b11068e1a");
 
-  AppMetrica.reportEvent('My first AppMetrica event!');
+  // AppMetrica.reportEvent('My first AppMetrica event!');
   logger.i("Application start");
   runApp(TranslationProvider(child: const App()));
 }
