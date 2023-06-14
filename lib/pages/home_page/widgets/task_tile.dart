@@ -107,6 +107,7 @@ class TaskTile extends StatelessWidget {
       ),
       onTap: () => navigationManager.openEditTaskPage(task.id),
       leading: Checkbox(
+        activeColor: Colors.amberAccent,
         fillColor: checkBoxColor,
         value: task.isComplited,
         onChanged: (newVAlue) => contoller.toogleTaksComplitedStatus(task.id),
@@ -114,11 +115,13 @@ class TaskTile extends StatelessWidget {
       title: Row(
         children: [
           buildImportanceIcon(context) ?? Container(),
-          Text(
-            task.text,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-            style: textStyle,
+          Flexible(
+            child: Text(
+              task.text,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: textStyle,
+            ),
           ),
         ],
       ),

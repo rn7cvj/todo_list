@@ -16,6 +16,23 @@ abstract class _TaskListContoller with Store {
     Task(2, "Купить что-то 2", DateTime.now(), true, TaskImportanceTypes.Low),
     Task(3, "Купить что-то 3", null, false, TaskImportanceTypes.Low),
     Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
   ].asObservable();
 
   @observable

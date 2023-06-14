@@ -20,8 +20,8 @@ void main() {
 
   GetIt.I.registerSingleton<TaskListContoller>(TaskListContoller());
   GetIt.I.registerSingleton<NavigationManager>(NavigationManager());
-
-  runApp(TranslationProvider(child: App()));
+  LocaleSettings.useDeviceLocale();
+  runApp(TranslationProvider(child: const App()));
 }
 
 void setUpSystemUIOverlay() {
@@ -44,7 +44,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.from(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo, brightness: Brightness.dark),
         useMaterial3: true,
       ),
       locale: TranslationProvider.of(context).flutterLocale,

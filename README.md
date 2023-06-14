@@ -1,16 +1,38 @@
-# todo_list
+<a href="https://ysstodo.pages.dev">
+  <p align="center">
+    <picture>
+      <img alt="Todo List" src="">
+    </picture>
+  </p>
+</a>
 
-A new Flutter project.
+# Todo List
 
-## Getting Started
+Простое приложение для ведения списка задач, созданное в рамка Школы мобильной разработки яндекса
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Demo
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+ — web версия
+## Features
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+* Поддержка локлизации для русского и английского языка
+   
+   <details> 
+
+   <summary>Подробнее:</summary>
+
+   </details>
+
+
+* Тёмная/Светлая тема.
+   <details>
+     <summary>Превью:</summary>
+ 
+    
+    </details>
+
+
+* Анимированное добавление, удаление задач и заголовка.
