@@ -1,19 +1,16 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'package:logger/logger.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:todo_list/controlles/task_list.dart';
 
 import 'i18n/strings.g.dart';
+import 'logger.dart';
 import 'navigator.dart';
 import 'routes.dart';
-
-var logger = Logger(
-  printer: PrettyPrinter(),
-);
 
 void main() {
   setUpSystemUIOverlay();
@@ -21,7 +18,11 @@ void main() {
   GetIt.I.registerSingleton<TaskListContoller>(TaskListContoller());
   GetIt.I.registerSingleton<NavigationManager>(NavigationManager());
 
-  runApp(TranslationProvider(child: App()));
+  AppMetrica.activate("b9a048c5-39a3-4eee-ae2a-cb8b11068e1a");
+
+  AppMetrica.reportEvent('My first AppMetrica event!');
+  logger.i("Application start");
+  runApp(TranslationProvider(child: const App()));
 }
 
 void setUpSystemUIOverlay() {
