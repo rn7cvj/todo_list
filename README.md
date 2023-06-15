@@ -18,20 +18,23 @@
 ![animation_preview](https://github.com/rn7cvj/todo_list/assets/133586172/b7dc86ff-bdf4-4c48-847f-c6c7e254ad93)
 
 
+## Download
+Последнюю версию для Android можно найти здесь [Github Releases](https://github.com/rn7cvj/todo_list/releases).
+
 ## Features
 
 
 
 * Поддержка локлизации для русского и английского языка
 
-<details> 
-  <summary>Подробнее:</summary>
-  
-  Ru                         |  En
-  :-------------------------:|:-------------------------:
-  ![localization_ru](https://github.com/rn7cvj/todo_list/assets/133586172/98d81a94-cf5d-4cea-998d-32cbfbaa8d44) | ![localization_en](https://github.com/rn7cvj/todo_list/assets/133586172/c3d8656e-704e-46ba-ae3c-77f338bea702)
-  
-</details>
+  <details> 
+    <summary>Подробнее:</summary>
+
+    Ru                         |  En
+    :-------------------------:|:-------------------------:
+    ![localization_ru](https://github.com/rn7cvj/todo_list/assets/133586172/98d81a94-cf5d-4cea-998d-32cbfbaa8d44) | ![localization_en](https://github.com/rn7cvj/todo_list/assets/133586172/c3d8656e-704e-46ba-ae3c-77f338bea702)
+
+  </details>
 
 
 * Тёмная/Светлая тема.
@@ -40,8 +43,9 @@
      
      Dark                       |  Light
      :-------------------------:|:-------------------------:
-     ![localization_ru](https://github.com/rn7cvj/todo_list/assets/133586172/98d81a94-cf5d-4cea-998d-32cbfbaa8d44) | ![localization_en](https://github.com/rn7cvj/todo_list/assets/133586172/c3d8656e-704e-46ba-ae3c-77f338bea702)
-  
+     ![task_list_dark](https://github.com/rn7cvj/todo_list/assets/133586172/b01247b7-826b-4f6e-bc7a-0cce0f4b8f65) | ![task_list_ligth](https://github.com/rn7cvj/todo_list/assets/133586172/d39c0a41-2682-4035-b7d4-d90eb7433c12)
+
+
     
     </details>
 
