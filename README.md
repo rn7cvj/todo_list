@@ -1,4 +1,4 @@
-<a href="">
+<a href="https://rn7cvj.github.io/todo_list/#/taskList">
   <p align="center">
     <picture>
       <img alt="Todo List" src="https://github.com/rn7cvj/todo_list/blob/main/assets/github/banner.png?raw=true">
@@ -13,7 +13,7 @@
 
 ## Demo
 
- — web версия
+ https://rn7cvj.github.io/todo_list/#/taskList — web версия
 
 ![animation_preview](https://github.com/rn7cvj/todo_list/assets/133586172/b7dc86ff-bdf4-4c48-847f-c6c7e254ad93)
 
