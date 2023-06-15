@@ -1,0 +1,45 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.todo_list.app-mergeReleaseResources-12:/values-night-v8/values-night-v8.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\KJ6Z5\\Projects\\Flutter\\Yandex - mobile development school\\HomeWork\\todo_list\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "from": {
+                        "startLines": "3,14",
+                        "startColumns": "4,4",
+                        "startOffsets": "175,831",
+                        "endLines": "7,16",
+                        "endColumns": "12,12",
+                        "endOffsets": "482,997"
+                    },
+                    "to": {
+                        "startLines": "3,7",
+                        "startColumns": "4,4",
+                        "startOffsets": "101,282",
+                        "endLines": "6,9",
+                        "endColumns": "12,12",
+                        "endOffsets": "277,446"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\KJ6Z5\\Projects\\Flutter\\Yandex - mobile development school\\HomeWork\\todo_list\\android\\app\\src\\main\\res\\values-night\\strings.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "57",
+                        "endColumns": "45",
+                        "endOffsets": "98"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "45",
+                        "endOffsets": "96"
+                    }
+                }
+            ]
+        }
+    ]
+}

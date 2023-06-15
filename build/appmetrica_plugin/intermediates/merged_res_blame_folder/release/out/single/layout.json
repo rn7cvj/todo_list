@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.yandex.appmetrica_plugin-merged_res-13:/layout/notification_action_tombstone.xml",
+        "source": "com.yandex.appmetrica_plugin-core-1.6.0-3:/layout/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "com.yandex.appmetrica_plugin-merged_res-13:/layout/notification_action.xml",
+        "source": "com.yandex.appmetrica_plugin-core-1.6.0-3:/layout/notification_action.xml"
+    },
+    {
+        "merged": "com.yandex.appmetrica_plugin-merged_res-13:/layout/notification_template_icon_group.xml",
+        "source": "com.yandex.appmetrica_plugin-core-1.6.0-3:/layout/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "com.yandex.appmetrica_plugin-merged_res-13:/layout/custom_dialog.xml",
+        "source": "com.yandex.appmetrica_plugin-core-1.6.0-3:/layout/custom_dialog.xml"
+    },
+    {
+        "merged": "com.yandex.appmetrica_plugin-merged_res-13:/layout/notification_template_part_time.xml",
+        "source": "com.yandex.appmetrica_plugin-core-1.6.0-3:/layout/notification_template_part_time.xml"
+    },
+    {
+        "merged": "com.yandex.appmetrica_plugin-merged_res-13:/layout/notification_template_part_chronometer.xml",
+        "source": "com.yandex.appmetrica_plugin-core-1.6.0-3:/layout/notification_template_part_chronometer.xml"
+    }
+]
