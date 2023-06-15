@@ -15,28 +15,34 @@
 
  — web версия
 
- ! [cat typing] (https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif "A cute cat typing")
+![animation_preview](https://github.com/rn7cvj/todo_list/assets/133586172/b7dc86ff-bdf4-4c48-847f-c6c7e254ad93)
+
+
 ## Features
 
 
 
 * Поддержка локлизации для русского и английского языка
-   
-   <details> 
 
-   <summary>Подробнее:</summary>
-
-   </details>
+<details> 
+  <summary>Подробнее:</summary>
+  
+  Ru                         |  En
+  :-------------------------:|:-------------------------:
+  ![localization_ru](https://github.com/rn7cvj/todo_list/assets/133586172/98d81a94-cf5d-4cea-998d-32cbfbaa8d44) | ![localization_en](https://github.com/rn7cvj/todo_list/assets/133586172/c3d8656e-704e-46ba-ae3c-77f338bea702)
+  
+</details>
 
 
 * Тёмная/Светлая тема.
    <details>
      <summary>Превью:</summary>
-Dark                       |  Light
-:-------------------------:|:-------------------------:
-![](https://github.com/rn7cvj/todo_list/blob/main/assets/github/task_list_dark.jpg?raw=true)  |  ![](https://github.com/rn7cvj/todo_list/blob/main/assets/github/task_list_ligth.jpg)
+      Dark                       |  Light
+     :-------------------------:|:-------------------------:
+     ![localization_ru](https://github.com/rn7cvj/todo_list/assets/133586172/98d81a94-cf5d-4cea-998d-32cbfbaa8d44) | ![localization_en](https://github.com/rn7cvj/todo_list/assets/133586172/c3d8656e-704e-46ba-ae3c-77f338bea702)
+  
     
-  </details>
+    </details>
 
 
 * Анимированное добавление, удаление задач и заголовка.
