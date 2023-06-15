@@ -8,7 +8,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:todo_list/constants.dart';
 import '../../../controlles/task_list.dart';
 import '../../../helper_functions.dart';
-import '../../../logger.dart';
 import '../../../models/task.dart';
 import '../../../navigator.dart';
 
@@ -17,6 +16,7 @@ class TaskTile extends StatelessWidget {
 
   final Task task;
 
+  //Определяет, является ли карточка первой
   final bool isFirst;
 
   final Observable<double> iconExtraPadding = 0.0.obs();
@@ -24,16 +24,17 @@ class TaskTile extends StatelessWidget {
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
   final NavigationManager navigationManager = GetIt.I<NavigationManager>();
 
-  late bool canToogleStatus = true;
+  //Нигде не используемое поле, сохранено в качестве дани истории
+  late final bool canToogleStatus = true;
 
   @override
   Widget build(BuildContext context) {
+    //Не даёт таску вылезать за пределы карточки при свайпе
     return ClipRRect(
       child: Dismissible(
         confirmDismiss: (direction) async {
           if (direction == DismissDirection.startToEnd) {
             Timer(animationDurationFast, () => contoller.toogleTaksComplitedStatus(task.id));
-
             return !contoller.isComplitedTaskVisible;
           }
 
@@ -45,6 +46,7 @@ class TaskTile extends StatelessWidget {
           DismissDirection.endToStart: 0.4,
         },
         onDismissed: (direction) {
+          //dont ask. I forbid you.
           if (direction == DismissDirection.startToEnd) contoller.toogleTaksComplitedStatus(task.id);
           if (direction == DismissDirection.endToStart) contoller.deleteTask(task.id);
         },
@@ -58,6 +60,7 @@ class TaskTile extends StatelessWidget {
                 : Theme.of(context).colorScheme.inversePrimary;
 
             IconData backroundIcon = task.isComplited ? Icons.close : Icons.check;
+            //Билдер фона для свайпа вправо
             return Background(
               isFirst: isFirst,
               backgroundColor: backgroundColor,
@@ -68,6 +71,7 @@ class TaskTile extends StatelessWidget {
             );
           },
         ),
+        //Билдер фона для свайпа вправо
         secondaryBackground: Background(
           isFirst: isFirst,
           backgroundColor: Theme.of(context).colorScheme.error,
@@ -87,6 +91,7 @@ class TaskTile extends StatelessWidget {
     TextStyle textStyle = Theme.of(context).textTheme.bodyLarge!;
     TextStyle subtitleTextStyle = Theme.of(context).textTheme.bodyMedium!;
 
+    //Если таск отмечен как выполненный, то делаем это 🌚🌚🌚
     if (task.isComplited) {
       textStyle = textStyle.copyWith(
         decoration: TextDecoration.lineThrough,
@@ -102,10 +107,11 @@ class TaskTile extends StatelessWidget {
 
     MaterialStateProperty<Color> checkBoxColor = MaterialStateProperty.all(Theme.of(context).colorScheme.primary);
 
-    if (task.importanceType == TaskImportanceTypes.Hight) {
+    if (task.importanceType == TaskImportanceTypes.hight) {
       checkBoxColor = MaterialStateProperty.all(Theme.of(context).colorScheme.error);
     }
 
+    // Закругления, если карточка первая
     ShapeBorder shape = RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(isFirst ? appRoundRadiusMedium : 0),
@@ -192,6 +198,7 @@ class Background extends StatelessWidget {
         alignment: iconAligment,
         child: Observer(
           builder: (_) {
+            // Это для динамического перемещения иконки. В итоге не используется
             // EdgeInsets iconAnimationPadding = dismissDirection == DismissDirection.startToEnd
             //     ? EdgeInsets.only(left: iconExtraPadding.value)
             //     : EdgeInsets.only(right: iconExtraPadding.value);

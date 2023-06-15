@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
@@ -29,7 +26,7 @@ class AddTaskPortrait extends StatelessWidget {
 
   final Observable<DateTime?> deadLine = Observable<DateTime?>(null);
 
-  final Observable<TaskImportanceTypes> importanceType = Observable<TaskImportanceTypes>(TaskImportanceTypes.Not);
+  final Observable<TaskImportanceTypes> importanceType = Observable<TaskImportanceTypes>(TaskImportanceTypes.not);
 
   @override
   Widget build(BuildContext context) {

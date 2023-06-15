@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//Временно (наверное) неиспользуемая заглушка
 class AddTaskLandscape extends StatelessWidget {
   const AddTaskLandscape({super.key});
 

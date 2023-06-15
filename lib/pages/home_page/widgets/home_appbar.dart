@@ -20,7 +20,7 @@ class HomeAppBar extends StatelessWidget {
 
   final Observable<double> appBarExpendProgress = Observable<double>(0.0);
 
-  late double screenFourth;
+  late final double screenFourth;
 
   void scrollContollerListenet() => runInAction(() {
         appBarExpendProgress.value = min(scrollController.offset, screenFourth) / screenFourth;

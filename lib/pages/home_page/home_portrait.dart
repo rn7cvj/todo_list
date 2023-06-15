@@ -13,6 +13,7 @@ import 'widgets/home_appbar.dart';
 class HomePortrait extends StatelessWidget {
   HomePortrait({super.key});
 
+  //Получение экземпляров контроллеров
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
   final NavigationManager navigationManager = GetIt.I<NavigationManager>();
 
@@ -27,10 +28,13 @@ class HomePortrait extends StatelessWidget {
           HomeAppBar(scrollController: scrollController),
           SliverToBoxAdapter(
             child: Card(
+              //Переопределение скруглений для идентичности
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(appRoundRadiusMedium)),
+              //Анал огично
               margin: const EdgeInsets.all(appMargingMedium),
               child: Column(
                 children: [
+                  //Перерисовывает виджет при изменении наблюдаемой переменной
                   Observer(
                     builder: (context) => buildTaskList(context, contoller.getTasks),
                   ),
@@ -51,6 +55,7 @@ class HomePortrait extends StatelessWidget {
   Widget buildTaskList(BuildContext context, List<Task> tasks) {
     List<Widget> tiles = [];
 
+    //Добавляем один виджет со скруглениями сверху
     if (tasks.isNotEmpty) {
       // ignore: unnecessary_cast
       tiles.add(TaskTile(task: tasks.first, isFirst: true) as Widget);
@@ -73,6 +78,7 @@ class HomePortrait extends StatelessWidget {
       ));
     }
 
+    //Согласно заветам тз "Анимации не ожидаем."
     return AnimatedSize(
       alignment: Alignment.topCenter,
       duration: animationDurationFast,
@@ -82,6 +88,7 @@ class HomePortrait extends StatelessWidget {
     );
   }
 
+  //Не спрашивайте, почему оно тут. Человек, который первым ревьюил мой код, после этих строк повесился. Я считаю, это того стоило.
   Widget buildAddNewTaskButton(BuildContext context, bool isTasksListEmpty) {
     ShapeBorder shape = RoundedRectangleBorder(
       borderRadius: isTasksListEmpty
@@ -101,6 +108,7 @@ class HomePortrait extends StatelessWidget {
       onTap: navigationManager.openAddTaskPage,
       title: Text(t.common.add_new),
       // Чтобы плючик был на уровне с чебоксами подвибрал на глаз
+      // (Авторская орфография сохранена)
       leading: const Padding(
         padding: EdgeInsets.all(13),
         child: Icon(Icons.add),

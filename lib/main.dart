@@ -1,4 +1,3 @@
-import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -8,21 +7,22 @@ import 'package:get_it/get_it.dart';
 import 'package:todo_list/controlles/task_list.dart';
 
 import 'i18n/strings.g.dart';
-import 'logger.dart';
 import 'navigator.dart';
 import 'routes.dart';
 
 void main() {
   setUpSystemUIOverlay();
 
+  //Инициализация контроллеров
   GetIt.I.registerSingleton<TaskListContoller>(TaskListContoller());
   GetIt.I.registerSingleton<NavigationManager>(NavigationManager());
 
-  LocaleSettings.useDeviceLocale();
+  LocaleSettings.useDeviceLocale(); //Угадайте, что делает эта строка
 
   runApp(TranslationProvider(child: const App()));
 }
 
+//Перевод приложения в полноэкранный режим
 void setUpSystemUIOverlay() {
   WidgetsFlutterBinding.ensureInitialized();
 

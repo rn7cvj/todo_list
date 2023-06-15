@@ -13,11 +13,11 @@ abstract class _TaskListContoller with Store {
 
   @observable
   ObservableList<Task> tasks = <Task>[
-    Task(1, "Купить что-то 1", null, false, TaskImportanceTypes.Not),
-    Task(2, "Купить что-то 2", DateTime.now(), true, TaskImportanceTypes.Low),
-    Task(3, "Купить что-то 3", null, false, TaskImportanceTypes.Low),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
+    Task(1, "Купить что-то 1", null, false, TaskImportanceTypes.not),
+    Task(2, "Купить что-то 2", DateTime.now(), true, TaskImportanceTypes.low),
+    Task(3, "Купить что-то 3", null, false, TaskImportanceTypes.low),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.hight),
+    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.hight),
   ].asObservable();
 
   @observable

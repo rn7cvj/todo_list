@@ -13,6 +13,7 @@ import '../../navigator.dart';
 class EditTaskPortait extends StatelessWidget {
   EditTaskPortait({super.key, required this.taskId}) {
     Task? task = contoller.getTaskById(taskId);
+    //Обработка ошибок
     if (task == null) {
       navigationManager.popToHomePage();
       return;
@@ -39,9 +40,10 @@ class EditTaskPortait extends StatelessWidget {
   final TextEditingController whatToDoController = TextEditingController();
   final Observable<bool> haveDeadLine = false.obs();
 
+  //Подберите цензурные слова за меня, пожалуйста
   final Observable<DateTime?> deadLine = Observable<DateTime?>(null);
 
-  final Observable<TaskImportanceTypes> importanceType = Observable<TaskImportanceTypes>(TaskImportanceTypes.Not);
+  final Observable<TaskImportanceTypes> importanceType = Observable<TaskImportanceTypes>(TaskImportanceTypes.not);
 
   @override
   Widget build(BuildContext context) {

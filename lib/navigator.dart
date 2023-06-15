@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:logger/logger.dart';
 
 import 'logger.dart';
 import 'routes.dart';
 
 class NavigationManager {
-  // NavigationManager._();
-
   final key = GlobalKey<NavigatorState>();
 
   NavigatorState get _navigator => key.currentState!;

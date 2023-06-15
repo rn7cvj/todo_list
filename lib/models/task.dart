@@ -5,7 +5,6 @@ import '../i18n/strings.g.dart';
 
 part 'task.g.dart';
 
-// ignore: library_private_types_in_public_api
 class Task = _Task with _$Task;
 
 abstract class _Task with Store {
@@ -27,22 +26,21 @@ abstract class _Task with Store {
 }
 
 enum TaskImportanceTypes {
-  Not,
-
-  Low,
-  Hight,
+  not,
+  low,
+  hight,
 }
 
 extension TaskImportanceTypesExtension on TaskImportanceTypes {
   String get lable {
     switch (this) {
-      case TaskImportanceTypes.Not:
+      case TaskImportanceTypes.not:
         return t.addtask.importance_no;
 
-      case TaskImportanceTypes.Low:
+      case TaskImportanceTypes.low:
         return t.addtask.importance_low;
 
-      case TaskImportanceTypes.Hight:
+      case TaskImportanceTypes.hight:
         return t.addtask.importance_high;
 
       default:
@@ -52,13 +50,13 @@ extension TaskImportanceTypesExtension on TaskImportanceTypes {
 
   IconData? get icon {
     switch (this) {
-      case TaskImportanceTypes.Not:
+      case TaskImportanceTypes.not:
         return null;
 
-      case TaskImportanceTypes.Low:
+      case TaskImportanceTypes.low:
         return Icons.arrow_downward;
 
-      case TaskImportanceTypes.Hight:
+      case TaskImportanceTypes.hight:
         return Icons.warning_amber;
 
       default:
