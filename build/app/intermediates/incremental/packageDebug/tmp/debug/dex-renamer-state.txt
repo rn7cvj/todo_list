@@ -1,4 +1,0 @@
-#Thu Jun 15 18:34:13 VLAT 2023
-base.0=C\:\\Users\\KJ6Z5\\Projects\\Flutter\\Yandex - mobile development school\\HomeWork\\todo_list\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
