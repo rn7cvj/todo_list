@@ -32,11 +32,11 @@
 * Тёмная/Светлая тема.
    <details>
      <summary>Превью:</summary>
-      Dark                       |  Light
-     :-------------------------:|:-------------------------:
-     ![](https://github.com/rn7cvj/todo_list/blob/main/assets/github/task_list_dark.jpg)  |  ![](https://github.com/rn7cvj/todo_list/blob/main/assets/github/task_list_ligth.jpg)
+Dark                       |  Light
+:-------------------------:|:-------------------------:
+![](https://github.com/rn7cvj/todo_list/blob/main/assets/github/task_list_dark.jpg?raw=true)  |  ![](https://github.com/rn7cvj/todo_list/blob/main/assets/github/task_list_ligth.jpg)
     
-    </details>
+  </details>
 
 
 * Анимированное добавление, удаление задач и заголовка.
