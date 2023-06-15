@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:todo_list/constants.dart';
 import '../../../controlles/task_list.dart';
 import '../../../helper_functions.dart';
+import '../../../logger.dart';
 import '../../../models/task.dart';
 import '../../../navigator.dart';
 
@@ -21,17 +24,21 @@ class TaskTile extends StatelessWidget {
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
   final NavigationManager navigationManager = GetIt.I<NavigationManager>();
 
+  late bool canToogleStatus = true;
+
   @override
   Widget build(BuildContext context) {
-    Color backgroundColor =
-        task.isComplited ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.inversePrimary;
-
-    IconData backroundIcon = task.isComplited ? Icons.close : Icons.check;
-
     return ClipRRect(
       child: Dismissible(
-        confirmDismiss: (direction) async =>
-            direction == DismissDirection.endToStart || !contoller.isComplitedTaskVisible,
+        confirmDismiss: (direction) async {
+          if (direction == DismissDirection.startToEnd) {
+            Timer(animationDurationFast, () => contoller.toogleTaksComplitedStatus(task.id));
+
+            return !contoller.isComplitedTaskVisible;
+          }
+
+          return true;
+        },
         key: UniqueKey(),
         dismissThresholds: const {
           DismissDirection.startToEnd: 0.4,
@@ -42,18 +49,24 @@ class TaskTile extends StatelessWidget {
           if (direction == DismissDirection.endToStart) contoller.deleteTask(task.id);
         },
         onUpdate: (details) {
-          if (contoller.isComplitedTaskVisible && details.direction == DismissDirection.startToEnd && details.reached) {
-            contoller.markTaskAsComplited(task.id);
-          }
           runInAction(() => iconExtraPadding.value = details.progress);
         },
-        background: Background(
-          isFirst: isFirst,
-          backgroundColor: backgroundColor,
-          iconAligment: Alignment.centerLeft,
-          iconData: backroundIcon,
-          iconPadding: const EdgeInsets.only(left: appPaddingSmall),
-          iconExtraPadding: iconExtraPadding,
+        background: Observer(
+          builder: (context) {
+            Color backgroundColor = task.isComplited
+                ? Theme.of(context).colorScheme.secondary
+                : Theme.of(context).colorScheme.inversePrimary;
+
+            IconData backroundIcon = task.isComplited ? Icons.close : Icons.check;
+            return Background(
+              isFirst: isFirst,
+              backgroundColor: backgroundColor,
+              iconAligment: Alignment.centerLeft,
+              iconData: backroundIcon,
+              iconPadding: const EdgeInsets.only(left: appPaddingSmall),
+              iconExtraPadding: iconExtraPadding,
+            );
+          },
         ),
         secondaryBackground: Background(
           isFirst: isFirst,

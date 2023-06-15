@@ -18,22 +18,6 @@ abstract class _TaskListContoller with Store {
     Task(3, "Купить что-то 3", null, false, TaskImportanceTypes.Low),
     Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
     Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.Hight),
   ].asObservable();
 
   @observable
@@ -84,7 +68,7 @@ abstract class _TaskListContoller with Store {
 
     if (index == -1) return;
 
-    logger.i("Task toodle complited status, task id = $id");
+    logger.i("Task toogle complited status, task id = $id");
 
     tasks[index].isComplited = !tasks[index].isComplited;
   }

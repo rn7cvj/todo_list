@@ -75,7 +75,7 @@ class HomePortrait extends StatelessWidget {
 
     return AnimatedSize(
       alignment: Alignment.topCenter,
-      duration: const Duration(milliseconds: 200),
+      duration: animationDurationFast,
       child: Column(
         children: tiles,
       ),
