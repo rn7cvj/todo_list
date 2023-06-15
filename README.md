@@ -37,7 +37,8 @@
 * Тёмная/Светлая тема.
    <details>
      <summary>Превью:</summary>
-      Dark                       |  Light
+     
+     Dark                       |  Light
      :-------------------------:|:-------------------------:
      ![localization_ru](https://github.com/rn7cvj/todo_list/assets/133586172/98d81a94-cf5d-4cea-998d-32cbfbaa8d44) | ![localization_en](https://github.com/rn7cvj/todo_list/assets/133586172/c3d8656e-704e-46ba-ae3c-77f338bea702)
   
