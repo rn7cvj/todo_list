@@ -174,7 +174,14 @@ class EditTaskPortait extends StatelessWidget {
         onTap: onTap,
         trailing: Switch(
           value: haveDeadLine.value,
-          onChanged: (newValue) => runInAction(() => haveDeadLine.value = newValue),
+          onChanged: (newValue) => runInAction(
+            () {
+              if (!newValue) {
+                deadLine.value = null;
+              }
+              haveDeadLine.value = newValue;
+            },
+          ),
         ),
         subtitle: buildDeadlineViewer(context),
       );

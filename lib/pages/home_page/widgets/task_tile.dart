@@ -24,9 +24,6 @@ class TaskTile extends StatelessWidget {
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
   final NavigationManager navigationManager = GetIt.I<NavigationManager>();
 
-  //Нигде не используемое поле, сохранено в качестве дани истории
-  late final bool canToogleStatus = true;
-
   @override
   Widget build(BuildContext context) {
     //Не даёт таску вылезать за пределы карточки при свайпе

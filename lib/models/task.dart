@@ -5,10 +5,10 @@ import '../i18n/strings.g.dart';
 
 part 'task.g.dart';
 
-class Task = _Task with _$Task;
+class Task = TaskStore with _$Task;
 
-abstract class _Task with Store {
-  _Task(this.id, this.text, this.deadLine, this.isComplited, this.importanceType);
+abstract class TaskStore with Store {
+  TaskStore(this.id, this.text, this.deadLine, this.isComplited, this.importanceType);
 
   final int id;
 

@@ -8,7 +8,7 @@ part of 'task.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$Task on _Task, Store {
+mixin _$Task on TaskStore, Store {
   late final _$textAtom = Atom(name: '_Task.text', context: context);
 
   @override
@@ -39,8 +39,7 @@ mixin _$Task on _Task, Store {
     });
   }
 
-  late final _$isComplitedAtom =
-      Atom(name: '_Task.isComplited', context: context);
+  late final _$isComplitedAtom = Atom(name: '_Task.isComplited', context: context);
 
   @override
   bool get isComplited {
@@ -55,8 +54,7 @@ mixin _$Task on _Task, Store {
     });
   }
 
-  late final _$importanceTypeAtom =
-      Atom(name: '_Task.importanceType', context: context);
+  late final _$importanceTypeAtom = Atom(name: '_Task.importanceType', context: context);
 
   @override
   TaskImportanceTypes get importanceType {

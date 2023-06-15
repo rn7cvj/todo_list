@@ -8,24 +8,20 @@ part of 'task_list.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$TaskListContoller on _TaskListContoller, Store {
+mixin _$TaskListContoller on TaskListContollerStore, Store {
   Computed<List<Task>>? _$getTasksComputed;
 
   @override
   List<Task> get getTasks =>
-      (_$getTasksComputed ??= Computed<List<Task>>(() => super.getTasks,
-              name: '_TaskListContoller.getTasks'))
-          .value;
+      (_$getTasksComputed ??= Computed<List<Task>>(() => super.getTasks, name: '_TaskListContoller.getTasks')).value;
   Computed<int>? _$complitedTaskCountComputed;
 
   @override
-  int get complitedTaskCount => (_$complitedTaskCountComputed ??= Computed<int>(
-          () => super.complitedTaskCount,
-          name: '_TaskListContoller.complitedTaskCount'))
+  int get complitedTaskCount => (_$complitedTaskCountComputed ??=
+          Computed<int>(() => super.complitedTaskCount, name: '_TaskListContoller.complitedTaskCount'))
       .value;
 
-  late final _$tasksAtom =
-      Atom(name: '_TaskListContoller.tasks', context: context);
+  late final _$tasksAtom = Atom(name: '_TaskListContoller.tasks', context: context);
 
   @override
   ObservableList<Task> get tasks {
@@ -40,8 +36,7 @@ mixin _$TaskListContoller on _TaskListContoller, Store {
     });
   }
 
-  late final _$isComplitedTaskVisibleAtom =
-      Atom(name: '_TaskListContoller.isComplitedTaskVisible', context: context);
+  late final _$isComplitedTaskVisibleAtom = Atom(name: '_TaskListContoller.isComplitedTaskVisible', context: context);
 
   @override
   bool get isComplitedTaskVisible {
@@ -51,19 +46,16 @@ mixin _$TaskListContoller on _TaskListContoller, Store {
 
   @override
   set isComplitedTaskVisible(bool value) {
-    _$isComplitedTaskVisibleAtom
-        .reportWrite(value, super.isComplitedTaskVisible, () {
+    _$isComplitedTaskVisibleAtom.reportWrite(value, super.isComplitedTaskVisible, () {
       super.isComplitedTaskVisible = value;
     });
   }
 
-  late final _$_TaskListContollerActionController =
-      ActionController(name: '_TaskListContoller', context: context);
+  late final _$_TaskListContollerActionController = ActionController(name: '_TaskListContoller', context: context);
 
   @override
   void addNewTask(Task newTask) {
-    final _$actionInfo = _$_TaskListContollerActionController.startAction(
-        name: '_TaskListContoller.addNewTask');
+    final _$actionInfo = _$_TaskListContollerActionController.startAction(name: '_TaskListContoller.addNewTask');
     try {
       return super.addNewTask(newTask);
     } finally {
@@ -72,23 +64,19 @@ mixin _$TaskListContoller on _TaskListContoller, Store {
   }
 
   @override
-  void addNewTaskByDetails(String taskDiscirption, DateTime? deadLine,
-      TaskImportanceTypes importanceType) {
-    final _$actionInfo = _$_TaskListContollerActionController.startAction(
-        name: '_TaskListContoller.addNewTaskByDetails');
+  void addNewTaskByDetails(String taskDiscirption, DateTime? deadLine, TaskImportanceTypes importanceType) {
+    final _$actionInfo =
+        _$_TaskListContollerActionController.startAction(name: '_TaskListContoller.addNewTaskByDetails');
     try {
-      return super
-          .addNewTaskByDetails(taskDiscirption, deadLine, importanceType);
+      return super.addNewTaskByDetails(taskDiscirption, deadLine, importanceType);
     } finally {
       _$_TaskListContollerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void editTask(int id, String taskDiscirption, DateTime? deadLine,
-      TaskImportanceTypes importanceType) {
-    final _$actionInfo = _$_TaskListContollerActionController.startAction(
-        name: '_TaskListContoller.editTask');
+  void editTask(int id, String taskDiscirption, DateTime? deadLine, TaskImportanceTypes importanceType) {
+    final _$actionInfo = _$_TaskListContollerActionController.startAction(name: '_TaskListContoller.editTask');
     try {
       return super.editTask(id, taskDiscirption, deadLine, importanceType);
     } finally {
@@ -98,8 +86,8 @@ mixin _$TaskListContoller on _TaskListContoller, Store {
 
   @override
   void toogleTaksComplitedStatus(int id) {
-    final _$actionInfo = _$_TaskListContollerActionController.startAction(
-        name: '_TaskListContoller.toogleTaksComplitedStatus');
+    final _$actionInfo =
+        _$_TaskListContollerActionController.startAction(name: '_TaskListContoller.toogleTaksComplitedStatus');
     try {
       return super.toogleTaksComplitedStatus(id);
     } finally {
@@ -109,8 +97,8 @@ mixin _$TaskListContoller on _TaskListContoller, Store {
 
   @override
   void markTaskAsComplited(int id) {
-    final _$actionInfo = _$_TaskListContollerActionController.startAction(
-        name: '_TaskListContoller.markTaskAsComplited');
+    final _$actionInfo =
+        _$_TaskListContollerActionController.startAction(name: '_TaskListContoller.markTaskAsComplited');
     try {
       return super.markTaskAsComplited(id);
     } finally {
@@ -120,8 +108,8 @@ mixin _$TaskListContoller on _TaskListContoller, Store {
 
   @override
   void markTaskAsUnComplited(int id) {
-    final _$actionInfo = _$_TaskListContollerActionController.startAction(
-        name: '_TaskListContoller.markTaskAsUnComplited');
+    final _$actionInfo =
+        _$_TaskListContollerActionController.startAction(name: '_TaskListContoller.markTaskAsUnComplited');
     try {
       return super.markTaskAsUnComplited(id);
     } finally {
@@ -131,8 +119,7 @@ mixin _$TaskListContoller on _TaskListContoller, Store {
 
   @override
   void deleteTask(int id) {
-    final _$actionInfo = _$_TaskListContollerActionController.startAction(
-        name: '_TaskListContoller.deleteTask');
+    final _$actionInfo = _$_TaskListContollerActionController.startAction(name: '_TaskListContoller.deleteTask');
     try {
       return super.deleteTask(id);
     } finally {
@@ -142,8 +129,8 @@ mixin _$TaskListContoller on _TaskListContoller, Store {
 
   @override
   void toogleComplitedTaskVisibilty() {
-    final _$actionInfo = _$_TaskListContollerActionController.startAction(
-        name: '_TaskListContoller.toogleComplitedTaskVisibilty');
+    final _$actionInfo =
+        _$_TaskListContollerActionController.startAction(name: '_TaskListContoller.toogleComplitedTaskVisibilty');
     try {
       return super.toogleComplitedTaskVisibilty();
     } finally {

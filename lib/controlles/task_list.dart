@@ -5,18 +5,16 @@ import '../models/task.dart';
 
 part 'task_list.g.dart';
 
-// ignore: library_private_types_in_public_api
-class TaskListContoller = _TaskListContoller with _$TaskListContoller;
+class TaskListContoller = TaskListContollerStore with _$TaskListContoller;
 
-abstract class _TaskListContoller with Store {
+abstract class TaskListContollerStore with Store {
   int currnetTaskLastId = 6;
 
   @observable
   ObservableList<Task> tasks = <Task>[
-    Task(1, "Купить что-то 1", null, false, TaskImportanceTypes.not),
+    Task(1, "Сделать что-то 1", null, false, TaskImportanceTypes.not),
     Task(2, "Купить что-то 2", DateTime.now(), true, TaskImportanceTypes.low),
-    Task(3, "Купить что-то 3", null, false, TaskImportanceTypes.low),
-    Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.hight),
+    Task(3, "Починить что-то 3", null, false, TaskImportanceTypes.low),
     Task(4, "Купить что-то 4", null, true, TaskImportanceTypes.hight),
   ].asObservable();
 

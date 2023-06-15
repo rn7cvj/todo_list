@@ -10,25 +10,32 @@ import 'package:todo_list/constants.dart';
 import '../../../controlles/task_list.dart';
 import '../../../i18n/strings.g.dart';
 
-class HomeAppBar extends StatelessWidget {
-  HomeAppBar({super.key, required this.scrollController}) {
-    scrollController.addListener(scrollContollerListenet);
-  }
+// Это должен быть StateLess виджет но форматер ругается на не файнал поле
+// поэтоу это Stateful )))
+class HomeAppBar extends StatefulWidget {
+  const HomeAppBar({super.key, required this.scrollController});
 
   final ScrollController scrollController;
+
+  @override
+  State<HomeAppBar> createState() => _HomeAppBarState();
+}
+
+class _HomeAppBarState extends State<HomeAppBar> {
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
 
   final Observable<double> appBarExpendProgress = Observable<double>(0.0);
 
-  late final double screenFourth;
+  late double screenFourth;
 
   void scrollContollerListenet() => runInAction(() {
-        appBarExpendProgress.value = min(scrollController.offset, screenFourth) / screenFourth;
+        appBarExpendProgress.value = min(widget.scrollController.offset, screenFourth) / screenFourth;
       });
 
   @override
   Widget build(BuildContext context) {
     screenFourth = MediaQuery.sizeOf(context).height / 4;
+    widget.scrollController.addListener(scrollContollerListenet);
 
     return Observer(
       builder: (context) {
