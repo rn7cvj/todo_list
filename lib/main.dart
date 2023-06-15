@@ -17,7 +17,9 @@ void main() {
 
   GetIt.I.registerSingleton<TaskListContoller>(TaskListContoller());
   GetIt.I.registerSingleton<NavigationManager>(NavigationManager());
+
   LocaleSettings.useDeviceLocale();
+
   runApp(TranslationProvider(child: const App()));
 }
 
