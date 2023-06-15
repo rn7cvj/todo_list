@@ -1,4 +1,4 @@
-<a href="https://ysstodo.pages.dev">
+<a href="">
   <p align="center">
     <picture>
       <img alt="Todo List" src="https://github.com/rn7cvj/todo_list/blob/main/assets/github/banner.png?raw=true">
