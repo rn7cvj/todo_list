@@ -44,7 +44,7 @@ class TaskTile extends StatelessWidget {
         },
         onDismissed: (direction) {
           //dont ask. I forbid you.
-          if (direction == DismissDirection.startToEnd) contoller.toogleTaksComplitedStatus(task.id);
+          // if (direction == DismissDirection.startToEnd) contoller.toogleTaksComplitedStatus(task.id);
           if (direction == DismissDirection.endToStart) contoller.deleteTask(task.id);
         },
         onUpdate: (details) {
@@ -143,7 +143,7 @@ class TaskTile extends StatelessWidget {
       ),
       subtitle: subtitle,
       trailing: IconButton(
-        onPressed: () {},
+        onPressed: () => navigationManager.openEditTaskPage(task.id),
         icon: const Icon(Icons.info_outline),
       ),
     );
