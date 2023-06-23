@@ -7,23 +7,23 @@ import '../../constants.dart';
 import '../../controlles/task_list.dart';
 import '../../helper_functions.dart';
 import '../../i18n/strings.g.dart';
-import '../../models/task.dart';
+import '../../modals/task.dart';
 import '../../navigator.dart';
 
 class EditTaskPortait extends StatelessWidget {
-  EditTaskPortait({super.key, required this.taskId}) {
-    Task? task = contoller.getTaskById(taskId);
+  EditTaskPortait({super.key, required this.taskUid}) {
+    Task? task = contoller.getTaskById(taskUid);
     //Обработка ошибок
     if (task == null) {
       navigationManager.popToHomePage();
       return;
     }
 
-    whatToDoController.text = task.text;
+    whatToDoController.text = task.text!;
     runInAction(() {
-      importanceType.value = task.importanceType;
-      haveDeadLine.value = task.deadLine != null;
-      deadLine.value = task.deadLine;
+      importanceType.value = task.importance;
+      haveDeadLine.value = task.deadline != null;
+      deadLine.value = task.deadline;
     });
   }
 
@@ -35,7 +35,7 @@ class EditTaskPortait extends StatelessWidget {
           DropdownMenuEntry(leadingIcon: Icon(importance.icon), label: importance.lable, value: importance))
       .toList();
 
-  final int taskId;
+  final String taskUid;
 
   final TextEditingController whatToDoController = TextEditingController();
   final Observable<bool> haveDeadLine = false.obs();
@@ -43,7 +43,7 @@ class EditTaskPortait extends StatelessWidget {
   //Подберите цензурные слова за меня, пожалуйста
   final Observable<DateTime?> deadLine = Observable<DateTime?>(null);
 
-  final Observable<TaskImportanceTypes> importanceType = Observable<TaskImportanceTypes>(TaskImportanceTypes.not);
+  final Observable<TaskImportanceTypes> importanceType = Observable<TaskImportanceTypes>(TaskImportanceTypes.low);
 
   @override
   Widget build(BuildContext context) {
@@ -201,11 +201,11 @@ class EditTaskPortait extends StatelessWidget {
 
   void deleteTask() {
     navigationManager.popToHomePage();
-    contoller.deleteTask(taskId);
+    contoller.deleteTask(taskUid);
   }
 
   void editTask() {
-    contoller.editTask(taskId, whatToDoController.text, deadLine.value, importanceType.value);
+    contoller.editTask(taskUid, whatToDoController.text, deadLine.value, importanceType.value);
     navigationManager.popToHomePage();
   }
 }

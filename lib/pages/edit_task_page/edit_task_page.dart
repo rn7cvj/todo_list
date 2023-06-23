@@ -6,12 +6,12 @@ import 'edit_task_portrait.dart';
 class EditTaskPage extends StatelessWidget {
   const EditTaskPage({super.key, required this.taskId});
 
-  final int taskId;
+  final String taskId;
 
   @override
   Widget build(BuildContext context) {
     return EditTaskPortait(
-      taskId: taskId,
+      taskUid: taskId,
     );
   }
 }

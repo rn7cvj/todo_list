@@ -20,7 +20,7 @@ abstract class RoutesBuilder {
   static final routes = <String, Widget Function(BuildContext)>{
     RouteNames.taskList: (_) => const HomePage(),
     RouteNames.addTask: (_) => const AddTaskPage(),
-    RouteNames.editTask: (context) => EditTaskPage(taskId: ModalRoute.of(context)?.settings.arguments as int),
+    RouteNames.editTask: (context) => EditTaskPage(taskId: ModalRoute.of(context)?.settings.arguments as String),
   };
 
   static Route<Object?>? onGenerateRoute(RouteSettings settings) {
@@ -39,7 +39,7 @@ abstract class RoutesBuilder {
       case RouteNames.editTask:
         return MaterialPageRoute(
           builder: (_) => EditTaskPage(
-            taskId: settings.arguments as int,
+            taskId: settings.arguments as String,
           ),
           settings: settings,
         );

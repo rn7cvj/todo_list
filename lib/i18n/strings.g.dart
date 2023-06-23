@@ -1,9 +1,9 @@
 /// Generated file. Do not edit.
 ///
 /// Locales: 2
-/// Strings: 26 (13 per locale)
+/// Strings: 30 (15 per locale)
 ///
-/// Built on 2023-06-13 at 18:38 UTC
+/// Built on 2023-06-23 at 20:45 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -149,6 +149,7 @@ class _StringsEn implements BaseTranslations<AppLocale, _StringsEn> {
 	// Translations
 	late final _StringsAddtaskEn addtask = _StringsAddtaskEn._(_root);
 	late final _StringsCommonEn common = _StringsCommonEn._(_root);
+	late final _StringsErrorsEn errors = _StringsErrorsEn._(_root);
 	late final _StringsHomeEn home = _StringsHomeEn._(_root);
 }
 
@@ -179,6 +180,17 @@ class _StringsCommonEn {
 	String get delete => 'Delete';
 	String get save => 'Save';
 	String get edit => 'Edit';
+}
+
+// Path: errors
+class _StringsErrorsEn {
+	_StringsErrorsEn._(this._root);
+
+	final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	String get noIntenet => 'No internet connection';
+	String get failServerConnetcion => 'Server temporarily unavailable';
 }
 
 // Path: home
@@ -219,6 +231,7 @@ class _StringsRu implements _StringsEn {
 	// Translations
 	@override late final _StringsAddtaskRu addtask = _StringsAddtaskRu._(_root);
 	@override late final _StringsCommonRu common = _StringsCommonRu._(_root);
+	@override late final _StringsErrorsRu errors = _StringsErrorsRu._(_root);
 	@override late final _StringsHomeRu home = _StringsHomeRu._(_root);
 }
 
@@ -251,6 +264,17 @@ class _StringsCommonRu implements _StringsCommonEn {
 	@override String get edit => 'Изменить';
 }
 
+// Path: errors
+class _StringsErrorsRu implements _StringsErrorsEn {
+	_StringsErrorsRu._(this._root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get noIntenet => 'Отсутствует подключение к интернету';
+	@override String get failServerConnetcion => 'Сервер временно недоступен';
+}
+
 // Path: home
 class _StringsHomeRu implements _StringsHomeEn {
 	_StringsHomeRu._(this._root);
@@ -279,6 +303,8 @@ extension on _StringsEn {
 			case 'common.delete': return 'Delete';
 			case 'common.save': return 'Save';
 			case 'common.edit': return 'Edit';
+			case 'errors.noIntenet': return 'No internet connection';
+			case 'errors.failServerConnetcion': return 'Server temporarily unavailable';
 			case 'home.my_task': return 'My task';
 			case 'home.complited': return 'Complited';
 			default: return null;
@@ -300,6 +326,8 @@ extension on _StringsRu {
 			case 'common.delete': return 'Удалить';
 			case 'common.save': return 'Сохранить';
 			case 'common.edit': return 'Изменить';
+			case 'errors.noIntenet': return 'Отсутствует подключение к интернету';
+			case 'errors.failServerConnetcion': return 'Сервер временно недоступен';
 			case 'home.my_task': return 'Мои дела';
 			case 'home.complited': return 'Выполненно';
 			default: return null;

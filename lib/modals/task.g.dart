@@ -7,19 +7,19 @@ part of 'task.dart';
 // **************************************************************************
 
 Task _$TaskFromJson(Map<String, dynamic> json) => Task(
-      json['uid'] as String,
+      json['id'] as String,
       json['text'] as String,
       $enumDecode(_$TaskImportanceTypesEnumMap, json['importance']),
       json['done'] as bool,
       TaskStore._dateTimefromJson(json['created_at'] as int),
       TaskStore._dateTimefromJson(json['changed_at'] as int),
-      json['last_updated_by'] as int,
+      json['last_updated_by'] as String,
       deadline: TaskStore._dateTimeNullablefromJson(json['deadline'] as int?),
     );
 
 Map<String, dynamic> _$TaskToJson(Task instance) {
   final val = <String, dynamic>{
-    'uid': instance.uid,
+    'id': instance.id,
     'text': instance.text,
     'importance': _$TaskImportanceTypesEnumMap[instance.importance]!,
   };

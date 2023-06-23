@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mobx/mobx.dart';
 import '../helper_functions.dart';
@@ -12,17 +9,17 @@ part 'task.g.dart';
 @JsonSerializable()
 class Task extends TaskStore with _$Task {
   Task(
-    String uid,
+    String id,
     String text,
     TaskImportanceTypes importance,
     bool done,
     DateTime created_at,
     DateTime changed_at,
-    int last_updated_by, {
+    String last_updated_by, {
     DateTime? deadline,
     String? hexColor,
   }) : super(
-          uid,
+          id,
           text,
           importance,
           deadline,
@@ -39,10 +36,10 @@ class Task extends TaskStore with _$Task {
 }
 
 abstract class TaskStore with Store {
-  TaskStore(this.uid, this.text, this.importance, this.deadline, this.done, this.created_at, this.changed_at,
+  TaskStore(this.id, this.text, this.importance, this.deadline, this.done, this.created_at, this.changed_at,
       this.last_updated_by, this._hexColor);
 
-  final String uid;
+  final String id;
 
   @observable
   String? text;
@@ -76,7 +73,7 @@ abstract class TaskStore with Store {
   @JsonKey(includeToJson: false)
   Color? get color => _hexColor == null ? null : HexColor(_hexColor!);
 
-  int last_updated_by;
+  String last_updated_by;
 }
 
 enum TaskImportanceTypes {

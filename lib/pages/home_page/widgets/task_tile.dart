@@ -46,7 +46,7 @@ class TaskTile extends StatelessWidget {
         onDismissed: (direction) {
           //dont ask. I forbid you.
           // if (direction == DismissDirection.startToEnd) contoller.toogleTaksComplitedStatus(task.id);
-          if (direction == DismissDirection.endToStart) contoller.deleteTask(task.uid);
+          if (direction == DismissDirection.endToStart) contoller.deleteTask(task.id);
         },
         onUpdate: (details) {
           runInAction(() => iconExtraPadding.value = details.progress);
@@ -56,7 +56,7 @@ class TaskTile extends StatelessWidget {
             Color backgroundColor =
                 task.done ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.inversePrimary;
 
-            IconData backroundIcon = task.isComplited ? Icons.close : Icons.check;
+            IconData backroundIcon = task.done ? Icons.close : Icons.check;
             //Билдер фона для свайпа вправо
             return Background(
               isFirst: isFirst,
@@ -89,7 +89,7 @@ class TaskTile extends StatelessWidget {
     TextStyle subtitleTextStyle = Theme.of(context).textTheme.bodyMedium!;
 
     //Если таск отмечен как выполненный, то делаем это 🌚🌚🌚
-    if (task.isComplited) {
+    if (task.done) {
       textStyle = textStyle.copyWith(
         decoration: TextDecoration.lineThrough,
         color: textStyle.color!.withOpacity(0.4),
@@ -100,11 +100,11 @@ class TaskTile extends StatelessWidget {
     }
 
     Widget? subtitle =
-        task.deadLine != null ? Text(formatDateTime(context, task.deadLine!), style: subtitleTextStyle) : null;
+        task.deadline != null ? Text(formatDateTime(context, task.deadline!), style: subtitleTextStyle) : null;
 
     MaterialStateProperty<Color> checkBoxColor = MaterialStateProperty.all(Theme.of(context).colorScheme.primary);
 
-    if (task.importanceType == TaskImportanceTypes.hight) {
+    if (task.importance == TaskImportanceTypes.important) {
       checkBoxColor = MaterialStateProperty.all(Theme.of(context).colorScheme.error);
     }
 
@@ -125,7 +125,7 @@ class TaskTile extends StatelessWidget {
       leading: Checkbox(
         activeColor: Colors.amberAccent,
         fillColor: checkBoxColor,
-        value: task.isComplited,
+        value: task.done,
         onChanged: (newVAlue) => contoller.toogleTaksComplitedStatus(task.id),
       ),
       title: Row(
@@ -133,7 +133,7 @@ class TaskTile extends StatelessWidget {
           buildImportanceIcon(context) ?? Container(),
           Flexible(
             child: Text(
-              task.text,
+              task.text!,
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: textStyle,
@@ -150,11 +150,11 @@ class TaskTile extends StatelessWidget {
   }
 
   Widget? buildImportanceIcon(BuildContext context) {
-    if (task.importanceType.icon == null) return null;
+    if (task.importance.icon == null) return null;
     return Padding(
       padding: const EdgeInsets.only(right: appPaddingSmall),
       child: Icon(
-        task.importanceType.icon,
+        task.importance.icon,
         size: Theme.of(context).textTheme.bodyMedium!.fontSize,
       ),
     );

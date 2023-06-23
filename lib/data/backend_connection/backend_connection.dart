@@ -29,7 +29,7 @@ class BackendConnection extends IBackendConnection {
   static final String _deleteTaskUrl = "/list/";
 
   Map<String, String> get _headers => {
-        "Authorization": "Bearer",
+        "Authorization": "Bearer ",
         "X-Last-Known-Revision": '$_lastRevision',
       };
 
@@ -102,6 +102,8 @@ class BackendConnection extends IBackendConnection {
   Future<Map<String, dynamic>?> addNewTask(String requsetBody) async {
     var url = Uri.parse(_baseUrl + _addNewTaskUrl);
 
+    requsetBody = '{"element" : $requsetBody }';
+
     var response = await http.post(url, headers: _headers, body: requsetBody);
 
     if (response.statusCode != 200) {
@@ -119,6 +121,8 @@ class BackendConnection extends IBackendConnection {
   Future<Map<String, dynamic>?> updateTask(String uid, String requsetBody) async {
     var url = Uri.parse(_baseUrl + _updateTaskUrl + uid);
 
+    requsetBody = '{"element" : $requsetBody }';
+
     var response = await http.put(url, headers: _headers, body: requsetBody);
 
     if (response.statusCode != 200) {
@@ -126,12 +130,13 @@ class BackendConnection extends IBackendConnection {
     }
 
     var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+    _lastRevision = jsonResponse["revision"];
     return jsonResponse["element"];
   }
 
   @override
   Future<Map<String, dynamic>?> deleteTask(String uid) async {
-    var url = Uri.parse(_baseUrl + _updateTaskUrl + uid);
+    var url = Uri.parse(_baseUrl + _deleteTaskUrl + uid);
 
     var response = await http.delete(url, headers: _headers);
 
@@ -140,6 +145,8 @@ class BackendConnection extends IBackendConnection {
     }
 
     var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+
+    _lastRevision = jsonResponse["revision"];
     return jsonResponse["element"];
   }
 }

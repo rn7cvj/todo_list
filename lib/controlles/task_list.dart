@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:todo_list/api/api.dart';
 import 'package:todo_list/logger.dart';
+import 'package:uuid/uuid.dart';
 
 import '../modals/task.dart';
 
@@ -12,10 +13,14 @@ class TaskListContoller = TaskListContollerStore with _$TaskListContoller;
 abstract class TaskListContollerStore with Store {
   IApi api = GetIt.I<IApi>();
 
-  int _lastUid = 0;
+  var uuid = Uuid();
 
-  void init() async {
-    tasks.addAll((await api.getAllTasks())!);
+  Future<void> init() async {
+    await fetchLastTask();
+  }
+
+  void setOnErrorHandler(OnErrorCallBack? onError) {
+    api.onError = onError;
   }
 
   @observable
@@ -31,7 +36,7 @@ abstract class TaskListContollerStore with Store {
   int get complitedTaskCount => tasks.where((task) => task.done).length;
 
   Task? getTaskById(String uid) {
-    int index = tasks.indexWhere((task) => task.uid == uid);
+    int index = tasks.indexWhere((task) => task.id == uid);
     if (index == -1) {
       return null;
     }
@@ -39,69 +44,84 @@ abstract class TaskListContollerStore with Store {
   }
 
   @action
-  void addNewTaskByDetails(String text, DateTime? deadLine, TaskImportanceTypes importanceType) {
-    Task newTask = Task(_lastUid.toString(), text, importanceType, false, DateTime.now(), DateTime.now(), 123);
+  Future<void> addNewTaskByDetails(String text, DateTime? deadLine, TaskImportanceTypes importanceType) async {
+    Task newTask = Task(uuid.v4(), text, importanceType, false, DateTime.now(), DateTime.now(), "123");
 
-    api.addNewTask(newTask);
-    tasks.add(newTask);
+    await api.addNewTask(newTask);
+
+    await fetchLastTask();
 
     logger.i("Add new task\n$newTask");
-
-    _lastUid += 1;
   }
 
   @action
-  void editTask(int id, String taskDiscirption, DateTime? deadLine, TaskImportanceTypes importanceType) {
-    // int index = tasks.indexWhere((task) => task.id == id);
+  Future<void> editTask(String uid, String text, DateTime? deadLine, TaskImportanceTypes importanceType) async {
+    Task? task = await api.getTask(uid);
 
-    // if (index == -1) return;
+    if (task == null) return;
 
-    // tasks[index].text = taskDiscirption;
-    // tasks[index].deadLine = deadLine;
-    // tasks[index].importanceType = importanceType;
+    task.text = text;
+    task.deadline = deadLine;
+    task.importance = importanceType;
+    task.changed_at = DateTime.now();
+
+    await api.updateTask(uid, task);
+
+    await fetchLastTask();
   }
 
   @action
-  void toogleTaksComplitedStatus(int id) {
-    // int index = tasks.indexWhere((task) => task.id == id);
+  Future<void> toogleTaksComplitedStatus(String uid) async {
+    Task? task = await api.getTask(uid);
 
-    // if (index == -1) return;
+    if (task == null) return;
 
-    // logger.i("Task toogle complited status, task id = $id");
+    task.done = !task.done;
 
-    // tasks[index].isComplited = !tasks[index].isComplited;
+    await api.updateTask(uid, task);
+
+    await fetchLastTask();
   }
 
   @action
-  void markTaskAsComplited(String uid) {
-    // int index = tasks.indexWhere((task) => task.id == id);
+  Future<void> markTaskAsComplited(String uid) async {
+    Task? task = await api.getTask(uid);
 
-    // if (index == -1) return;
+    if (task == null) return;
 
-    // logger.i("Task mark as complited, task id = $id");
+    task.done = true;
 
-    // tasks[index].isComplited = true;
+    await api.updateTask(uid, task);
+
+    await fetchLastTask();
   }
 
   @action
-  void markTaskAsUnComplited(String uid) {
-    // int index = tasks.indexWhere((task) => task.id == id);
+  Future<void> markTaskAsUnComplited(String uid) async {
+    Task? task = await api.getTask(uid);
 
-    // if (index == -1) return;
+    if (task == null) return;
 
-    // logger.i("Task mark as un complited, task id = $id");
+    task.done = false;
 
-    // tasks[index].isComplited = false;
+    await api.updateTask(uid, task);
+
+    await fetchLastTask();
   }
 
   @action
-  void deleteTask(String uid) {
-    // int index = tasks.indexWhere((task) => task.id == id);
-    // if (index == -1) return;
+  Future<void> deleteTask(String uid) async {
+    await api.deleteTask(uid);
 
-    // logger.w("Delete task, task id = $id");
+    await fetchLastTask();
+  }
 
-    // tasks.removeAt(index);
+  @action
+  Future<void> fetchLastTask() async {
+    List<Task>? storageTaskList = (await api.getAllTasks());
+    if (storageTaskList != null) {
+      tasks = storageTaskList.asObservable();
+    }
   }
 
   @action

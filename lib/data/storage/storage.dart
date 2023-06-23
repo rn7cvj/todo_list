@@ -1,6 +1,3 @@
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:todo_list/logger.dart';
 import 'package:get_storage/get_storage.dart';
 
 abstract class IStorage {
@@ -24,7 +21,7 @@ class Storage extends IStorage {
 
   @override
   Future<void> init() async {
-    await GetStorage.init();
+    await GetStorage.init('taskBox');
     _box = GetStorage('taskBox');
   }
 
@@ -46,7 +43,7 @@ class Storage extends IStorage {
 
     List<Map<String, dynamic>>? values;
 
-    if (keys.length != 0) {
+    if (keys.isNotEmpty) {
       values = [];
     }
 
@@ -74,7 +71,7 @@ class Storage extends IStorage {
 
   @override
   Future<Map<String, dynamic>?> updateTask(String uid, Map<String, dynamic> data) async {
-    await _box?.write(data["uid"], data);
-    return getTask(data["uid"]);
+    await _box?.write(data["id"], data);
+    return getTask(data["id"]);
   }
 }

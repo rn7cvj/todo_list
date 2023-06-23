@@ -13,16 +13,19 @@ mixin _$TaskListContoller on TaskListContollerStore, Store {
 
   @override
   List<Task> get getTasks =>
-      (_$getTasksComputed ??= Computed<List<Task>>(() => super.getTasks, name: 'TaskListContollerStore.getTasks'))
+      (_$getTasksComputed ??= Computed<List<Task>>(() => super.getTasks,
+              name: 'TaskListContollerStore.getTasks'))
           .value;
   Computed<int>? _$complitedTaskCountComputed;
 
   @override
-  int get complitedTaskCount => (_$complitedTaskCountComputed ??=
-          Computed<int>(() => super.complitedTaskCount, name: 'TaskListContollerStore.complitedTaskCount'))
+  int get complitedTaskCount => (_$complitedTaskCountComputed ??= Computed<int>(
+          () => super.complitedTaskCount,
+          name: 'TaskListContollerStore.complitedTaskCount'))
       .value;
 
-  late final _$tasksAtom = Atom(name: 'TaskListContollerStore.tasks', context: context);
+  late final _$tasksAtom =
+      Atom(name: 'TaskListContollerStore.tasks', context: context);
 
   @override
   ObservableList<Task> get tasks {
@@ -37,8 +40,8 @@ mixin _$TaskListContoller on TaskListContollerStore, Store {
     });
   }
 
-  late final _$isComplitedTaskVisibleAtom =
-      Atom(name: 'TaskListContollerStore.isComplitedTaskVisible', context: context);
+  late final _$isComplitedTaskVisibleAtom = Atom(
+      name: 'TaskListContollerStore.isComplitedTaskVisible', context: context);
 
   @override
   bool get isComplitedTaskVisible {
@@ -48,78 +51,81 @@ mixin _$TaskListContoller on TaskListContollerStore, Store {
 
   @override
   set isComplitedTaskVisible(bool value) {
-    _$isComplitedTaskVisibleAtom.reportWrite(value, super.isComplitedTaskVisible, () {
+    _$isComplitedTaskVisibleAtom
+        .reportWrite(value, super.isComplitedTaskVisible, () {
       super.isComplitedTaskVisible = value;
     });
   }
 
+  late final _$addNewTaskByDetailsAsyncAction = AsyncAction(
+      'TaskListContollerStore.addNewTaskByDetails',
+      context: context);
+
+  @override
+  Future<void> addNewTaskByDetails(
+      String text, DateTime? deadLine, TaskImportanceTypes importanceType) {
+    return _$addNewTaskByDetailsAsyncAction
+        .run(() => super.addNewTaskByDetails(text, deadLine, importanceType));
+  }
+
+  late final _$editTaskAsyncAction =
+      AsyncAction('TaskListContollerStore.editTask', context: context);
+
+  @override
+  Future<void> editTask(String uid, String text, DateTime? deadLine,
+      TaskImportanceTypes importanceType) {
+    return _$editTaskAsyncAction
+        .run(() => super.editTask(uid, text, deadLine, importanceType));
+  }
+
+  late final _$toogleTaksComplitedStatusAsyncAction = AsyncAction(
+      'TaskListContollerStore.toogleTaksComplitedStatus',
+      context: context);
+
+  @override
+  Future<void> toogleTaksComplitedStatus(String uid) {
+    return _$toogleTaksComplitedStatusAsyncAction
+        .run(() => super.toogleTaksComplitedStatus(uid));
+  }
+
+  late final _$markTaskAsComplitedAsyncAction = AsyncAction(
+      'TaskListContollerStore.markTaskAsComplited',
+      context: context);
+
+  @override
+  Future<void> markTaskAsComplited(String uid) {
+    return _$markTaskAsComplitedAsyncAction
+        .run(() => super.markTaskAsComplited(uid));
+  }
+
+  late final _$markTaskAsUnComplitedAsyncAction = AsyncAction(
+      'TaskListContollerStore.markTaskAsUnComplited',
+      context: context);
+
+  @override
+  Future<void> markTaskAsUnComplited(String uid) {
+    return _$markTaskAsUnComplitedAsyncAction
+        .run(() => super.markTaskAsUnComplited(uid));
+  }
+
+  late final _$deleteTaskAsyncAction =
+      AsyncAction('TaskListContollerStore.deleteTask', context: context);
+
+  @override
+  Future<void> deleteTask(String uid) {
+    return _$deleteTaskAsyncAction.run(() => super.deleteTask(uid));
+  }
+
+  late final _$fetchLastTaskAsyncAction =
+      AsyncAction('TaskListContollerStore.fetchLastTask', context: context);
+
+  @override
+  Future<void> fetchLastTask() {
+    return _$fetchLastTaskAsyncAction.run(() => super.fetchLastTask());
+  }
+
   late final _$TaskListContollerStoreActionController =
       ActionController(name: 'TaskListContollerStore', context: context);
-
-  @override
-  void addNewTaskByDetails(String text, DateTime? deadLine, TaskImportanceTypes importanceType) {
-    final _$actionInfo =
-        _$TaskListContollerStoreActionController.startAction(name: 'TaskListContollerStore.addNewTaskByDetails');
-    try {
-      return super.addNewTaskByDetails(text, deadLine, importanceType);
-    } finally {
-      _$TaskListContollerStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void editTask(int id, String taskDiscirption, DateTime? deadLine, TaskImportanceTypes importanceType) {
-    final _$actionInfo = _$TaskListContollerStoreActionController.startAction(name: 'TaskListContollerStore.editTask');
-    try {
-      return super.editTask(id, taskDiscirption, deadLine, importanceType);
-    } finally {
-      _$TaskListContollerStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void toogleTaksComplitedStatus(int id) {
-    final _$actionInfo =
-        _$TaskListContollerStoreActionController.startAction(name: 'TaskListContollerStore.toogleTaksComplitedStatus');
-    try {
-      return super.toogleTaksComplitedStatus(id);
-    } finally {
-      _$TaskListContollerStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void markTaskAsComplited(int id) {
-    final _$actionInfo =
-        _$TaskListContollerStoreActionController.startAction(name: 'TaskListContollerStore.markTaskAsComplited');
-    try {
-      return super.markTaskAsComplited(id);
-    } finally {
-      _$TaskListContollerStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void markTaskAsUnComplited(int id) {
-    final _$actionInfo =
-        _$TaskListContollerStoreActionController.startAction(name: 'TaskListContollerStore.markTaskAsUnComplited');
-    try {
-      return super.markTaskAsUnComplited(id);
-    } finally {
-      _$TaskListContollerStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void deleteTask(String id) {
-    final _$actionInfo =
-        _$TaskListContollerStoreActionController.startAction(name: 'TaskListContollerStore.deleteTask');
-    try {
-      return super.deleteTask(id);
-    } finally {
-      _$TaskListContollerStoreActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   void toogleComplitedTaskVisibilty() {

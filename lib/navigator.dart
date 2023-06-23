@@ -13,9 +13,9 @@ class NavigationManager {
     _navigator.pushNamed(RouteNames.addTask);
   }
 
-  void openEditTaskPage(int id) {
-    logger.i("Open edit task page , task id = $id");
-    _navigator.pushNamed(RouteNames.editTask, arguments: id);
+  void openEditTaskPage(String uid) {
+    logger.i("Open edit task page , task uid = $uid");
+    _navigator.pushNamed(RouteNames.editTask, arguments: uid);
   }
 
   void pop() {

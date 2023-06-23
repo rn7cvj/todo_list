@@ -7,7 +7,7 @@ import 'package:todo_list/helper_functions.dart';
 
 import '../../controlles/task_list.dart';
 import '../../i18n/strings.g.dart';
-import '../../models/task.dart';
+import '../../modals/task.dart';
 import '../../navigator.dart';
 
 class AddTaskPortrait extends StatelessWidget {
@@ -26,7 +26,7 @@ class AddTaskPortrait extends StatelessWidget {
 
   final Observable<DateTime?> deadLine = Observable<DateTime?>(null);
 
-  final Observable<TaskImportanceTypes> importanceType = Observable<TaskImportanceTypes>(TaskImportanceTypes.not);
+  final Observable<TaskImportanceTypes> importanceType = Observable<TaskImportanceTypes>(TaskImportanceTypes.basic);
 
   @override
   Widget build(BuildContext context) {
