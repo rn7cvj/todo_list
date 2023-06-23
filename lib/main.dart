@@ -7,30 +7,33 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo_list/api/api.dart';
-import 'package:todo_list/backend_connection/backend_connection.dart';
+import 'package:todo_list/data/backend_connection/backend_connection.dart';
 import 'package:todo_list/logger.dart';
 import 'package:todo_list/modals/task.dart';
-import 'package:todo_list/storage/storage.dart';
+import 'package:todo_list/data/storage/storage.dart';
+import 'package:todo_list/routes.dart';
 
 // import 'package:todo_list/controlles/task_list.dart';
 
+import 'controlles/task_list.dart';
 import 'i18n/strings.g.dart';
-// import 'navigator.dart';
-// import 'routes.dart';
+import 'navigator.dart';
 
 void main() async {
-  // setUpSystemUIOverlay();
+  setUpSystemUIOverlay();
 
   GetIt.I.registerSingleton<IBackendConnection>(BackendConnection());
   GetIt.I.registerSingleton<IStorage>(Storage());
 
   GetIt.I.registerSingleton<IApi>(Api());
 
-  // LocaleSettings.useDeviceLocale(); //Угадайте, что делает эта строка
+  GetIt.I.registerSingleton<TaskListContoller>(TaskListContoller());
+  GetIt.I.registerSingleton<NavigationManager>(NavigationManager());
 
-  // runApp(TranslationProvider(child: const App()));
+  LocaleSettings.useDeviceLocale(); //Угадайте, что делает эта строка
+
+  runApp(TranslationProvider(child: const App()));
 }
 
 //Перевод приложения в полноэкранный режим
@@ -62,9 +65,9 @@ class App extends StatelessWidget {
       locale: TranslationProvider.of(context).flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      // navigatorKey: GetIt.I<NavigationManager>().key,
-      // initialRoute: RouteNames.initialRoute,
-      // routes: RoutesBuilder.routes,
+      navigatorKey: GetIt.I<NavigationManager>().key,
+      initialRoute: RouteNames.initialRoute,
+      routes: RoutesBuilder.routes,
     );
   }
 }

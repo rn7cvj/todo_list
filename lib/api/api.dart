@@ -1,9 +1,13 @@
 import 'package:get_it/get_it.dart';
-import 'package:todo_list/backend_connection/backend_connection.dart';
+import 'package:todo_list/data/backend_connection/backend_connection.dart';
 import 'package:todo_list/modals/task.dart';
-import 'package:todo_list/storage/storage.dart';
+import 'package:todo_list/data/storage/storage.dart';
 
-abstract class IApi {
+enum ErrorTypes { noIntenet, failServerConnetcion }
+
+typedef void OnErrorCallBack(ErrorTypes error);
+
+abstract interface class IApi {
   Future<void> init();
 
   Future<List<Task>?> getAllTasks();
@@ -12,7 +16,7 @@ abstract class IApi {
 
   Future<Task?> getTask(String uid);
 
-  Future<Task?> addNewTask(String requsetBody);
+  Future<Task?> addNewTask(Task newTask);
 
   Future<Task?> updateTask(String uid, String requsetBody);
 
@@ -30,9 +34,8 @@ class Api extends IApi {
   }
 
   @override
-  Future<Task?> addNewTask(String requsetBody) {
-    // TODO: implement addNewTask
-    throw UnimplementedError();
+  Future<Task?> addNewTask(Task newTask) async {
+    _storage.addNewTask(newTask.toJson());
   }
 
   @override
@@ -45,13 +48,25 @@ class Api extends IApi {
   Future<List<Task>?> getAllTasks() async {
     List<Task> tasks;
 
-    _storage.getAllTasks();
+    List<Map<String, dynamic>>? tasksJson = await _storage.getAllTasks();
+
+    if (tasksJson == null) return null;
+
+    tasks = tasksJson.map((e) => Task.fromJson(e)).toList();
+    return tasks;
   }
 
   @override
-  Future<Task?> getTask(String uid) {
-    // TODO: implement getTask
-    throw UnimplementedError();
+  Future<Task?> getTask(String uid) async {
+    Task task;
+
+    Map<String, dynamic>? taskJson = await _storage.getTask(uid);
+
+    if (taskJson == null) return null;
+
+    task = Task.fromJson(taskJson);
+
+    return task;
   }
 
   @override
