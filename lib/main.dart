@@ -8,6 +8,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:todo_list/api/api.dart';
+import 'package:todo_list/backend_connection/backend_connection.dart';
 import 'package:todo_list/logger.dart';
 import 'package:todo_list/modals/task.dart';
 import 'package:todo_list/storage/storage.dart';
@@ -19,37 +21,12 @@ import 'i18n/strings.g.dart';
 // import 'routes.dart';
 
 void main() async {
-  IStorage storage = Storage();
-  await storage.init();
-
-  Task task = Task(
-    "uid",
-    "text",
-    TaskImportanceTypes.important,
-    true,
-    DateTime.now(),
-    DateTime.now(),
-    123,
-  );
-
-  // storage.addNewTask(task.toJson());
-
-  // Task readTask = Task.fromJson((await storage.getTask(task.uid))!);
-
-  // logger.i(task.toJson());
-  // logger.i(readTask.toJson());
-
-  List<Task>? list = (await storage.getAllTasks())?.map((e) => Task.fromJson(e)).toList();
-
-  for (var l in list!) {
-    logger.i(l.toJson());
-  }
-
   // setUpSystemUIOverlay();
 
-  // //Инициализация контроллеров
-  // // GetIt.I.registerSingleton<TaskListContoller>(TaskListContoller());
-  // // GetIt.I.registerSingleton<NavigationManager>(NavigationManager());
+  GetIt.I.registerSingleton<IBackendConnection>(BackendConnection());
+  GetIt.I.registerSingleton<IStorage>(Storage());
+
+  GetIt.I.registerSingleton<IApi>(Api());
 
   // LocaleSettings.useDeviceLocale(); //Угадайте, что делает эта строка
 

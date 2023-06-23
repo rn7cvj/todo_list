@@ -1,5 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:todo_list/logger.dart';
+import 'package:get_storage/get_storage.dart';
 
 abstract class IStorage {
   Future<void> init();
@@ -18,46 +20,61 @@ abstract class IStorage {
 }
 
 class Storage extends IStorage {
-  Box<dynamic>? _box;
+  GetStorage? _box;
 
   @override
   Future<void> init() async {
-    await Hive.initFlutter();
-    _box = await Hive.openBox('taskBox');
+    await GetStorage.init();
+    _box = GetStorage('taskBox');
   }
 
   @override
   Future<Map<String, dynamic>?> addNewTask(Map<String, dynamic> data) async {
-    await _box?.add(data);
+    await _box?.write(data["uid"], data);
   }
 
   @override
-  Future<Map<String, dynamic>?> deleteTask(String uid) {
-    // TODO: implement deleteTask
-    throw UnimplementedError();
+  Future<Map<String, dynamic>?> deleteTask(String uid) async {
+    Map<String, dynamic>? removeValue = await getTask(uid);
+    await _box?.remove(uid);
+    return removeValue;
   }
 
   @override
   Future<List<Map<String, dynamic>>?> getAllTasks() async {
-    List<dynamic> values = _box!.values.toList();
-    return values.map((e) =>).toList();
+    List<String> keys = _box?.getKeys().toList();
+
+    List<Map<String, dynamic>>? values;
+
+    if (keys.length != 0) {
+      values = [];
+    }
+
+    for (String key in keys) {
+      values?.add(_box?.read(key));
+    }
+
+    return values;
   }
 
   @override
   Future<Map<String, dynamic>?> getTask(String uid) async {
-    List<dynamic> values = _box!.values.toList();
-    return values.where((element) => (element as Map<String, dynamic>)["uid"] == uid).firstOrNull;
+    Map<String, dynamic>? res = _box?.read(uid);
+    return res;
   }
 
   @override
-  Future<List<Map<String, dynamic>>?> updateAllTasks(List<Map<String, dynamic>> data) {
-    // TODO: implement updateAllTasks
-    throw UnimplementedError();
+  Future<List<Map<String, dynamic>>?> updateAllTasks(List<Map<String, dynamic>> data) async {
+    await _box?.erase();
+
+    for (Map<String, dynamic> d in data) {
+      addNewTask(d);
+    }
   }
 
   @override
-  Future<Map<String, dynamic>?> updateTask(String uid, Map<String, dynamic> data) {
-    // TODO: implement updateTask
-    throw UnimplementedError();
+  Future<Map<String, dynamic>?> updateTask(String uid, Map<String, dynamic> data) async {
+    await _box?.write(data["uid"], data);
+    return getTask(data["uid"]);
   }
 }
