@@ -158,7 +158,9 @@ class TaskTile extends StatelessWidget {
         activeColor: Colors.amberAccent,
         fillColor: checkBoxColor,
         value: task.done,
-        onChanged: (newVAlue) => contoller.toogleTaksComplitedStatus(task.id),
+        onChanged: (newVAlue) async {
+          await contoller.toogleTaksComplitedStatus(task.id);
+        },
       ),
       title: Row(
         children: [

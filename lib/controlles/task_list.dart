@@ -45,7 +45,8 @@ abstract class TaskListContollerStore with Store {
 
   @action
   Future<void> addNewTaskByDetails(String text, DateTime? deadLine, TaskImportanceTypes importanceType) async {
-    Task newTask = Task(uuid.v4(), text, importanceType, false, DateTime.now(), DateTime.now(), "123");
+    Task newTask =
+        Task(uuid.v4(), text, importanceType, false, DateTime.now(), DateTime.now(), "123", deadline: deadLine);
 
     await api.addNewTask(newTask);
 
