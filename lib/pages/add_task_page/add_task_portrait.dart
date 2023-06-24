@@ -40,11 +40,13 @@ class AddTaskPortrait extends StatelessWidget {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: appPaddingSmall),
-            child: AddTaskButton(
-              whatToDoController: whatToDoController,
-              deadLine: deadLine,
-              importanceType: importanceType,
-            ),
+            child: Observer(builder: (_) {
+              return AddTaskButton(
+                whatToDoController: whatToDoController,
+                deadLine: deadLine,
+                importanceType: importanceType,
+              );
+            }),
           )
         ],
       ),
