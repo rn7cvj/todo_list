@@ -26,7 +26,7 @@ class TaskTile extends StatelessWidget {
 
   final Observable<double> iconExtraPadding = 0.0.obs();
 
-  final Observable<bool> isLoading = Observable<bool>(false);
+  final Observable<bool> isSyncing = Observable<bool>(false);
 
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
   final NavigationManager navigationManager = GetIt.I<NavigationManager>();
@@ -35,7 +35,7 @@ class TaskTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (context) {
-        if (isLoading.value) {
+        if (isSyncing.value) {
           return ShimmerEffect(
             baseColor: Theme.of(context).colorScheme.primary,
             highlightColor: Theme.of(context).colorScheme.onPrimary,
@@ -52,12 +52,16 @@ class TaskTile extends StatelessWidget {
             confirmDismiss: (direction) async {
               if (direction == DismissDirection.startToEnd) {
                 Timer(animationDurationFast, () async {
-                  runInAction(() => isLoading.value = true);
-                  logger.i("toogle ${task.id} ${isLoading.value}");
-                  contoller.toogleTaksComplitedStatus(task.id);
-                  runInAction(() => isLoading.value = false);
+                  runInAction(() => isSyncing.value = true);
+                  await contoller.toogleTaksComplitedStatus(task.id);
                 });
                 return !contoller.isComplitedTaskVisible;
+              }
+
+              if (direction == DismissDirection.endToStart) {
+                runInAction(() => isSyncing.value = true);
+                await contoller.deleteTask(task.id);
+                return true;
               }
 
               return true;
@@ -70,7 +74,7 @@ class TaskTile extends StatelessWidget {
             onDismissed: (direction) {
               //dont ask. I forbid you.
               // if (direction == DismissDirection.startToEnd) contoller.toogleTaksComplitedStatus(task.id);
-              if (direction == DismissDirection.endToStart) contoller.deleteTask(task.id);
+              // if (direction == DismissDirection.endToStart) contoller.deleteTask(task.id);
             },
             onUpdate: (details) {
               runInAction(() => iconExtraPadding.value = details.progress);

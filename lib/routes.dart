@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/pages/add_task_page/add_task_page.dart';
 import 'package:todo_list/pages/edit_task_page/edit_task_page.dart';
+import 'package:todo_list/pages/settings_page/settings_page.dart';
 
 import 'pages/home_page/home_page.dart';
 
@@ -12,6 +13,7 @@ abstract class RouteNames {
   static const taskList = '/taskList';
   static const addTask = '/addTask';
   static const editTask = '/editTask';
+  static const settings = '/settings';
 }
 
 abstract class RoutesBuilder {
@@ -21,6 +23,7 @@ abstract class RoutesBuilder {
     RouteNames.taskList: (_) => const HomePage(),
     RouteNames.addTask: (_) => const AddTaskPage(),
     RouteNames.editTask: (context) => EditTaskPage(taskId: ModalRoute.of(context)?.settings.arguments as String),
+    RouteNames.settings: (_) => const SettingsPage()
   };
 
   static Route<Object?>? onGenerateRoute(RouteSettings settings) {
@@ -43,6 +46,8 @@ abstract class RoutesBuilder {
           ),
           settings: settings,
         );
+      case RouteNames.settings:
+        return MaterialPageRoute(builder: (_) => const SettingsPage());
     }
 
     return null;
@@ -59,7 +64,6 @@ abstract class RoutesBuilder {
     final routes = <Route>[];
 
     if (initialRoutes.isEmpty || !initialRoutes.startsWith('/')) {
-      print('invalid initialRoutes ($initialRoutes)');
     } else {
       final names = initialRoutes.substring(1).split('/');
       for (final name in names) {
@@ -76,7 +80,6 @@ abstract class RoutesBuilder {
     }
 
     if (routes.isEmpty) {
-      print('generated empty initial routes ($initialRoutes)');
       routes.add(
         onGenerateRoute(const RouteSettings(name: RouteNames.taskList))!,
       );

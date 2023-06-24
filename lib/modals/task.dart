@@ -59,7 +59,7 @@ abstract class TaskStore with Store {
 
   static int? _dateTimeNullableToJson(DateTime? value) => value?.toUtc().millisecondsSinceEpoch;
   static DateTime? _dateTimeNullablefromJson(int? value) =>
-      value == null ? null : DateTime.fromMicrosecondsSinceEpoch(value);
+      value == null ? null : DateTime.fromMillisecondsSinceEpoch(value);
 
   static int _dateTimeToJson(DateTime value) => value.toUtc().millisecondsSinceEpoch;
   static DateTime _dateTimefromJson(int value) => DateTime.fromMillisecondsSinceEpoch(value);

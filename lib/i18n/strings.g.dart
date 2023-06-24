@@ -1,9 +1,9 @@
 /// Generated file. Do not edit.
 ///
 /// Locales: 2
-/// Strings: 32 (16 per locale)
+/// Strings: 38 (19 per locale)
 ///
-/// Built on 2023-06-24 at 00:14 UTC
+/// Built on 2023-06-24 at 04:17 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -151,6 +151,7 @@ class _StringsEn implements BaseTranslations<AppLocale, _StringsEn> {
 	late final _StringsCommonEn common = _StringsCommonEn._(_root);
 	late final _StringsErrorsEn errors = _StringsErrorsEn._(_root);
 	late final _StringsHomeEn home = _StringsHomeEn._(_root);
+	late final _StringsSettingsEn settings = _StringsSettingsEn._(_root);
 }
 
 // Path: addtask
@@ -205,6 +206,18 @@ class _StringsHomeEn {
 	String get complited => 'Complited';
 }
 
+// Path: settings
+class _StringsSettingsEn {
+	_StringsSettingsEn._(this._root);
+
+	final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Settings';
+	String get use_local_storage => 'Use local storage';
+	String get restart_required => 'Restart required';
+}
+
 // Path: <root>
 class _StringsRu implements _StringsEn {
 
@@ -234,6 +247,7 @@ class _StringsRu implements _StringsEn {
 	@override late final _StringsCommonRu common = _StringsCommonRu._(_root);
 	@override late final _StringsErrorsRu errors = _StringsErrorsRu._(_root);
 	@override late final _StringsHomeRu home = _StringsHomeRu._(_root);
+	@override late final _StringsSettingsRu settings = _StringsSettingsRu._(_root);
 }
 
 // Path: addtask
@@ -263,7 +277,7 @@ class _StringsCommonRu implements _StringsCommonEn {
 	@override String get delete => 'Удалить';
 	@override String get save => 'Сохранить';
 	@override String get edit => 'Изменить';
-	@override String get syncing => 'Cинхронизации';
+	@override String get syncing => 'Cинхронизация';
 }
 
 // Path: errors
@@ -288,6 +302,18 @@ class _StringsHomeRu implements _StringsHomeEn {
 	@override String get complited => 'Выполненно';
 }
 
+// Path: settings
+class _StringsSettingsRu implements _StringsSettingsEn {
+	_StringsSettingsRu._(this._root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Настройки';
+	@override String get use_local_storage => 'Использовать локальное хранилище';
+	@override String get restart_required => 'Требуется перезапуск';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 
@@ -310,6 +336,9 @@ extension on _StringsEn {
 			case 'errors.failServerConnetcion': return 'Server temporarily unavailable';
 			case 'home.my_task': return 'My task';
 			case 'home.complited': return 'Complited';
+			case 'settings.title': return 'Settings';
+			case 'settings.use_local_storage': return 'Use local storage';
+			case 'settings.restart_required': return 'Restart required';
 			default: return null;
 		}
 	}
@@ -329,11 +358,14 @@ extension on _StringsRu {
 			case 'common.delete': return 'Удалить';
 			case 'common.save': return 'Сохранить';
 			case 'common.edit': return 'Изменить';
-			case 'common.syncing': return 'Cинхронизации';
+			case 'common.syncing': return 'Cинхронизация';
 			case 'errors.noIntenet': return 'Отсутствует подключение к интернету';
 			case 'errors.failServerConnetcion': return 'Сервер временно недоступен';
 			case 'home.my_task': return 'Мои дела';
 			case 'home.complited': return 'Выполненно';
+			case 'settings.title': return 'Настройки';
+			case 'settings.use_local_storage': return 'Использовать локальное хранилище';
+			case 'settings.restart_required': return 'Требуется перезапуск';
 			default: return null;
 		}
 	}

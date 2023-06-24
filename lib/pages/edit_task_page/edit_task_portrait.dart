@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
+import 'package:todo_list/pages/edit_task_page/widgets/delete_task_button.dart';
 
 import '../../constants.dart';
 import '../../controlles/task_list.dart';
@@ -9,6 +10,7 @@ import '../../helper_functions.dart';
 import '../../i18n/strings.g.dart';
 import '../../modals/task.dart';
 import '../../navigator.dart';
+import 'widgets/edit_task_button.dart';
 
 class EditTaskPortait extends StatelessWidget {
   EditTaskPortait({super.key, required this.taskUid}) {
@@ -56,12 +58,11 @@ class EditTaskPortait extends StatelessWidget {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: appPaddingSmall),
-            child: TextButton(
-              onPressed: editTask,
-              child: Text(
-                t.common.edit,
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
+            child: EditTaskButton(
+              taskUid: taskUid,
+              whatToDoController: whatToDoController,
+              deadLine: deadLine,
+              importanceType: importanceType,
             ),
           )
         ],
@@ -93,14 +94,9 @@ class EditTaskPortait extends StatelessWidget {
           ),
           const Divider(height: 2),
           Padding(
-            padding: const EdgeInsets.only(top: appElevationSmall, bottom: appElevationSmall),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: TextButton.icon(
-                onPressed: deleteTask,
-                icon: const Icon(Icons.delete),
-                label: Text(t.common.delete),
-              ),
+            padding: const EdgeInsets.all(appPaddingMedium),
+            child: DeleteTaskButton(
+              taskUid: taskUid,
             ),
           )
         ],
@@ -197,15 +193,5 @@ class EditTaskPortait extends StatelessWidget {
       deadLineText,
       style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.primary),
     );
-  }
-
-  void deleteTask() {
-    navigationManager.popToHomePage();
-    contoller.deleteTask(taskUid);
-  }
-
-  void editTask() {
-    contoller.editTask(taskUid, whatToDoController.text, deadLine.value, importanceType.value);
-    navigationManager.popToHomePage();
   }
 }

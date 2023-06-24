@@ -9,6 +9,7 @@ import 'package:todo_list/constants.dart';
 
 import '../../../controlles/task_list.dart';
 import '../../../i18n/strings.g.dart';
+import '../../../navigator.dart';
 
 // Это должен быть StateLess виджет но форматер ругается на не файнал поле
 // поэтоу это Stateful )))
@@ -23,6 +24,7 @@ class HomeAppBar extends StatefulWidget {
 
 class _HomeAppBarState extends State<HomeAppBar> {
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
+  final NavigationManager navigationManager = GetIt.I<NavigationManager>();
 
   final Observable<double> appBarExpendProgress = Observable<double>(0.0);
 
@@ -49,6 +51,27 @@ class _HomeAppBarState extends State<HomeAppBar> {
         );
 
         return SliverAppBar(
+          actions: appBarExpendProgress.value == 1.0
+              ? [
+                  Padding(
+                    padding: const EdgeInsets.only(right: appElevationSmall),
+                    child: IconButton(
+                      color: Theme.of(context).colorScheme.secondary,
+                      onPressed: contoller.toogleComplitedTaskVisibilty,
+                      icon: Icon(contoller.isComplitedTaskVisible ? Icons.visibility : Icons.visibility_off),
+                    ),
+                  )
+                ]
+              : [
+                  Padding(
+                    padding: const EdgeInsets.only(right: appElevationSmall),
+                    child: IconButton(
+                      color: Theme.of(context).colorScheme.secondary,
+                      onPressed: navigationManager.openSettingsPage,
+                      icon: const Icon(Icons.settings),
+                    ),
+                  )
+                ],
           shadowColor: Theme.of(context).colorScheme.shadow,
           pinned: true,
           expandedHeight: screenFourth,

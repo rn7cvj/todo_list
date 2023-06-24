@@ -18,6 +18,11 @@ class NavigationManager {
     _navigator.pushNamed(RouteNames.editTask, arguments: uid);
   }
 
+  void openSettingsPage() {
+    logger.i("Open settings page");
+    _navigator.pushNamed(RouteNames.settings);
+  }
+
   void pop() {
     logger.i("Pop page");
     _navigator.pop();

@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:todo_list/constants.dart';
 import 'package:todo_list/helper_functions.dart';
+import 'package:todo_list/pages/add_task_page/widgets/add_task_button.dart';
 
 import '../../controlles/task_list.dart';
 import '../../i18n/strings.g.dart';
@@ -39,12 +40,10 @@ class AddTaskPortrait extends StatelessWidget {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: appPaddingSmall),
-            child: TextButton(
-              onPressed: saveNewTask,
-              child: Text(
-                t.common.save,
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
+            child: AddTaskButton(
+              whatToDoController: whatToDoController,
+              deadLine: deadLine,
+              importanceType: importanceType,
             ),
           )
         ],
@@ -169,10 +168,5 @@ class AddTaskPortrait extends StatelessWidget {
       deadLineText,
       style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.primary),
     );
-  }
-
-  void saveNewTask() {
-    contoller.addNewTaskByDetails(whatToDoController.text, deadLine.value, importanceType.value);
-    navigationManager.popToHomePage();
   }
 }

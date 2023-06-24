@@ -27,7 +27,7 @@ class Storage extends IStorage {
 
   @override
   Future<Map<String, dynamic>?> addNewTask(Map<String, dynamic> data) async {
-    await _box?.write(data["uid"], data);
+    await _box?.write(data["id"], data);
   }
 
   @override

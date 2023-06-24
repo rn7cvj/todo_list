@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:get_it/get_it.dart';
 import 'package:todo_list/api/api.dart';
+import 'package:todo_list/controlles/settings.dart';
 import 'package:todo_list/data/backend_connection/backend_connection.dart';
 import 'package:todo_list/data/storage/storage.dart';
 import 'package:todo_list/routes.dart';
@@ -16,6 +17,8 @@ import 'navigator.dart';
 
 void main() async {
   setUpSystemUIOverlay();
+
+  await GetIt.I.registerSingleton<Settings>(Settings()).init();
 
   await GetIt.I.registerSingleton<IBackendConnection>(BackendConnection()).init();
   await GetIt.I.registerSingleton<IStorage>(Storage()).init();

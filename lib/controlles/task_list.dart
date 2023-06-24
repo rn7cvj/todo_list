@@ -120,7 +120,8 @@ abstract class TaskListContollerStore with Store {
   Future<void> fetchLastTask() async {
     List<Task>? storageTaskList = (await api.getAllTasks());
     if (storageTaskList != null) {
-      tasks = storageTaskList.asObservable();
+      tasks.clear();
+      tasks.addAll(storageTaskList.asObservable());
     }
   }
 
