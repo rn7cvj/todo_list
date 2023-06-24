@@ -49,12 +49,11 @@ class _HomeAppBarState extends State<HomeAppBar> {
           // 24 - чтобы оно не наезжало на backround потому что IconButton имеет какие-то свои отступы
           bottom: 16 + lerpDouble(24, 0, appBarExpendProgress.value)!,
         );
-
         return SliverAppBar(
-          actions: appBarExpendProgress.value == 1.0
+          actions: appBarExpendProgress.value > 0.75
               ? [
                   Padding(
-                    padding: const EdgeInsets.only(right: appElevationSmall),
+                    padding: const EdgeInsets.only(right: appPaddingSmall),
                     child: IconButton(
                       color: Theme.of(context).colorScheme.secondary,
                       onPressed: contoller.toogleComplitedTaskVisibilty,
@@ -64,7 +63,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
                 ]
               : [
                   Padding(
-                    padding: const EdgeInsets.only(right: appElevationSmall),
+                    padding: const EdgeInsets.only(right: appPaddingSmall),
                     child: IconButton(
                       color: Theme.of(context).colorScheme.secondary,
                       onPressed: navigationManager.openSettingsPage,
