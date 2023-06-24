@@ -93,6 +93,7 @@ class TaskTile extends StatelessWidget {
                   iconData: backroundIcon,
                   iconPadding: const EdgeInsets.only(left: appPaddingSmall),
                   iconExtraPadding: iconExtraPadding,
+                  dismissDirection: DismissDirection.startToEnd,
                 );
               },
             ),
@@ -104,6 +105,7 @@ class TaskTile extends StatelessWidget {
               iconData: Icons.delete,
               iconPadding: const EdgeInsets.only(right: appPaddingSmall),
               iconExtraPadding: iconExtraPadding,
+              dismissDirection: DismissDirection.endToStart,
             ),
             child: Observer(
               builder: (context) => buildTaskTile(context),
@@ -200,6 +202,7 @@ class Background extends StatelessWidget {
     required this.iconAligment,
     required this.iconData,
     required this.iconPadding,
+    required this.dismissDirection,
   });
 
   final bool isFirst;
@@ -208,6 +211,8 @@ class Background extends StatelessWidget {
   final IconData iconData;
   final Observable<double> iconExtraPadding;
   final EdgeInsets iconPadding;
+  final DismissDirection dismissDirection;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -226,13 +231,13 @@ class Background extends StatelessWidget {
         child: Observer(
           builder: (_) {
             // Это для динамического перемещения иконки. В итоге не используется
-            // EdgeInsets iconAnimationPadding = dismissDirection == DismissDirection.startToEnd
-            //     ? EdgeInsets.only(left: iconExtraPadding.value)
-            //     : EdgeInsets.only(right: iconExtraPadding.value);
+            EdgeInsets iconAnimationPadding = dismissDirection == DismissDirection.startToEnd
+                ? EdgeInsets.only(left: iconExtraPadding.value * appPaddingLarge * 3)
+                : EdgeInsets.only(right: iconExtraPadding.value * appPaddingLarge * 3);
 
             return Padding(
-              // padding: iconPadding.add(iconAnimationPadding),
-              padding: iconPadding,
+              padding: iconPadding.add(iconAnimationPadding),
+              // padding: iconPadding,
               child: Icon(
                 iconData,
                 color: Theme.of(context).colorScheme.onError,
