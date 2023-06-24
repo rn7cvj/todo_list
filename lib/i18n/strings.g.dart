@@ -1,9 +1,9 @@
 /// Generated file. Do not edit.
 ///
 /// Locales: 2
-/// Strings: 30 (15 per locale)
+/// Strings: 32 (16 per locale)
 ///
-/// Built on 2023-06-23 at 20:45 UTC
+/// Built on 2023-06-24 at 00:14 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -180,6 +180,7 @@ class _StringsCommonEn {
 	String get delete => 'Delete';
 	String get save => 'Save';
 	String get edit => 'Edit';
+	String get syncing => 'Syncing';
 }
 
 // Path: errors
@@ -262,6 +263,7 @@ class _StringsCommonRu implements _StringsCommonEn {
 	@override String get delete => 'Удалить';
 	@override String get save => 'Сохранить';
 	@override String get edit => 'Изменить';
+	@override String get syncing => 'Cинхронизации';
 }
 
 // Path: errors
@@ -303,6 +305,7 @@ extension on _StringsEn {
 			case 'common.delete': return 'Delete';
 			case 'common.save': return 'Save';
 			case 'common.edit': return 'Edit';
+			case 'common.syncing': return 'Syncing';
 			case 'errors.noIntenet': return 'No internet connection';
 			case 'errors.failServerConnetcion': return 'Server temporarily unavailable';
 			case 'home.my_task': return 'My task';
@@ -326,6 +329,7 @@ extension on _StringsRu {
 			case 'common.delete': return 'Удалить';
 			case 'common.save': return 'Сохранить';
 			case 'common.edit': return 'Изменить';
+			case 'common.syncing': return 'Cинхронизации';
 			case 'errors.noIntenet': return 'Отсутствует подключение к интернету';
 			case 'errors.failServerConnetcion': return 'Сервер временно недоступен';
 			case 'home.my_task': return 'Мои дела';

@@ -5,10 +5,14 @@ import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import 'package:shimmer_effect/shimmer_effect.dart';
+
 import 'package:todo_list/constants.dart';
 import '../../../controlles/task_list.dart';
 import '../../../helper_functions.dart';
 
+import '../../../i18n/strings.g.dart';
+import '../../../logger.dart';
 import '../../../modals/task.dart';
 import '../../../navigator.dart';
 
@@ -22,65 +26,87 @@ class TaskTile extends StatelessWidget {
 
   final Observable<double> iconExtraPadding = 0.0.obs();
 
+  final Observable<bool> isLoading = Observable<bool>(false);
+
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
   final NavigationManager navigationManager = GetIt.I<NavigationManager>();
 
   @override
   Widget build(BuildContext context) {
-    //Не даёт таску вылезать за пределы карточки при свайпе
-    return ClipRRect(
-      child: Dismissible(
-        confirmDismiss: (direction) async {
-          if (direction == DismissDirection.startToEnd) {
-            Timer(animationDurationFast, () => contoller.toogleTaksComplitedStatus(task.id));
-            return !contoller.isComplitedTaskVisible;
-          }
+    return Observer(
+      builder: (context) {
+        if (isLoading.value) {
+          return ShimmerEffect(
+            baseColor: Theme.of(context).colorScheme.primary,
+            highlightColor: Theme.of(context).colorScheme.onPrimary,
+            child: ListTile(
+              leading: const Icon(Icons.sync),
+              title: Text(t.common.syncing),
+            ),
+          );
+        }
 
-          return true;
-        },
-        key: UniqueKey(),
-        dismissThresholds: const {
-          DismissDirection.startToEnd: 0.4,
-          DismissDirection.endToStart: 0.4,
-        },
-        onDismissed: (direction) {
-          //dont ask. I forbid you.
-          // if (direction == DismissDirection.startToEnd) contoller.toogleTaksComplitedStatus(task.id);
-          if (direction == DismissDirection.endToStart) contoller.deleteTask(task.id);
-        },
-        onUpdate: (details) {
-          runInAction(() => iconExtraPadding.value = details.progress);
-        },
-        background: Observer(
-          builder: (context) {
-            Color backgroundColor =
-                task.done ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.inversePrimary;
+        //Не даёт таску вылезать за пределы карточки при свайпе
+        return ClipRRect(
+          child: Dismissible(
+            confirmDismiss: (direction) async {
+              if (direction == DismissDirection.startToEnd) {
+                Timer(animationDurationFast, () async {
+                  runInAction(() => isLoading.value = true);
+                  logger.i("toogle ${task.id} ${isLoading.value}");
+                  contoller.toogleTaksComplitedStatus(task.id);
+                  runInAction(() => isLoading.value = false);
+                });
+                return !contoller.isComplitedTaskVisible;
+              }
 
-            IconData backroundIcon = task.done ? Icons.close : Icons.check;
+              return true;
+            },
+            key: UniqueKey(),
+            dismissThresholds: const {
+              DismissDirection.startToEnd: 0.4,
+              DismissDirection.endToStart: 0.4,
+            },
+            onDismissed: (direction) {
+              //dont ask. I forbid you.
+              // if (direction == DismissDirection.startToEnd) contoller.toogleTaksComplitedStatus(task.id);
+              if (direction == DismissDirection.endToStart) contoller.deleteTask(task.id);
+            },
+            onUpdate: (details) {
+              runInAction(() => iconExtraPadding.value = details.progress);
+            },
+            background: Observer(
+              builder: (context) {
+                Color backgroundColor =
+                    task.done ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.inversePrimary;
+
+                IconData backroundIcon = task.done ? Icons.close : Icons.check;
+                //Билдер фона для свайпа вправо
+                return Background(
+                  isFirst: isFirst,
+                  backgroundColor: backgroundColor,
+                  iconAligment: Alignment.centerLeft,
+                  iconData: backroundIcon,
+                  iconPadding: const EdgeInsets.only(left: appPaddingSmall),
+                  iconExtraPadding: iconExtraPadding,
+                );
+              },
+            ),
             //Билдер фона для свайпа вправо
-            return Background(
+            secondaryBackground: Background(
               isFirst: isFirst,
-              backgroundColor: backgroundColor,
-              iconAligment: Alignment.centerLeft,
-              iconData: backroundIcon,
-              iconPadding: const EdgeInsets.only(left: appPaddingSmall),
+              backgroundColor: Theme.of(context).colorScheme.error,
+              iconAligment: Alignment.centerRight,
+              iconData: Icons.delete,
+              iconPadding: const EdgeInsets.only(right: appPaddingSmall),
               iconExtraPadding: iconExtraPadding,
-            );
-          },
-        ),
-        //Билдер фона для свайпа вправо
-        secondaryBackground: Background(
-          isFirst: isFirst,
-          backgroundColor: Theme.of(context).colorScheme.error,
-          iconAligment: Alignment.centerRight,
-          iconData: Icons.delete,
-          iconPadding: const EdgeInsets.only(right: appPaddingSmall),
-          iconExtraPadding: iconExtraPadding,
-        ),
-        child: Observer(
-          builder: (context) => buildTaskTile(context),
-        ),
-      ),
+            ),
+            child: Observer(
+              builder: (context) => buildTaskTile(context),
+            ),
+          ),
+        );
+      },
     );
   }
 

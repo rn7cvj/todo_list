@@ -29,7 +29,7 @@ class BackendConnection extends IBackendConnection {
   static final String _deleteTaskUrl = "/list/";
 
   Map<String, String> get _headers => {
-        "Authorization": "Bearer ",
+        "Authorization": "Bearer reimply",
         "X-Last-Known-Revision": '$_lastRevision',
       };
 
