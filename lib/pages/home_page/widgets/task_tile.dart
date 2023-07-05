@@ -54,6 +54,8 @@ class TaskTile extends StatelessWidget {
                 Timer(animationDurationFast, () async {
                   runInAction(() => isSyncing.value = true);
                   await contoller.toogleTaksComplitedStatus(task.id);
+
+                  runInAction(() => isSyncing.value = false);
                 });
                 return !contoller.isComplitedTaskVisible;
               }

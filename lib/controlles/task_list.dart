@@ -123,6 +123,8 @@ abstract class TaskListContollerStore with Store {
     if (storageTaskList != null) {
       tasks.clear();
       tasks.addAll(storageTaskList.asObservable());
+    } else {
+      tasks.clear();
     }
   }
 

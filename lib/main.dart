@@ -13,6 +13,8 @@ import 'package:todo_list/routes.dart';
 
 import 'controlles/task_list.dart';
 import 'i18n/strings.g.dart';
+import 'navigation/route_information_parser.dart';
+import 'navigation/router_delegate.dart';
 import 'navigator.dart';
 
 void main() async {
@@ -31,7 +33,7 @@ void main() async {
 
   LocaleSettings.useDeviceLocale(); //Угадайте, что делает эта строка
 
-  runApp(TranslationProvider(child: const App()));
+  runApp(TranslationProvider(child: App()));
 }
 
 //Перевод приложения в полноэкранный режим
@@ -48,11 +50,14 @@ void setUpSystemUIOverlay() {
 }
 
 class App extends StatelessWidget {
-  const App({super.key});
+  App({super.key});
+
+  final _routerDelegate = MyRouterDelegate();
+  final _routeInformationParser = MyRouteInformationParser();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(
         useMaterial3: true,
@@ -63,9 +68,8 @@ class App extends StatelessWidget {
       locale: TranslationProvider.of(context).flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      navigatorKey: GetIt.I<NavigationManager>().key,
-      initialRoute: RouteNames.initialRoute,
-      routes: RoutesBuilder.routes,
+      routerDelegate: _routerDelegate,
+      routeInformationParser: _routeInformationParser,
     );
   }
 }
