@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list/logger.dart';
 import 'package:todo_list/pages/add_task_page/add_task_page.dart';
 import 'package:todo_list/pages/edit_task_page/edit_task_page.dart';
 import 'package:todo_list/pages/home_page/home_page.dart';

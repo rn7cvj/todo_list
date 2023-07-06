@@ -12,7 +12,6 @@ import '../../../controlles/task_list.dart';
 import '../../../helper_functions.dart';
 
 import '../../../i18n/strings.g.dart';
-import '../../../logger.dart';
 import '../../../modals/task.dart';
 import '../../../navigation/router_delegate.dart';
 

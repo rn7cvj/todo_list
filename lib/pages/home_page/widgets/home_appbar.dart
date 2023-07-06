@@ -7,7 +7,6 @@ import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:todo_list/constants.dart';
 
-import '../../../api/api.dart';
 import '../../../controlles/task_list.dart';
 import '../../../i18n/strings.g.dart';
 import '../../../navigation/router_delegate.dart';
