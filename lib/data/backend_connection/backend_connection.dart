@@ -1,7 +1,6 @@
 import 'dart:convert' as convert;
 
 import 'package:http/http.dart' as http;
-import 'package:todo_list/logger.dart';
 
 enum BackendStatus {
   available,
@@ -107,7 +106,7 @@ class BackendConnection extends IBackendConnection {
       var list = (jsonResponse["list"] as List<dynamic>).map((j) => j as Map<String, dynamic>).toList();
 
       return list;
-    } on Exception catch (e) {
+    } on Exception {
       _backendStatus = BackendStatus.unavailable;
       return null;
     }
@@ -202,7 +201,7 @@ class BackendConnection extends IBackendConnection {
       var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
       _lastRevision = jsonResponse["revision"];
       return jsonResponse["element"];
-    } on Exception catch (e) {
+    } on Exception {
       _backendStatus = BackendStatus.unavailable;
       return null;
     }
@@ -225,7 +224,7 @@ class BackendConnection extends IBackendConnection {
 
       _lastRevision = jsonResponse["revision"];
       return jsonResponse["element"];
-    } on Exception catch (e) {
+    } on Exception {
       _backendStatus = BackendStatus.unavailable;
       return null;
     }

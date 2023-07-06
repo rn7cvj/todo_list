@@ -31,43 +31,18 @@ class MyRouteInformationParser extends RouteInformationParser<NavigationState> {
       return NavigationState.editTask(editTaskId);
     }
 
-    // if (uri.pathSegments.length == 2) {
-    //   final itemId = uri.pathSegments[1];
-
-    //   if (uri.pathSegments[0] == Routes.item &&
-    //       ItemsRepository.items.any((item) => item.id == itemId)) {
-    //     return NavigationState.item(itemId);
-    //   }
-
-    //   return NavigationState.unknown();
-    // }
-
-    // if (uri.pathSegments.length == 1) {
-    //   final path = uri.pathSegments[0];
-    //   if (path == Routes.cart) {
-    //     return NavigationState.cart();
-    //   }
-
-    //   return NavigationState.root();
-    // }
-
-    return NavigationState.internetCheck();
+    return NavigationState.root();
   }
 
   @override
   RouteInformation? restoreRouteInformation(NavigationState configuration) {
-    // if (configuration.isCart) {
-    //   return const RouteInformation(location: '/${Routes.cart}');
-    // }
+    if (configuration.isAddTask) {
+      return const RouteInformation(location: '/${RoutesName.createTask}');
+    }
 
-    // if (configuration.isDetailsScreen) {
-    //   return RouteInformation(
-    //       location: '/${Routes.item}/${configuration.selectedItemId}');
-    // }
-
-    // if (configuration.isUnknown) {
-    //   return null;
-    // }
+    if (configuration.isEditTask) {
+      return RouteInformation(location: '/${RoutesName.editTask}/${configuration.editTaskId}');
+    }
 
     return const RouteInformation(location: '/');
   }

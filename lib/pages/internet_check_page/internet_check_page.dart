@@ -24,7 +24,7 @@ class InternetCheckPage extends StatelessWidget {
     });
   }
 
-  IApi api = GetIt.I<IApi>();
+  final IApi api = GetIt.I<IApi>();
 
   final void Function() onInternetAvalible;
   final void Function() onInternetUnavalible;

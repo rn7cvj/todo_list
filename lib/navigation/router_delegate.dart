@@ -3,7 +3,6 @@ import 'package:todo_list/logger.dart';
 import 'package:todo_list/pages/add_task_page/add_task_page.dart';
 import 'package:todo_list/pages/edit_task_page/edit_task_page.dart';
 import 'package:todo_list/pages/home_page/home_page.dart';
-import 'package:todo_list/pages/home_page/widgets/task_list.dart';
 import 'package:todo_list/pages/settings_page/settings_page.dart';
 import 'package:todo_list/pages/unknown_page/unkhown_page.dart';
 

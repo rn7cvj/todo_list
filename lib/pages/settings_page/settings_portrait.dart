@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:todo_list/constants.dart';
 import 'package:todo_list/controlles/settings.dart';
-import 'package:restart_app/restart_app.dart';
 
 import '../../i18n/strings.g.dart';
 
