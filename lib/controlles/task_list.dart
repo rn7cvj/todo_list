@@ -13,7 +13,7 @@ class TaskListContoller = TaskListContollerStore with _$TaskListContoller;
 abstract class TaskListContollerStore with Store {
   IApi api = GetIt.I<IApi>();
 
-  var uuid = Uuid();
+  var uuid = const Uuid();
 
   ApiStatus get apiStatus => api.getApiStatus();
 

@@ -28,14 +28,14 @@ abstract class IBackendConnection {
 }
 
 class BackendConnection extends IBackendConnection {
-  static final String _baseUrl = "https://beta.mrdekk.ru/todobackend";
+  static const String _baseUrl = "https://beta.mrdekk.ru/todobackend";
 
-  static final String _getAllTasksUrl = "/list";
-  static final String _updateAllTasksUrl = "/list";
-  static final String _getTaskUrl = "/list/";
-  static final String _addNewTaskUrl = "/list";
-  static final String _updateTaskUrl = "/list/";
-  static final String _deleteTaskUrl = "/list/";
+  static const String _getAllTasksUrl = "/list";
+  static const String _updateAllTasksUrl = "/list";
+  static const String _getTaskUrl = "/list/";
+  static const String _addNewTaskUrl = "/list";
+  static const String _updateTaskUrl = "/list/";
+  static const String _deleteTaskUrl = "/list/";
 
   Map<String, String> get _headers => {
         "Authorization": "Bearer reimply",

@@ -29,11 +29,11 @@ void main() async {
 
   await GetIt.I.registerSingleton<TaskListContoller>(TaskListContoller()).init();
 
-  final _routerDelegate = MyRouterDelegate();
-  _routerDelegate.state = NavigationState.internetCheck();
+  final routerDelegate = MyRouterDelegate();
+  routerDelegate.state = NavigationState.internetCheck();
 
-  await GetIt.I.registerSingleton<IRouter>(_routerDelegate);
-  await GetIt.I.registerSingleton<RouterDelegate<NavigationState>>(_routerDelegate);
+  GetIt.I.registerSingleton<IRouter>(routerDelegate);
+  GetIt.I.registerSingleton<RouterDelegate<NavigationState>>(routerDelegate);
 
   LocaleSettings.useDeviceLocale(); //Угадайте, что делает эта строка
 
