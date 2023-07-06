@@ -7,15 +7,15 @@ import 'package:todo_list/api/api.dart';
 import 'package:todo_list/controlles/settings.dart';
 import 'package:todo_list/data/backend_connection/backend_connection.dart';
 import 'package:todo_list/data/storage/storage.dart';
-import 'package:todo_list/routes.dart';
+import 'package:todo_list/logger.dart';
 
 // import 'package:todo_list/controlles/task_list.dart';
 
 import 'controlles/task_list.dart';
 import 'i18n/strings.g.dart';
+import 'navigation/navigation_state.dart';
 import 'navigation/route_information_parser.dart';
 import 'navigation/router_delegate.dart';
-import 'navigator.dart';
 
 void main() async {
   setUpSystemUIOverlay();
@@ -29,9 +29,17 @@ void main() async {
 
   await GetIt.I.registerSingleton<TaskListContoller>(TaskListContoller()).init();
 
-  GetIt.I.registerSingleton<NavigationManager>(NavigationManager());
+  final _routerDelegate = MyRouterDelegate();
+  _routerDelegate.state = NavigationState.internetCheck();
+
+  await GetIt.I.registerSingleton<IRouter>(_routerDelegate);
+  await GetIt.I.registerSingleton<RouterDelegate<NavigationState>>(_routerDelegate);
 
   LocaleSettings.useDeviceLocale(); //Угадайте, что делает эта строка
+
+  logger.i(await GetIt.I<IApi>().updateApiStatus());
+
+  GetIt.I<RouterDelegate<NavigationState>>();
 
   runApp(TranslationProvider(child: App()));
 }
@@ -52,7 +60,6 @@ void setUpSystemUIOverlay() {
 class App extends StatelessWidget {
   App({super.key});
 
-  final _routerDelegate = MyRouterDelegate();
   final _routeInformationParser = MyRouteInformationParser();
 
   @override
@@ -68,7 +75,7 @@ class App extends StatelessWidget {
       locale: TranslationProvider.of(context).flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      routerDelegate: _routerDelegate,
+      routerDelegate: GetIt.I<RouterDelegate<NavigationState>>(),
       routeInformationParser: _routeInformationParser,
     );
   }

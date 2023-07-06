@@ -14,7 +14,7 @@ class MyRouteInformationParser extends RouteInformationParser<NavigationState> {
     final uri = Uri.parse(location);
 
     if (uri.pathSegments.isEmpty) {
-      return NavigationState.root();
+      return NavigationState.internetCheck();
     }
 
     // if (uri.pathSegments.length == 2) {
@@ -37,7 +37,7 @@ class MyRouteInformationParser extends RouteInformationParser<NavigationState> {
     //   return NavigationState.root();
     // }
 
-    return NavigationState.root();
+    return NavigationState.internetCheck();
   }
 
   @override

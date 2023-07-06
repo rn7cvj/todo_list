@@ -9,13 +9,14 @@ import 'package:todo_list/pages/add_task_page/widgets/add_task_button.dart';
 import '../../controlles/task_list.dart';
 import '../../i18n/strings.g.dart';
 import '../../modals/task.dart';
-import '../../navigator.dart';
+import '../../navigation/router_delegate.dart';
 
 class AddTaskPortrait extends StatelessWidget {
   AddTaskPortrait({super.key});
 
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
-  final NavigationManager navigationManager = GetIt.I<NavigationManager>();
+
+  final IRouter navigationManager = GetIt.I<IRouter>();
 
   final List<DropdownMenuEntry> importanceEntries = TaskImportanceTypes.values
       .map((importance) =>

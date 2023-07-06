@@ -7,13 +7,14 @@ import 'package:shimmer_effect/shimmer_effect.dart';
 import '../../../controlles/task_list.dart';
 import '../../../i18n/strings.g.dart';
 import '../../../modals/task.dart';
-import '../../../navigator.dart';
+import '../../../navigation/router_delegate.dart';
 
 class AddTaskButton extends StatelessWidget {
   AddTaskButton({super.key, required this.whatToDoController, required this.deadLine, required this.importanceType});
 
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
-  final NavigationManager navigationManager = GetIt.I<NavigationManager>();
+
+  final IRouter navigationManager = GetIt.I<IRouter>();
 
   final TextEditingController whatToDoController;
   final Observable<DateTime?> deadLine;

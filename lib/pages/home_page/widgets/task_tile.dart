@@ -14,7 +14,7 @@ import '../../../helper_functions.dart';
 import '../../../i18n/strings.g.dart';
 import '../../../logger.dart';
 import '../../../modals/task.dart';
-import '../../../navigator.dart';
+import '../../../navigation/router_delegate.dart';
 
 class TaskTile extends StatelessWidget {
   TaskTile({super.key, required this.task, required this.isFirst});
@@ -29,7 +29,7 @@ class TaskTile extends StatelessWidget {
   final Observable<bool> isSyncing = Observable<bool>(false);
 
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
-  final NavigationManager navigationManager = GetIt.I<NavigationManager>();
+  final IRouter navigationManager = GetIt.I<IRouter>();
 
   @override
   Widget build(BuildContext context) {

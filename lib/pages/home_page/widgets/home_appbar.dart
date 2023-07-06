@@ -7,9 +7,10 @@ import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:todo_list/constants.dart';
 
+import '../../../api/api.dart';
 import '../../../controlles/task_list.dart';
 import '../../../i18n/strings.g.dart';
-import '../../../navigator.dart';
+import '../../../navigation/router_delegate.dart';
 
 // Это должен быть StateLess виджет но форматер ругается на не файнал поле
 // поэтоу это Stateful )))
@@ -24,7 +25,7 @@ class HomeAppBar extends StatefulWidget {
 
 class _HomeAppBarState extends State<HomeAppBar> {
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
-  final NavigationManager navigationManager = GetIt.I<NavigationManager>();
+  final IRouter navigationManager = GetIt.I<IRouter>();
 
   final Observable<double> appBarExpendProgress = Observable<double>(0.0);
 
@@ -76,9 +77,17 @@ class _HomeAppBarState extends State<HomeAppBar> {
           expandedHeight: screenFourth,
           flexibleSpace: FlexibleSpaceBar(
             titlePadding: titlePadding,
-            title: Text(
-              t.home.my_task,
-              style: Theme.of(context).textTheme.titleLarge,
+            title: Row(
+              children: [
+                Text(
+                  t.home.my_task,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                // Text(
+                //   contoller.apiStatus == ApiStatus.localStorageOnly ? " (" + t.home.offline_mode + ")" : "",
+                //   style: Theme.of(context).textTheme.labelSmall,
+                // )
+              ],
             ),
             background: buildBackround(context),
             collapseMode: CollapseMode.pin,

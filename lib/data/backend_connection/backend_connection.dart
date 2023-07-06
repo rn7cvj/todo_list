@@ -3,8 +3,17 @@ import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:todo_list/logger.dart';
 
+enum BackendStatus {
+  available,
+  unavailable,
+}
+
 abstract class IBackendConnection {
   Future<void> init();
+
+  Future<BackendStatus> getBackendSatus();
+
+  Future<void> updateBackendSatus();
 
   Future<List<Map<String, dynamic>>?> getAllTasks();
 
@@ -36,118 +45,189 @@ class BackendConnection extends IBackendConnection {
 
   int _lastRevision = 0;
 
+  BackendStatus _backendStatus = BackendStatus.available;
+
+  @override
+  Future<BackendStatus> getBackendSatus() async {
+    return _backendStatus;
+  }
+
+  @override
+  Future<void> updateBackendSatus() async {
+    var url = Uri.parse(_baseUrl + _getAllTasksUrl);
+
+    try {
+      var response = await http.get(url, headers: {"Authorization": "Bearer reimply"});
+
+      if (response.statusCode != 200) {
+        _backendStatus = BackendStatus.unavailable;
+        return;
+      }
+      _backendStatus = BackendStatus.available;
+    } catch (e) {
+      _backendStatus = BackendStatus.unavailable;
+    }
+  }
+
   @override
   Future<void> init() async {
     var url = Uri.parse(_baseUrl + _getAllTasksUrl);
 
-    var response = await http.get(url, headers: {"Authorization": "Bearer reimply"});
+    try {
+      var response = await http.get(url, headers: {"Authorization": "Bearer reimply"});
 
-    if (response.statusCode != 200) {
-      return;
+      if (response.statusCode != 200) {
+        _backendStatus = BackendStatus.unavailable;
+        return;
+      }
+
+      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+
+      _lastRevision = jsonResponse["revision"];
+    } catch (e) {
+      _backendStatus = BackendStatus.unavailable;
     }
-
-    var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
-
-    _lastRevision = jsonResponse["revision"];
   }
 
   @override
   Future<List<Map<String, dynamic>>?> getAllTasks() async {
+    if (_backendStatus == BackendStatus.unavailable) return null;
+
     var url = Uri.parse(_baseUrl + _getAllTasksUrl);
 
-    var response = await http.get(url, headers: _headers);
+    try {
+      var response = await http.get(url, headers: _headers);
 
-    if (response.statusCode != 200) {
+      if (response.statusCode != 200) {
+        return null;
+      }
+
+      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+
+      var list = (jsonResponse["list"] as List<dynamic>).map((j) => j as Map<String, dynamic>).toList();
+
+      return list;
+    } on Exception catch (e) {
+      _backendStatus = BackendStatus.unavailable;
       return null;
     }
-
-    var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
-
-    var list = (jsonResponse["list"] as List<dynamic>).map((j) => j as Map<String, dynamic>).toList();
-
-    return list;
   }
 
   @override
   Future<List<Map<String, dynamic>>?> updateAllTasks(String requsetBody) async {
-    var url = Uri.parse(_baseUrl + _updateAllTasksUrl);
+    if (_backendStatus == BackendStatus.unavailable) return null;
 
-    var response = await http.patch(url, headers: _headers, body: requsetBody);
+    try {
+      var url = Uri.parse(_baseUrl + _updateAllTasksUrl);
 
-    if (response.statusCode != 200) {
+      var response = await http.patch(url, headers: _headers, body: requsetBody);
+
+      if (response.statusCode != 200) {
+        return null;
+      }
+
+      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var list = (jsonResponse["list"] as List<dynamic>).map((j) => j as Map<String, dynamic>).toList();
+
+      return list;
+    } on Exception catch (e) {
+      _backendStatus = BackendStatus.unavailable;
       return null;
     }
-
-    var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
-    var list = (jsonResponse["list"] as List<dynamic>).map((j) => j as Map<String, dynamic>).toList();
-
-    return list;
   }
 
   @override
   Future<Map<String, dynamic>?> getTask(String uid) async {
-    var url = Uri.parse(_baseUrl + _getTaskUrl + uid);
+    if (_backendStatus == BackendStatus.unavailable) return null;
 
-    var response = await http.get(url, headers: _headers);
+    try {
+      var url = Uri.parse(_baseUrl + _getTaskUrl + uid);
 
-    if (response.statusCode != 200) {
+      var response = await http.get(url, headers: _headers);
+
+      if (response.statusCode != 200) {
+        return null;
+      }
+
+      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+
+      return jsonResponse["element"];
+    } on Exception catch (e) {
+      _backendStatus = BackendStatus.unavailable;
       return null;
     }
-
-    var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
-
-    return jsonResponse["element"];
   }
 
   @override
   Future<Map<String, dynamic>?> addNewTask(String requsetBody) async {
-    var url = Uri.parse(_baseUrl + _addNewTaskUrl);
+    if (_backendStatus == BackendStatus.unavailable) return null;
 
-    requsetBody = '{"element" : $requsetBody }';
+    try {
+      var url = Uri.parse(_baseUrl + _addNewTaskUrl);
 
-    var response = await http.post(url, headers: _headers, body: requsetBody);
+      requsetBody = '{"element" : $requsetBody }';
 
-    if (response.statusCode != 200) {
+      var response = await http.post(url, headers: _headers, body: requsetBody);
+
+      if (response.statusCode != 200) {
+        return null;
+      }
+
+      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+
+      _lastRevision = jsonResponse["revision"];
+
+      return jsonResponse["element"];
+    } on Exception catch (e) {
+      _backendStatus = BackendStatus.unavailable;
       return null;
     }
-
-    var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
-
-    _lastRevision = jsonResponse["revision"];
-
-    return jsonResponse["element"];
   }
 
   @override
   Future<Map<String, dynamic>?> updateTask(String uid, String requsetBody) async {
-    var url = Uri.parse(_baseUrl + _updateTaskUrl + uid);
+    if (_backendStatus == BackendStatus.unavailable) return null;
 
-    requsetBody = '{"element" : $requsetBody }';
+    try {
+      var url = Uri.parse(_baseUrl + _updateTaskUrl + uid);
 
-    var response = await http.put(url, headers: _headers, body: requsetBody);
+      requsetBody = '{"element" : $requsetBody }';
 
-    if (response.statusCode != 200) {
+      var response = await http.put(url, headers: _headers, body: requsetBody);
+
+      if (response.statusCode != 200) {
+        return null;
+      }
+
+      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      _lastRevision = jsonResponse["revision"];
+      return jsonResponse["element"];
+    } on Exception catch (e) {
+      _backendStatus = BackendStatus.unavailable;
       return null;
     }
-
-    var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
-    _lastRevision = jsonResponse["revision"];
-    return jsonResponse["element"];
   }
 
   @override
   Future<Map<String, dynamic>?> deleteTask(String uid) async {
-    var url = Uri.parse(_baseUrl + _deleteTaskUrl + uid);
+    if (_backendStatus == BackendStatus.unavailable) return null;
 
-    var response = await http.delete(url, headers: _headers);
+    try {
+      var url = Uri.parse(_baseUrl + _deleteTaskUrl + uid);
 
-    if (response.statusCode != 200) {
+      var response = await http.delete(url, headers: _headers);
+
+      if (response.statusCode != 200) {
+        return null;
+      }
+
+      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+
+      _lastRevision = jsonResponse["revision"];
+      return jsonResponse["element"];
+    } on Exception catch (e) {
+      _backendStatus = BackendStatus.unavailable;
       return null;
     }
-
-    var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
-
-    _lastRevision = jsonResponse["revision"];
-    return jsonResponse["element"];
   }
 }

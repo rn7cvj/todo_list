@@ -7,7 +7,7 @@ import 'package:todo_list/constants.dart';
 
 import '../../../controlles/task_list.dart';
 import '../../../i18n/strings.g.dart';
-import '../../../navigator.dart';
+import '../../../navigation/router_delegate.dart';
 
 class DeleteTaskButton extends StatelessWidget {
   DeleteTaskButton({super.key, required this.taskUid});
@@ -15,7 +15,8 @@ class DeleteTaskButton extends StatelessWidget {
   final String taskUid;
 
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
-  final NavigationManager navigationManager = GetIt.I<NavigationManager>();
+
+  final IRouter navigationManager = GetIt.I<IRouter>();
 
   final Observable<bool> isSyncing = Observable<bool>(false);
 

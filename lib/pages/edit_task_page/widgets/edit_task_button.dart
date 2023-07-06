@@ -7,7 +7,7 @@ import 'package:shimmer_effect/shimmer_effect.dart';
 import '../../../controlles/task_list.dart';
 import '../../../i18n/strings.g.dart';
 import '../../../modals/task.dart';
-import '../../../navigator.dart';
+import '../../../navigation/router_delegate.dart';
 
 class EditTaskButton extends StatelessWidget {
   EditTaskButton(
@@ -18,7 +18,7 @@ class EditTaskButton extends StatelessWidget {
       required this.importanceType});
 
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
-  final NavigationManager navigationManager = GetIt.I<NavigationManager>();
+  final IRouter navigationManager = GetIt.I<IRouter>();
 
   final String taskUid;
 

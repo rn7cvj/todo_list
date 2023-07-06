@@ -9,7 +9,7 @@ import '../../controlles/task_list.dart';
 import '../../helper_functions.dart';
 import '../../i18n/strings.g.dart';
 import '../../modals/task.dart';
-import '../../navigator.dart';
+import '../../navigation/router_delegate.dart';
 import 'widgets/edit_task_button.dart';
 
 class EditTaskPortait extends StatelessWidget {
@@ -30,7 +30,7 @@ class EditTaskPortait extends StatelessWidget {
   }
 
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
-  final NavigationManager navigationManager = GetIt.I<NavigationManager>();
+  final IRouter navigationManager = GetIt.I<IRouter>();
 
   final List<DropdownMenuEntry> importanceEntries = TaskImportanceTypes.values
       .map((importance) =>

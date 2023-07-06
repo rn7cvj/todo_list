@@ -15,8 +15,16 @@ abstract class TaskListContollerStore with Store {
 
   var uuid = Uuid();
 
+  ApiStatus get apiStatus => api.getApiStatus();
+
   Future<void> init() async {
     await fetchLastTask();
+  }
+
+  Future<bool> tryToSync() async {
+    await api.tryToSync();
+    await fetchLastTask();
+    return api.getApiStatus() == ApiStatus.localAndRemoteStorage;
   }
 
   void setOnErrorHandler(OnErrorCallBack? onError) {

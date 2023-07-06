@@ -29,12 +29,23 @@ extension ErrorTypesExtension on ErrorTypes {
   }
 }
 
+enum ApiStatus {
+  localStorageOnly,
+  localAndRemoteStorage,
+}
+
 typedef void OnErrorCallBack(ErrorTypes error);
 
 abstract interface class IApi {
   OnErrorCallBack? onError;
 
   Future<void> init();
+
+  ApiStatus getApiStatus();
+
+  Future<ApiStatus> updateApiStatus();
+
+  Future<void> tryToSync();
 
   Future<List<Task>?> getAllTasks();
 
@@ -53,6 +64,8 @@ class Api extends IApi {
   late IBackendConnection _backendConnection;
   late IStorage _storage;
 
+  late ApiStatus _apiStatus = ApiStatus.localAndRemoteStorage;
+
   final Settings settings = GetIt.I<Settings>();
 
   @override
@@ -62,20 +75,82 @@ class Api extends IApi {
   }
 
   @override
+  ApiStatus getApiStatus() => _apiStatus;
+
+  @override
+  Future<ApiStatus> updateApiStatus() async {
+    await _backendConnection.updateBackendSatus();
+    BackendStatus backendStatus = await _backendConnection.getBackendSatus();
+
+    if (backendStatus == BackendStatus.unavailable) {
+      settings.setNewLocalStorageUse(true);
+      _apiStatus = ApiStatus.localStorageOnly;
+      return _apiStatus;
+    }
+
+    _apiStatus = ApiStatus.localAndRemoteStorage;
+    return _apiStatus;
+  }
+
+  @override
+  Future<void> tryToSync() async {
+    await updateApiStatus();
+
+    if (_apiStatus == ApiStatus.localStorageOnly) {
+      if (onError != null) onError!(ErrorTypes.failServerConnetcion);
+      return;
+    }
+
+    await SyncData();
+  }
+
+  Future<void> SyncData() async {
+    List<Map<String, dynamic>>? backendList = await _backendConnection.getAllTasks();
+
+    List<Map<String, dynamic>>? localList = await _storage.getAllTasks();
+
+    if (backendList == null) {
+      onError!(ErrorTypes.failServerConnetcion);
+      return;
+    }
+
+    localList = localList ?? [];
+
+    for (var task in backendList) {
+      if (localList.where((element) => element["id"] == task["id"]).isEmpty) {
+        await _storage.addNewTask(task);
+      }
+    }
+
+    for (var task in localList) {
+      if (backendList.where((element) => element["id"] == task["id"]).isEmpty) {
+        await _backendConnection.addNewTask(jsonEncode(task));
+      }
+    }
+  }
+
+  @override
   Future<Task?> addNewTask(Task newTask) async {
-    if (settings.isUseLocalStorage()) {
-      await _storage.addNewTask(newTask.toJson());
-    } else {
-      await _backendConnection.addNewTask(jsonEncode(newTask.toJson()));
+    await _storage.addNewTask(newTask.toJson());
+
+    if (_apiStatus != ApiStatus.localStorageOnly) {
+      var res = await _backendConnection.addNewTask(jsonEncode(newTask.toJson()));
+      if (res == null) {
+        _apiStatus == ApiStatus.localStorageOnly;
+        onError!(ErrorTypes.failServerConnetcion);
+      }
     }
   }
 
   @override
   Future<Task?> deleteTask(String uid) async {
-    if (settings.isUseLocalStorage()) {
-      await _storage.deleteTask(uid);
-    } else {
-      await _backendConnection.deleteTask(uid);
+    await _storage.deleteTask(uid);
+    if (_apiStatus != ApiStatus.localStorageOnly) {
+      var res = await _backendConnection.deleteTask(uid);
+      if (res == null) {
+        _apiStatus == ApiStatus.localStorageOnly;
+        onError!(ErrorTypes.failServerConnetcion);
+      }
     }
   }
 
@@ -84,13 +159,7 @@ class Api extends IApi {
     List<Task> tasks;
     List<Map<String, dynamic>>? tasksJson;
 
-    if (settings.isUseLocalStorage()) {
-      logger.i("User local storage");
-      tasksJson = await _storage.getAllTasks();
-    } else {
-      logger.i("Use backend");
-      tasksJson = await _backendConnection.getAllTasks();
-    }
+    tasksJson = await _storage.getAllTasks();
 
     if (tasksJson == null) return null;
 
@@ -110,11 +179,7 @@ class Api extends IApi {
 
     Map<String, dynamic>? taskJson;
 
-    if (settings.isUseLocalStorage()) {
-      taskJson = await _storage.getTask(uid);
-    } else {
-      taskJson = await _backendConnection.getTask(uid);
-    }
+    taskJson = await _storage.getTask(uid);
 
     if (taskJson == null) return null;
 
@@ -137,10 +202,13 @@ class Api extends IApi {
 
   @override
   Future<Task?> updateTask(String uid, Task newTask) async {
-    if (settings.isUseLocalStorage()) {
-      await _storage.updateTask(uid, newTask.toJson());
-    } else {
-      await _backendConnection.updateTask(uid, jsonEncode(newTask.toJson()));
+    await _storage.updateTask(uid, newTask.toJson());
+    if (_apiStatus != ApiStatus.localStorageOnly) {
+      var res = await _backendConnection.updateTask(uid, jsonEncode(newTask.toJson()));
+      if (res == null) {
+        _apiStatus == ApiStatus.localStorageOnly;
+        onError!(ErrorTypes.failServerConnetcion);
+      }
     }
   }
 }

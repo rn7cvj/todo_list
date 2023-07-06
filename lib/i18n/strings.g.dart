@@ -1,9 +1,9 @@
 /// Generated file. Do not edit.
 ///
 /// Locales: 2
-/// Strings: 38 (19 per locale)
+/// Strings: 52 (26 per locale)
 ///
-/// Built on 2023-06-24 at 04:17 UTC
+/// Built on 2023-07-06 at 02:22 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -151,7 +151,10 @@ class _StringsEn implements BaseTranslations<AppLocale, _StringsEn> {
 	late final _StringsCommonEn common = _StringsCommonEn._(_root);
 	late final _StringsErrorsEn errors = _StringsErrorsEn._(_root);
 	late final _StringsHomeEn home = _StringsHomeEn._(_root);
+	late final _StringsMessagesEn messages = _StringsMessagesEn._(_root);
+	late final _StringsNointernetEn nointernet = _StringsNointernetEn._(_root);
 	late final _StringsSettingsEn settings = _StringsSettingsEn._(_root);
+	late final _StringsUnknownEn unknown = _StringsUnknownEn._(_root);
 }
 
 // Path: addtask
@@ -192,7 +195,7 @@ class _StringsErrorsEn {
 
 	// Translations
 	String get noIntenet => 'No internet connection';
-	String get failServerConnetcion => 'Server temporarily unavailable';
+	String get failServerConnetcion => 'The server is temporarily unavailable, data will be synchronized later';
 }
 
 // Path: home
@@ -204,6 +207,29 @@ class _StringsHomeEn {
 	// Translations
 	String get my_task => 'My task';
 	String get complited => 'Complited';
+	String get offline_mode => 'Offline';
+}
+
+// Path: messages
+class _StringsMessagesEn {
+	_StringsMessagesEn._(this._root);
+
+	final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	String get connection_restore => 'Connection restored data was synced';
+}
+
+// Path: nointernet
+class _StringsNointernetEn {
+	_StringsNointernetEn._(this._root);
+
+	final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	String get error_text => 'The server is temporarily unavailable, please check your internet connection';
+	String get continue_offline => 'Continue offline';
+	String get data_will_sync => 'You can continue working offline, the data will be synced the next time you connect';
 }
 
 // Path: settings
@@ -216,6 +242,17 @@ class _StringsSettingsEn {
 	String get title => 'Settings';
 	String get use_local_storage => 'Use local storage';
 	String get restart_required => 'Restart required';
+}
+
+// Path: unknown
+class _StringsUnknownEn {
+	_StringsUnknownEn._(this._root);
+
+	final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	String get oops => 'There seems to be an error';
+	String get back_to_home => 'Go back to the main page';
 }
 
 // Path: <root>
@@ -247,7 +284,10 @@ class _StringsRu implements _StringsEn {
 	@override late final _StringsCommonRu common = _StringsCommonRu._(_root);
 	@override late final _StringsErrorsRu errors = _StringsErrorsRu._(_root);
 	@override late final _StringsHomeRu home = _StringsHomeRu._(_root);
+	@override late final _StringsMessagesRu messages = _StringsMessagesRu._(_root);
+	@override late final _StringsNointernetRu nointernet = _StringsNointernetRu._(_root);
 	@override late final _StringsSettingsRu settings = _StringsSettingsRu._(_root);
+	@override late final _StringsUnknownRu unknown = _StringsUnknownRu._(_root);
 }
 
 // Path: addtask
@@ -288,7 +328,7 @@ class _StringsErrorsRu implements _StringsErrorsEn {
 
 	// Translations
 	@override String get noIntenet => 'Отсутствует подключение к интернету';
-	@override String get failServerConnetcion => 'Сервер временно недоступен';
+	@override String get failServerConnetcion => 'Сервер временно недоступен, данные будут синхронизированы позже';
 }
 
 // Path: home
@@ -300,6 +340,29 @@ class _StringsHomeRu implements _StringsHomeEn {
 	// Translations
 	@override String get my_task => 'Мои дела';
 	@override String get complited => 'Выполненно';
+	@override String get offline_mode => 'Локально';
+}
+
+// Path: messages
+class _StringsMessagesRu implements _StringsMessagesEn {
+	_StringsMessagesRu._(this._root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get connection_restore => 'Соединение восстановлено данные были синхронизированы';
+}
+
+// Path: nointernet
+class _StringsNointernetRu implements _StringsNointernetEn {
+	_StringsNointernetRu._(this._root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get error_text => 'Сервер временно недоступен, пороверьте подключение к инернету';
+	@override String get continue_offline => 'Продолжить локально';
+	@override String get data_will_sync => 'Вы можете продолжить работу локально, данные будут синхронизированы при последующем подключении';
 }
 
 // Path: settings
@@ -312,6 +375,17 @@ class _StringsSettingsRu implements _StringsSettingsEn {
 	@override String get title => 'Настройки';
 	@override String get use_local_storage => 'Использовать локальное хранилище';
 	@override String get restart_required => 'Требуется перезапуск';
+}
+
+// Path: unknown
+class _StringsUnknownRu implements _StringsUnknownEn {
+	_StringsUnknownRu._(this._root);
+
+	@override final _StringsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get oops => 'Кажется произошла ошибка';
+	@override String get back_to_home => 'Вернуться на главную';
 }
 
 /// Flat map(s) containing all translations.
@@ -333,12 +407,19 @@ extension on _StringsEn {
 			case 'common.edit': return 'Edit';
 			case 'common.syncing': return 'Syncing';
 			case 'errors.noIntenet': return 'No internet connection';
-			case 'errors.failServerConnetcion': return 'Server temporarily unavailable';
+			case 'errors.failServerConnetcion': return 'The server is temporarily unavailable, data will be synchronized later';
 			case 'home.my_task': return 'My task';
 			case 'home.complited': return 'Complited';
+			case 'home.offline_mode': return 'Offline';
+			case 'messages.connection_restore': return 'Connection restored data was synced';
+			case 'nointernet.error_text': return 'The server is temporarily unavailable, please check your internet connection';
+			case 'nointernet.continue_offline': return 'Continue offline';
+			case 'nointernet.data_will_sync': return 'You can continue working offline, the data will be synced the next time you connect';
 			case 'settings.title': return 'Settings';
 			case 'settings.use_local_storage': return 'Use local storage';
 			case 'settings.restart_required': return 'Restart required';
+			case 'unknown.oops': return 'There seems to be an error';
+			case 'unknown.back_to_home': return 'Go back to the main page';
 			default: return null;
 		}
 	}
@@ -360,12 +441,19 @@ extension on _StringsRu {
 			case 'common.edit': return 'Изменить';
 			case 'common.syncing': return 'Cинхронизация';
 			case 'errors.noIntenet': return 'Отсутствует подключение к интернету';
-			case 'errors.failServerConnetcion': return 'Сервер временно недоступен';
+			case 'errors.failServerConnetcion': return 'Сервер временно недоступен, данные будут синхронизированы позже';
 			case 'home.my_task': return 'Мои дела';
 			case 'home.complited': return 'Выполненно';
+			case 'home.offline_mode': return 'Локально';
+			case 'messages.connection_restore': return 'Соединение восстановлено данные были синхронизированы';
+			case 'nointernet.error_text': return 'Сервер временно недоступен, пороверьте подключение к инернету';
+			case 'nointernet.continue_offline': return 'Продолжить локально';
+			case 'nointernet.data_will_sync': return 'Вы можете продолжить работу локально, данные будут синхронизированы при последующем подключении';
 			case 'settings.title': return 'Настройки';
 			case 'settings.use_local_storage': return 'Использовать локальное хранилище';
 			case 'settings.restart_required': return 'Требуется перезапуск';
+			case 'unknown.oops': return 'Кажется произошла ошибка';
+			case 'unknown.back_to_home': return 'Вернуться на главную';
 			default: return null;
 		}
 	}

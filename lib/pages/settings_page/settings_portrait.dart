@@ -21,15 +21,15 @@ class SettingsPortrait extends StatelessWidget {
         padding: const EdgeInsets.all(appPaddingMedium),
         child: Column(
           children: [
-            SwitchListTile(
-              title: Text(t.settings.use_local_storage),
-              subtitle: Text(t.settings.restart_required),
-              value: settings.isUseLocalStorage(),
-              onChanged: (newValue) {
-                settings.setNewLocalStorageUse(newValue);
-                Restart.restartApp();
-              },
-            )
+            // SwitchListTile(
+            //   title: Text(t.settings.use_local_storage),
+            //   subtitle: Text(t.settings.restart_required),
+            //   value: settings.isUseLocalStorage(),
+            //   onChanged: (newValue) {
+            //     settings.setNewLocalStorageUse(newValue);
+            //     Restart.restartApp();
+            //   },
+            // )
           ],
         ),
       ),

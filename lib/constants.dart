@@ -16,3 +16,5 @@ const double appRoundRadiusLarge = 24.0;
 
 //Число 300 выбрано не случайно
 const Duration animationDurationFast = Duration(milliseconds: 300);
+const Duration animationDurationSlow = Duration(milliseconds: 300);
+const Duration animationDurationVerySlow = Duration(milliseconds: 1500);

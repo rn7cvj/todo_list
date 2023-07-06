@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 
 import '../../../constants.dart';
 import '../../../i18n/strings.g.dart';
-import '../../../navigator.dart';
+import '../../../navigation/router_delegate.dart';
 
 class NewTaskButton extends StatelessWidget {
   NewTaskButton({
@@ -11,7 +11,7 @@ class NewTaskButton extends StatelessWidget {
     required this.isTasksListEmpty,
   });
 
-  final NavigationManager navigationManager = GetIt.I<NavigationManager>();
+  final IRouter navigationManager = GetIt.I<IRouter>();
 
   final bool isTasksListEmpty;
 
