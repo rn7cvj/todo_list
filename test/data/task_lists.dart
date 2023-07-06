@@ -1,5 +1,4 @@
 import 'package:todo_list/modals/task.dart';
-import 'package:uuid/uuid.dart';
 
 final now = DateTime.now();
 
