@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/navigation/routes_name.dart';
 
 import 'navigation_state.dart';
 
@@ -15,6 +16,19 @@ class MyRouteInformationParser extends RouteInformationParser<NavigationState> {
 
     if (uri.pathSegments.isEmpty) {
       return NavigationState.internetCheck();
+    }
+
+    if (uri.pathSegments.first == RoutesName.noInternet) {
+      return NavigationState.internetError();
+    }
+
+    if (uri.pathSegments.first == RoutesName.createTask) {
+      return NavigationState.createTask();
+    }
+
+    if (uri.pathSegments.first == RoutesName.editTask) {
+      String editTaskId = uri.pathSegments[1];
+      return NavigationState.editTask(editTaskId);
     }
 
     // if (uri.pathSegments.length == 2) {
