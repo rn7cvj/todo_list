@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:get_it/get_it.dart';
 import 'package:todo_list/data/backend_connection/backend_connection.dart';
-import 'package:todo_list/logger.dart';
+
 import 'package:todo_list/modals/task.dart';
 import 'package:todo_list/data/storage/storage.dart';
 
@@ -140,6 +140,7 @@ class Api extends IApi {
         onError!(ErrorTypes.failServerConnetcion);
       }
     }
+    return null;
   }
 
   @override
@@ -152,6 +153,7 @@ class Api extends IApi {
         onError!(ErrorTypes.failServerConnetcion);
       }
     }
+    return null;
   }
 
   @override
@@ -210,5 +212,6 @@ class Api extends IApi {
         onError!(ErrorTypes.failServerConnetcion);
       }
     }
+    return null;
   }
 }

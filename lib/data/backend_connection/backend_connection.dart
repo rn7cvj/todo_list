@@ -129,7 +129,7 @@ class BackendConnection extends IBackendConnection {
       var list = (jsonResponse["list"] as List<dynamic>).map((j) => j as Map<String, dynamic>).toList();
 
       return list;
-    } on Exception catch (e) {
+    } on Exception {
       _backendStatus = BackendStatus.unavailable;
       return null;
     }
@@ -151,7 +151,7 @@ class BackendConnection extends IBackendConnection {
       var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
 
       return jsonResponse["element"];
-    } on Exception catch (e) {
+    } on Exception {
       _backendStatus = BackendStatus.unavailable;
       return null;
     }
@@ -177,7 +177,7 @@ class BackendConnection extends IBackendConnection {
       _lastRevision = jsonResponse["revision"];
 
       return jsonResponse["element"];
-    } on Exception catch (e) {
+    } on Exception {
       _backendStatus = BackendStatus.unavailable;
       return null;
     }
