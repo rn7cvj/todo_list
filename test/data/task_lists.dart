@@ -4,7 +4,7 @@ final now = DateTime.now();
 
 final emptyList = <Task>[];
 
-final InitList = [
+final initList = [
   Task("1", "text", TaskImportanceTypes.basic, true, now, now, "123"),
   Task("2", "text", TaskImportanceTypes.basic, true, now, now, "123"),
   Task("3", "text", TaskImportanceTypes.basic, true, now, now, "123"),

@@ -66,7 +66,7 @@ class AddTaskPortrait extends StatelessWidget {
                       ),
                     ),
                     AnimatedSize(
-                      duration: Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 300),
                       child: buildDeadlineSelector(context),
                     ),
                   ],

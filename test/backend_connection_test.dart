@@ -9,7 +9,7 @@ void main() async {
 
   await backendConnection.init();
 
-  var uuid = Uuid();
+  var uuid = const Uuid();
 
   Task newTask = Task(uuid.v4(), "text", TaskImportanceTypes.important, true, DateTime.now(), DateTime.now(), "123");
   String uid = newTask.id;

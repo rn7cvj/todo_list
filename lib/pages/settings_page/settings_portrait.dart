@@ -16,8 +16,8 @@ class SettingsPortrait extends StatelessWidget {
       appBar: AppBar(
         title: Text(t.settings.title),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(appPaddingMedium),
+      body: const Padding(
+        padding: EdgeInsets.all(appPaddingMedium),
         child: Column(
           children: [
             // SwitchListTile(

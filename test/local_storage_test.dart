@@ -33,28 +33,28 @@ void main() {
     });
     test('Add task', () async {
       IStorage storage = GetIt.I<IStorage>();
-      await storage.addNewTask(InitList.first.toJson());
-      Map<String, dynamic>? savedTask = await storage.getTask(InitList.first.id);
-      expect(Task.fromJson(savedTask!).id == InitList.first.id, true);
+      await storage.addNewTask(initList.first.toJson());
+      Map<String, dynamic>? savedTask = await storage.getTask(initList.first.id);
+      expect(Task.fromJson(savedTask!).id == initList.first.id, true);
     });
 
     test('Update task', () async {
       IStorage storage = GetIt.I<IStorage>();
 
-      await storage.updateTask(InitList.first.id, editTask.toJson());
-      Map<String, dynamic>? _editTask = await storage.getTask(InitList.first.id);
-      expect(Task.fromJson(_editTask!).text == editTask.text, true);
+      await storage.updateTask(initList.first.id, editTask.toJson());
+      Map<String, dynamic>? editTaskStorage = await storage.getTask(initList.first.id);
+      expect(Task.fromJson(editTaskStorage!).text == editTask.text, true);
     });
 
     test('Remove task', () async {
       IStorage storage = GetIt.I<IStorage>();
-      await storage.deleteTask(InitList.first.id);
+      await storage.deleteTask(initList.first.id);
 
       List<Map<String, dynamic>>? removedList = await storage.getAllTasks();
 
       removedList = removedList ?? [];
 
-      expect(removedList.length == 0, true);
+      expect(removedList.isEmpty, true);
     });
   });
 }

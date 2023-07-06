@@ -35,12 +35,12 @@ class HomePortrait extends StatelessWidget {
       body: RefreshIndicator(
         onRefresh: () async {
           var status = await contoller.tryToSync();
-          if (status) {
+          if (status && context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.messages.connection_restore)));
           }
         },
         child: CustomScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
           controller: scrollController,
           slivers: [
             HomeAppBar(scrollController: scrollController),

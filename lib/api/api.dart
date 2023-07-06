@@ -34,7 +34,7 @@ enum ApiStatus {
   localAndRemoteStorage,
 }
 
-typedef void OnErrorCallBack(ErrorTypes error);
+typedef OnErrorCallBack = void Function(ErrorTypes error);
 
 abstract interface class IApi {
   OnErrorCallBack? onError;
@@ -101,10 +101,10 @@ class Api extends IApi {
       return;
     }
 
-    await SyncData();
+    await syncData();
   }
 
-  Future<void> SyncData() async {
+  Future<void> syncData() async {
     List<Map<String, dynamic>>? backendList = await _backendConnection.getAllTasks();
 
     List<Map<String, dynamic>>? localList = await _storage.getAllTasks();

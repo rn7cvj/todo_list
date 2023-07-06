@@ -31,6 +31,6 @@ class InternetCheckPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InternetCheckPortait();
+    return const InternetCheckPortait();
   }
 }
