@@ -1,3 +1,5 @@
+
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -61,6 +63,26 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        
+        free {
+            
+            dimension "default"
+            resValue "string", "appNameFalavor", "TodoList Free"
+            applicationIdSuffix ".free"
+        }
+
+        full {
+            
+            dimension "default"
+            resValue "string", "appNameFalavor", "TodoList"
+            applicationIdSuffix ".full"
+            
+        }
+    }
 }
 
 flutter {
@@ -70,3 +92,4 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+
