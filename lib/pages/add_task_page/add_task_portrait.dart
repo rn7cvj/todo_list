@@ -19,8 +19,10 @@ class AddTaskPortrait extends StatelessWidget {
   final IRouter navigationManager = GetIt.I<IRouter>();
 
   final List<DropdownMenuEntry> importanceEntries = TaskImportanceTypes.values
-      .map((importance) =>
-          DropdownMenuEntry(leadingIcon: Icon(importance.icon), label: importance.lable, value: importance))
+      .map((importance) => DropdownMenuEntry(
+          leadingIcon: Icon(importance.icon),
+          label: importance.lable,
+          value: importance))
       .toList();
 
   final TextEditingController whatToDoController = TextEditingController();
@@ -28,7 +30,8 @@ class AddTaskPortrait extends StatelessWidget {
 
   final Observable<DateTime?> deadLine = Observable<DateTime?>(null);
 
-  final Observable<TaskImportanceTypes> importanceType = Observable<TaskImportanceTypes>(TaskImportanceTypes.basic);
+  final Observable<TaskImportanceTypes> importanceType =
+      Observable<TaskImportanceTypes>(TaskImportanceTypes.basic);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +63,8 @@ class AddTaskPortrait extends StatelessWidget {
                     buildInputField(context),
                     buildImportanceSelector(context),
                     const Padding(
-                      padding: EdgeInsets.only(top: appPaddingMedium, bottom: appPaddingMedium),
+                      padding: EdgeInsets.only(
+                          top: appPaddingMedium, bottom: appPaddingMedium),
                       child: Divider(
                         height: 2,
                       ),
@@ -82,7 +86,8 @@ class AddTaskPortrait extends StatelessWidget {
 
   Widget buildInputField(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.only(top: appPaddingMedium, bottom: appPaddingMedium),
+      margin: const EdgeInsets.only(
+          top: appPaddingMedium, bottom: appPaddingMedium),
       color: Theme.of(context).colorScheme.secondaryContainer,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(appRoundRadiusMedium),
@@ -102,7 +107,8 @@ class AddTaskPortrait extends StatelessWidget {
 
   Widget buildImportanceSelector(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: appPaddingMedium, bottom: appPaddingMedium),
+      padding: const EdgeInsets.only(
+          top: appPaddingMedium, bottom: appPaddingMedium),
       child: Align(
         alignment: Alignment.centerLeft,
         child: DropdownMenu(
@@ -163,11 +169,16 @@ class AddTaskPortrait extends StatelessWidget {
   Widget buildDeadlineViewer(BuildContext context) {
     if (!haveDeadLine.value) return Container();
 
-    String deadLineText = deadLine.value != null ? formatDateTime(context, deadLine.value!) : t.addtask.select_deadline;
+    String deadLineText = deadLine.value != null
+        ? formatDateTime(context, deadLine.value!)
+        : t.addtask.select_deadline;
 
     return Text(
       deadLineText,
-      style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.primary),
+      style: Theme.of(context)
+          .textTheme
+          .titleMedium
+          ?.copyWith(color: Theme.of(context).colorScheme.primary),
     );
   }
 }

@@ -29,7 +29,8 @@ class DeleteTaskButton extends StatelessWidget {
             baseColor: Theme.of(context).colorScheme.primary,
             highlightColor: Theme.of(context).colorScheme.onPrimary,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: appPaddingMedium, horizontal: appPaddingSmall),
+              padding: const EdgeInsets.symmetric(
+                  vertical: appPaddingMedium, horizontal: appPaddingSmall),
               child: Row(
                 children: [
                   const Icon(Icons.sync),
@@ -48,7 +49,8 @@ class DeleteTaskButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(appRoundRadiusMedium),
           onTap: deleteTask,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: appPaddingMedium, horizontal: appPaddingSmall),
+            padding: const EdgeInsets.symmetric(
+                vertical: appPaddingMedium, horizontal: appPaddingSmall),
             child: Row(
               children: [
                 Icon(
@@ -60,7 +62,10 @@ class DeleteTaskButton extends StatelessWidget {
                 ),
                 Text(
                   t.common.delete,
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.error),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: Theme.of(context).colorScheme.error),
                 ),
               ],
             ),

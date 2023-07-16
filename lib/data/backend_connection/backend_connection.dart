@@ -56,7 +56,8 @@ class BackendConnection extends IBackendConnection {
     var url = Uri.parse(_baseUrl + _getAllTasksUrl);
 
     try {
-      var response = await http.get(url, headers: {"Authorization": "Bearer reimply"});
+      var response =
+          await http.get(url, headers: {"Authorization": "Bearer reimply"});
 
       if (response.statusCode != 200) {
         _backendStatus = BackendStatus.unavailable;
@@ -73,14 +74,16 @@ class BackendConnection extends IBackendConnection {
     var url = Uri.parse(_baseUrl + _getAllTasksUrl);
 
     try {
-      var response = await http.get(url, headers: {"Authorization": "Bearer reimply"});
+      var response =
+          await http.get(url, headers: {"Authorization": "Bearer reimply"});
 
       if (response.statusCode != 200) {
         _backendStatus = BackendStatus.unavailable;
         return;
       }
 
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var jsonResponse =
+          convert.jsonDecode(response.body) as Map<String, dynamic>;
 
       _lastRevision = jsonResponse["revision"];
     } catch (e) {
@@ -101,9 +104,12 @@ class BackendConnection extends IBackendConnection {
         return null;
       }
 
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var jsonResponse =
+          convert.jsonDecode(response.body) as Map<String, dynamic>;
 
-      var list = (jsonResponse["list"] as List<dynamic>).map((j) => j as Map<String, dynamic>).toList();
+      var list = (jsonResponse["list"] as List<dynamic>)
+          .map((j) => j as Map<String, dynamic>)
+          .toList();
 
       return list;
     } on Exception {
@@ -119,14 +125,18 @@ class BackendConnection extends IBackendConnection {
     try {
       var url = Uri.parse(_baseUrl + _updateAllTasksUrl);
 
-      var response = await http.patch(url, headers: _headers, body: requsetBody);
+      var response =
+          await http.patch(url, headers: _headers, body: requsetBody);
 
       if (response.statusCode != 200) {
         return null;
       }
 
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
-      var list = (jsonResponse["list"] as List<dynamic>).map((j) => j as Map<String, dynamic>).toList();
+      var jsonResponse =
+          convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var list = (jsonResponse["list"] as List<dynamic>)
+          .map((j) => j as Map<String, dynamic>)
+          .toList();
 
       return list;
     } on Exception {
@@ -148,7 +158,8 @@ class BackendConnection extends IBackendConnection {
         return null;
       }
 
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var jsonResponse =
+          convert.jsonDecode(response.body) as Map<String, dynamic>;
 
       return jsonResponse["element"];
     } on Exception {
@@ -172,7 +183,8 @@ class BackendConnection extends IBackendConnection {
         return null;
       }
 
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var jsonResponse =
+          convert.jsonDecode(response.body) as Map<String, dynamic>;
 
       _lastRevision = jsonResponse["revision"];
 
@@ -184,7 +196,8 @@ class BackendConnection extends IBackendConnection {
   }
 
   @override
-  Future<Map<String, dynamic>?> updateTask(String uid, String requsetBody) async {
+  Future<Map<String, dynamic>?> updateTask(
+      String uid, String requsetBody) async {
     if (_backendStatus == BackendStatus.unavailable) return null;
 
     try {
@@ -198,7 +211,8 @@ class BackendConnection extends IBackendConnection {
         return null;
       }
 
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var jsonResponse =
+          convert.jsonDecode(response.body) as Map<String, dynamic>;
       _lastRevision = jsonResponse["revision"];
       return jsonResponse["element"];
     } on Exception {
@@ -220,7 +234,8 @@ class BackendConnection extends IBackendConnection {
         return null;
       }
 
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var jsonResponse =
+          convert.jsonDecode(response.body) as Map<String, dynamic>;
 
       _lastRevision = jsonResponse["revision"];
       return jsonResponse["element"];

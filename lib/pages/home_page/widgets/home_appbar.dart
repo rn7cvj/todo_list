@@ -31,7 +31,8 @@ class _HomeAppBarState extends State<HomeAppBar> {
   late double screenFourth;
 
   void scrollContollerListenet() => runInAction(() {
-        appBarExpendProgress.value = min(widget.scrollController.offset, screenFourth) / screenFourth;
+        appBarExpendProgress.value =
+            min(widget.scrollController.offset, screenFourth) / screenFourth;
       });
 
   @override
@@ -57,7 +58,9 @@ class _HomeAppBarState extends State<HomeAppBar> {
                     child: IconButton(
                       color: Theme.of(context).colorScheme.secondary,
                       onPressed: contoller.toogleComplitedTaskVisibilty,
-                      icon: Icon(contoller.isComplitedTaskVisible ? Icons.visibility : Icons.visibility_off),
+                      icon: Icon(contoller.isComplitedTaskVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off),
                     ),
                   )
                 ]
@@ -99,12 +102,16 @@ class _HomeAppBarState extends State<HomeAppBar> {
   Widget buildBackround(BuildContext context) {
     return Observer(
       builder: (context) {
-        double complitedTextOpacity = lerpDouble(0.8, 0, appBarExpendProgress.value)!;
+        double complitedTextOpacity =
+            lerpDouble(0.8, 0, appBarExpendProgress.value)!;
 
-        EdgeInsets backroundPadding =
-            EdgeInsets.only(left: 72 + 4 + lerpDouble(0, 56, appBarExpendProgress.value)!, right: appPaddingSmall);
+        EdgeInsets backroundPadding = EdgeInsets.only(
+            left: 72 + 4 + lerpDouble(0, 56, appBarExpendProgress.value)!,
+            right: appPaddingSmall);
 
-        IconData visibilityToogleIcon = contoller.isComplitedTaskVisible ? Icons.visibility : Icons.visibility_off;
+        IconData visibilityToogleIcon = contoller.isComplitedTaskVisible
+            ? Icons.visibility
+            : Icons.visibility_off;
 
         return Align(
           alignment: Alignment.bottomCenter,
@@ -116,15 +123,19 @@ class _HomeAppBarState extends State<HomeAppBar> {
               children: [
                 Text(
                   "${t.home.complited} - ${contoller.complitedTaskCount}",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(color: Theme.of(context).colorScheme.secondary.withOpacity(complitedTextOpacity)),
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .secondary
+                          .withOpacity(complitedTextOpacity)),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: appElevationSmall),
                   child: IconButton(
-                    color: Theme.of(context).colorScheme.secondary.withOpacity(complitedTextOpacity),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .secondary
+                        .withOpacity(complitedTextOpacity),
                     onPressed: contoller.toogleComplitedTaskVisibilty,
                     icon: Icon(visibilityToogleIcon),
                   ),

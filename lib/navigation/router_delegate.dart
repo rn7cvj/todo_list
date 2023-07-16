@@ -22,7 +22,10 @@ mixin IRouter {
 }
 
 class MyRouterDelegate extends RouterDelegate<NavigationState>
-    with ChangeNotifier, PopNavigatorRouterDelegateMixin<NavigationState>, IRouter {
+    with
+        ChangeNotifier,
+        PopNavigatorRouterDelegateMixin<NavigationState>,
+        IRouter {
   NavigationState? state;
 
   @override

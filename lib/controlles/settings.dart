@@ -14,5 +14,6 @@ class Settings {
 
   bool isUseLocalStorage() => _box.read("useLocalStorage");
 
-  void setNewLocalStorageUse(bool newValue) => _box.write("useLocalStorage", newValue);
+  void setNewLocalStorageUse(bool newValue) =>
+      _box.write("useLocalStorage", newValue);
 }

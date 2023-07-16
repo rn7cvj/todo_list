@@ -10,7 +10,11 @@ import '../../../modals/task.dart';
 import '../../../navigation/router_delegate.dart';
 
 class AddTaskButton extends StatelessWidget {
-  AddTaskButton({super.key, required this.whatToDoController, required this.deadLine, required this.importanceType});
+  AddTaskButton(
+      {super.key,
+      required this.whatToDoController,
+      required this.deadLine,
+      required this.importanceType});
 
   final TaskListContoller contoller = GetIt.I<TaskListContoller>();
 
@@ -50,7 +54,8 @@ class AddTaskButton extends StatelessWidget {
 
   Future<void> editTask() async {
     runInAction(() => isSyncing.value = true);
-    await contoller.addNewTaskByDetails(whatToDoController.text, deadLine.value, importanceType.value);
+    await contoller.addNewTaskByDetails(
+        whatToDoController.text, deadLine.value, importanceType.value);
     navigationManager.popToHomePage();
   }
 }

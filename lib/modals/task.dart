@@ -36,8 +36,8 @@ class Task extends TaskStore with _$Task {
 }
 
 abstract class TaskStore with Store {
-  TaskStore(this.id, this.text, this.importance, this.deadline, this.done, this.created_at, this.changed_at,
-      this.last_updated_by, this._hexColor);
+  TaskStore(this.id, this.text, this.importance, this.deadline, this.done,
+      this.created_at, this.changed_at, this.last_updated_by, this._hexColor);
 
   final String id;
 
@@ -48,7 +48,10 @@ abstract class TaskStore with Store {
   TaskImportanceTypes importance = TaskImportanceTypes.low;
 
   @observable
-  @JsonKey(includeIfNull: false, toJson: _dateTimeNullableToJson, fromJson: _dateTimeNullablefromJson)
+  @JsonKey(
+      includeIfNull: false,
+      toJson: _dateTimeNullableToJson,
+      fromJson: _dateTimeNullablefromJson)
   DateTime? deadline;
 
   @JsonKey(toJson: _dateTimeToJson, fromJson: _dateTimefromJson)
@@ -57,12 +60,15 @@ abstract class TaskStore with Store {
   @JsonKey(toJson: _dateTimeToJson, fromJson: _dateTimefromJson)
   DateTime changed_at;
 
-  static int? _dateTimeNullableToJson(DateTime? value) => value?.toUtc().millisecondsSinceEpoch;
+  static int? _dateTimeNullableToJson(DateTime? value) =>
+      value?.toUtc().millisecondsSinceEpoch;
   static DateTime? _dateTimeNullablefromJson(int? value) =>
       value == null ? null : DateTime.fromMillisecondsSinceEpoch(value);
 
-  static int _dateTimeToJson(DateTime value) => value.toUtc().millisecondsSinceEpoch;
-  static DateTime _dateTimefromJson(int value) => DateTime.fromMillisecondsSinceEpoch(value);
+  static int _dateTimeToJson(DateTime value) =>
+      value.toUtc().millisecondsSinceEpoch;
+  static DateTime _dateTimefromJson(int value) =>
+      DateTime.fromMillisecondsSinceEpoch(value);
 
   @observable
   bool done = false;

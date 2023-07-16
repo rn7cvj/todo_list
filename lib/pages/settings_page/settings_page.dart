@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/pages/orintaion_page.dart';
+import 'package:todo_list/pages/settings_page/settings_landscape.dart';
 import 'package:todo_list/pages/settings_page/settings_portrait.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -6,6 +8,6 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SettingsPortrait();
+    return OrientationPage(landscapePage: SettingsLandscape(), portraitPage: SettingsPortrait());
   }
 }

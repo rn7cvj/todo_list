@@ -56,7 +56,8 @@ class EditTaskButton extends StatelessWidget {
 
   Future<void> editTask() async {
     runInAction(() => isSyncing.value = true);
-    await contoller.editTask(taskUid, whatToDoController.text, deadLine.value, importanceType.value);
+    await contoller.editTask(
+        taskUid, whatToDoController.text, deadLine.value, importanceType.value);
     navigationManager.popToHomePage();
   }
 }

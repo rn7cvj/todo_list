@@ -11,7 +11,8 @@ void main() async {
 
   var uuid = const Uuid();
 
-  Task newTask = Task(uuid.v4(), "text", TaskImportanceTypes.important, true, DateTime.now(), DateTime.now(), "123");
+  Task newTask = Task(uuid.v4(), "text", TaskImportanceTypes.important, true,
+      DateTime.now(), DateTime.now(), "123");
   String uid = newTask.id;
 
   group('Testing BackendConnection', () {
@@ -19,12 +20,13 @@ void main() async {
       await backendConnection.addNewTask(jsonEncode(newTask));
 
       var tasks = await backendConnection.getAllTasks();
-      expect(tasks?.firstWhere((element) => element["id"] == uid).isNotEmpty, true);
+      expect(tasks?.firstWhere((element) => element["id"] == uid).isNotEmpty,
+          true);
     });
 
     test("An item shoud be edit", () async {
-      Task newEditTask =
-          Task(uid, "editText", TaskImportanceTypes.important, true, DateTime.now(), DateTime.now(), "123");
+      Task newEditTask = Task(uid, "editText", TaskImportanceTypes.important,
+          true, DateTime.now(), DateTime.now(), "123");
       await backendConnection.updateTask(uid, jsonEncode(newEditTask));
 
       Map<String, dynamic>? editTask = await backendConnection.getTask(uid);

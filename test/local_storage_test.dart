@@ -11,7 +11,8 @@ void main() {
 
   const channel = MethodChannel('plugins.flutter.io/path_provider');
   void setUpMockChannels(MethodChannel channel) {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
       channel,
       (MethodCall? methodCall) async {
         if (methodCall?.method == 'getApplicationDocumentsDirectory') {
@@ -34,7 +35,8 @@ void main() {
     test('Add task', () async {
       IStorage storage = GetIt.I<IStorage>();
       await storage.addNewTask(initList.first.toJson());
-      Map<String, dynamic>? savedTask = await storage.getTask(initList.first.id);
+      Map<String, dynamic>? savedTask =
+          await storage.getTask(initList.first.id);
       expect(Task.fromJson(savedTask!).id == initList.first.id, true);
     });
 
@@ -42,7 +44,8 @@ void main() {
       IStorage storage = GetIt.I<IStorage>();
 
       await storage.updateTask(initList.first.id, editTask.toJson());
-      Map<String, dynamic>? editTaskStorage = await storage.getTask(initList.first.id);
+      Map<String, dynamic>? editTaskStorage =
+          await storage.getTask(initList.first.id);
       expect(Task.fromJson(editTaskStorage!).text == editTask.text, true);
     });
 

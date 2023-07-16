@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/pages/orintaion_page.dart';
 
+import 'edit_task_landscape.dart';
 import 'edit_task_portrait.dart';
 
 //Здесь предполагается переключение между десктопной/ и мобильной версиями
@@ -10,8 +12,13 @@ class EditTaskPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return EditTaskPortait(
-      taskUid: taskId,
+    return OrientationPage(
+      landscapePage: EditTaslLandscape(
+        taskUid: taskId,
+      ),
+      portraitPage: EditTaskPortait(
+        taskUid: taskId,
+      ),
     );
   }
 }

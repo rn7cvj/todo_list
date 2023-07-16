@@ -16,9 +16,19 @@ import 'i18n/strings.g.dart';
 import 'navigation/navigation_state.dart';
 import 'navigation/route_information_parser.dart';
 import 'navigation/router_delegate.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() async {
+  usePathUrlStrategy();
+  WidgetsFlutterBinding.ensureInitialized();
   setUpSystemUIOverlay();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   await GetIt.I.registerSingleton<Settings>(Settings()).init();
 
@@ -46,8 +56,6 @@ void main() async {
 
 //Перевод приложения в полноэкранный режим
 void setUpSystemUIOverlay() {
-  WidgetsFlutterBinding.ensureInitialized();
-
   // Setting SysemUIOverlay
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemStatusBarContrastEnforced: false,

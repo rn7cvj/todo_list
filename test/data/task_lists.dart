@@ -10,7 +10,8 @@ final initList = [
   Task("3", "text", TaskImportanceTypes.basic, true, now, now, "123"),
 ];
 
-Task editTask = Task("1", "editText", TaskImportanceTypes.basic, true, now, now, "123");
+Task editTask =
+    Task("1", "editText", TaskImportanceTypes.basic, true, now, now, "123");
 
 final removedList = [
   Task("2", "text", TaskImportanceTypes.basic, true, now, now, "123"),

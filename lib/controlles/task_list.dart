@@ -38,7 +38,9 @@ abstract class TaskListContollerStore with Store {
   bool isComplitedTaskVisible = false;
 
   @computed
-  List<Task> get getTasks => tasks.where((task) => isComplitedTaskVisible ? true : !task.done).toList();
+  List<Task> get getTasks => tasks
+      .where((task) => isComplitedTaskVisible ? true : !task.done)
+      .toList();
 
   @computed
   int get complitedTaskCount => tasks.where((task) => task.done).length;
@@ -52,9 +54,11 @@ abstract class TaskListContollerStore with Store {
   }
 
   @action
-  Future<void> addNewTaskByDetails(String text, DateTime? deadLine, TaskImportanceTypes importanceType) async {
-    Task newTask =
-        Task(uuid.v4(), text, importanceType, false, DateTime.now(), DateTime.now(), "123", deadline: deadLine);
+  Future<void> addNewTaskByDetails(String text, DateTime? deadLine,
+      TaskImportanceTypes importanceType) async {
+    Task newTask = Task(uuid.v4(), text, importanceType, false, DateTime.now(),
+        DateTime.now(), "123",
+        deadline: deadLine);
 
     await api.addNewTask(newTask);
 
@@ -64,7 +68,8 @@ abstract class TaskListContollerStore with Store {
   }
 
   @action
-  Future<void> editTask(String uid, String text, DateTime? deadLine, TaskImportanceTypes importanceType) async {
+  Future<void> editTask(String uid, String text, DateTime? deadLine,
+      TaskImportanceTypes importanceType) async {
     Task? task = await api.getTask(uid);
 
     if (task == null) return;

@@ -15,35 +15,37 @@ class NoInternetPortrait extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(appPaddingMedium),
-        child: Column(
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    t.nointernet.error_text,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(appPaddingMedium),
-                    child: Text(
-                      t.nointernet.data_will_sync,
+        child: Center(
+          child: Column(
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      t.nointernet.error_text,
                       textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
-                  )
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(appPaddingMedium),
+                      child: Text(
+                        t.nointernet.data_will_sync,
+                        textAlign: TextAlign.center,
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(appPaddingLarge),
-              child: ElevatedButton(
-                onPressed: navigationManager.popToHomePage,
-                child: Text(t.nointernet.continue_offline),
-              ),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.all(appPaddingLarge),
+                child: ElevatedButton(
+                  onPressed: navigationManager.popToHomePage,
+                  child: Text(t.nointernet.continue_offline),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

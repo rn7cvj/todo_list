@@ -6,7 +6,8 @@ import 'navigation_state.dart';
 /// URI <> NavigationState
 class MyRouteInformationParser extends RouteInformationParser<NavigationState> {
   @override
-  Future<NavigationState> parseRouteInformation(RouteInformation routeInformation) async {
+  Future<NavigationState> parseRouteInformation(
+      RouteInformation routeInformation) async {
     final location = routeInformation.location;
     if (location == null) {
       return NavigationState.unknown();
@@ -41,7 +42,8 @@ class MyRouteInformationParser extends RouteInformationParser<NavigationState> {
     }
 
     if (configuration.isEditTask) {
-      return RouteInformation(location: '/${RoutesName.editTask}/${configuration.editTaskId}');
+      return RouteInformation(
+          location: '/${RoutesName.editTask}/${configuration.editTaskId}');
     }
 
     return const RouteInformation(location: '/');

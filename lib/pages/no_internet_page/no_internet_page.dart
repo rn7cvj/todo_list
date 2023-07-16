@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/pages/no_internet_page/no_internet_landscape.dart';
+import 'package:todo_list/pages/orintaion_page.dart';
 
 import 'no_internet_portrait.dart';
 
@@ -7,6 +9,6 @@ class NoInternetPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NoInternetPortrait();
+    return OrientationPage(landscapePage: NoInternetLandscape(), portraitPage: NoInternetPortrait());
   }
 }

@@ -82,8 +82,9 @@ class TaskTile extends StatelessWidget {
             },
             background: Observer(
               builder: (context) {
-                Color backgroundColor =
-                    task.done ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.inversePrimary;
+                Color backgroundColor = task.done
+                    ? Theme.of(context).colorScheme.secondary
+                    : Theme.of(context).colorScheme.inversePrimary;
 
                 IconData backroundIcon = task.done ? Icons.close : Icons.check;
                 //Билдер фона для свайпа вправо
@@ -132,13 +133,17 @@ class TaskTile extends StatelessWidget {
       );
     }
 
-    Widget? subtitle =
-        task.deadline != null ? Text(formatDateTime(context, task.deadline!), style: subtitleTextStyle) : null;
+    Widget? subtitle = task.deadline != null
+        ? Text(formatDateTime(context, task.deadline!),
+            style: subtitleTextStyle)
+        : null;
 
-    MaterialStateProperty<Color> checkBoxColor = MaterialStateProperty.all(Theme.of(context).colorScheme.primary);
+    MaterialStateProperty<Color> checkBoxColor =
+        MaterialStateProperty.all(Theme.of(context).colorScheme.primary);
 
     if (task.importance == TaskImportanceTypes.important) {
-      checkBoxColor = MaterialStateProperty.all(Theme.of(context).colorScheme.error);
+      checkBoxColor =
+          MaterialStateProperty.all(Theme.of(context).colorScheme.error);
     }
 
     // Закругления, если карточка первая
@@ -234,9 +239,12 @@ class Background extends StatelessWidget {
         child: Observer(
           builder: (_) {
             // Это для динамического перемещения иконки. В итоге не используется
-            EdgeInsets iconAnimationPadding = dismissDirection == DismissDirection.startToEnd
-                ? EdgeInsets.only(left: iconExtraPadding.value * appPaddingLarge * 3)
-                : EdgeInsets.only(right: iconExtraPadding.value * appPaddingLarge * 3);
+            EdgeInsets iconAnimationPadding =
+                dismissDirection == DismissDirection.startToEnd
+                    ? EdgeInsets.only(
+                        left: iconExtraPadding.value * appPaddingLarge * 3)
+                    : EdgeInsets.only(
+                        right: iconExtraPadding.value * appPaddingLarge * 3);
 
             return Padding(
               padding: iconPadding.add(iconAnimationPadding),

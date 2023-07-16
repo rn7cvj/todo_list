@@ -5,13 +5,15 @@ abstract class IStorage {
 
   Future<List<Map<String, dynamic>>?> getAllTasks();
 
-  Future<List<Map<String, dynamic>>?> updateAllTasks(List<Map<String, dynamic>> data);
+  Future<List<Map<String, dynamic>>?> updateAllTasks(
+      List<Map<String, dynamic>> data);
 
   Future<Map<String, dynamic>?> getTask(String uid);
 
   Future<Map<String, dynamic>?> addNewTask(Map<String, dynamic> data);
 
-  Future<Map<String, dynamic>?> updateTask(String uid, Map<String, dynamic> data);
+  Future<Map<String, dynamic>?> updateTask(
+      String uid, Map<String, dynamic> data);
 
   Future<Map<String, dynamic>?> deleteTask(String uid);
 }
@@ -62,7 +64,8 @@ class Storage extends IStorage {
   }
 
   @override
-  Future<List<Map<String, dynamic>>?> updateAllTasks(List<Map<String, dynamic>> data) async {
+  Future<List<Map<String, dynamic>>?> updateAllTasks(
+      List<Map<String, dynamic>> data) async {
     await _box?.erase();
 
     for (Map<String, dynamic> d in data) {
@@ -72,7 +75,8 @@ class Storage extends IStorage {
   }
 
   @override
-  Future<Map<String, dynamic>?> updateTask(String uid, Map<String, dynamic> data) async {
+  Future<Map<String, dynamic>?> updateTask(
+      String uid, Map<String, dynamic> data) async {
     await _box?.write(data["id"], data);
     return getTask(data["id"]);
   }

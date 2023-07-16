@@ -22,7 +22,13 @@ class NavigationState {
 
   bool get isUnknown => _unknown == true;
 
-  bool get isRoot => !isUnknown && !isAddTask && !isEditTask && !isInternetCheck && !isSettings && !isInternetError;
+  bool get isRoot =>
+      !isUnknown &&
+      !isAddTask &&
+      !isEditTask &&
+      !isInternetCheck &&
+      !isSettings &&
+      !isInternetError;
 
   NavigationState.internetCheck()
       : _unknown = false,

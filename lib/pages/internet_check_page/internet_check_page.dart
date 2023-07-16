@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:todo_list/constants.dart';
+import 'package:todo_list/pages/internet_check_page/internet_check_landscape.dart';
+import 'package:todo_list/pages/orintaion_page.dart';
 
 import '../../api/api.dart';
 import 'internet_check_portrait.dart';
@@ -31,6 +33,6 @@ class InternetCheckPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const InternetCheckPortait();
+    return OrientationPage(landscapePage: InternetCheckLandscape(), portraitPage: InternetCheckPortait());
   }
 }
