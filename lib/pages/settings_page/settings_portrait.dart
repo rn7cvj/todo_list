@@ -16,10 +16,17 @@ class SettingsPortrait extends StatelessWidget {
       appBar: AppBar(
         title: Text(t.settings.title),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(appPaddingMedium),
+      body: Padding(
+        padding: const EdgeInsets.all(appPaddingMedium),
         child: Column(
           children: [
+            ListTile(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(appRoundRadiusMedium)),
+              title: const Text("Test craslitycs error"),
+              onTap: () {
+                throw Exception("Test flutter error");
+              },
+            )
             // SwitchListTile(
             //   title: Text(t.settings.use_local_storage),
             //   subtitle: Text(t.settings.restart_required),

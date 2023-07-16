@@ -12,6 +12,7 @@ import 'package:todo_list/logger.dart';
 // import 'package:todo_list/controlles/task_list.dart';
 
 import 'controlles/task_list.dart';
+import 'helper_functions.dart';
 import 'i18n/strings.g.dart';
 import 'navigation/navigation_state.dart';
 import 'navigation/route_information_parser.dart';
@@ -29,6 +30,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  initCrashlytics();
 
   await GetIt.I.registerSingleton<Settings>(Settings()).init();
 
