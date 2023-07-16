@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list/pages/internet_check_page/internet_check_portrait.dart';
 import 'package:todo_list/pages/no_internet_page/no_internet_portrait.dart';
 
 import '../../constants.dart';

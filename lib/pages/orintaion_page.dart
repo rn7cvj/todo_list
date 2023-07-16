@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list/pages/home_page/home_landscape.dart';
-import 'package:todo_list/pages/home_page/home_portrait.dart';
 
 class OrientationPage extends StatelessWidget {
   const OrientationPage({super.key, required this.landscapePage, required this.portraitPage});

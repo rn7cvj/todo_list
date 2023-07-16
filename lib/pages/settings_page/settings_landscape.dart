@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:todo_list/pages/settings_page/settings_portrait.dart';
 
 import '../../constants.dart';
-import '../add_task_page/add_task_portrait.dart';
 
 class SettingsLandscape extends StatelessWidget {
   const SettingsLandscape({super.key});
