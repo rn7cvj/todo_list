@@ -17,8 +17,8 @@ jobs:
         channel: "beta"
         cache: true
     - run: flutter pub get
-    - run: flutter build apk --flavor full --target lib/main.dart
-    - run: flutter build apk --split-per-abi --flavor full --target lib/main.dart
+    - run: flutter build apk --flavor full --target lib/main_without_firebase.dart
+    - run: flutter build apk --split-per-abi --flavor full --target lib/main_without_firebase.dart
 
     - uses: actions/upload-artifact@v3
       with:
