@@ -13,6 +13,7 @@
 
 ## Demo
 
+[https://rn7cvj.github.io/todo_list/](https://rn7cvj.github.io/todo_list/) — web версия
 
 ![animation_prewiv_2](https://github.com/rn7cvj/todo_list/assets/133586172/a5acb0b8-43cc-4fd3-90c0-3a2afbf6e9db)
 
