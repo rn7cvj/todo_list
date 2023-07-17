@@ -139,14 +139,6 @@ class TaskTile extends StatelessWidget {
     Widget? subtitle =
         task.deadline != null ? Text(formatDateTime(context, task.deadline!), style: subtitleTextStyle) : null;
 
-    MaterialStateProperty<Color> checkBoxColor = MaterialStateProperty.all(Theme.of(context).colorScheme.primary);
-
-    if (task.importance == TaskImportanceTypes.important) {
-      checkBoxColor =
-          // MaterialStateProperty.all(settings.importanceColor.harmonizeWith(Theme.of(context).colorScheme.primary));
-          MaterialStateProperty.all(settings.importanceColor);
-    }
-
     // Закругления, если карточка первая
     ShapeBorder shape = RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
@@ -161,14 +153,23 @@ class TaskTile extends StatelessWidget {
         appPaddingSmall,
       ),
       onTap: () => navigationManager.openEditTaskPage(task.id),
-      leading: Checkbox(
-        activeColor: Colors.amberAccent,
-        fillColor: checkBoxColor,
-        value: task.done,
-        onChanged: (newVAlue) async {
-          await contoller.toogleTaksComplitedStatus(task.id);
-        },
-      ),
+      leading: Observer(builder: (_) {
+        MaterialStateProperty<Color> checkBoxColor = MaterialStateProperty.all(Theme.of(context).colorScheme.primary);
+
+        if (task.importance == TaskImportanceTypes.important) {
+          checkBoxColor = MaterialStateProperty.all(
+              settings.importanceColor.value.harmonizeWith(Theme.of(context).colorScheme.primary));
+          // MaterialStateProperty.all(settings.importanceColor.value);
+        }
+        return Checkbox(
+          activeColor: Colors.amberAccent,
+          fillColor: checkBoxColor,
+          value: task.done,
+          onChanged: (newVAlue) async {
+            await contoller.toogleTaksComplitedStatus(task.id);
+          },
+        );
+      }),
       title: Row(
         children: [
           buildImportanceIcon(context) ?? Container(),
