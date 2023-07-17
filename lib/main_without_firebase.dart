@@ -24,7 +24,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setUpSystemUIOverlay();
 
-  await GetIt.I.registerSingleton<Settings>(Settings()).init();
+  await GetIt.I.registerSingleton<Settings>(Settings(null)).init();
 
   await GetIt.I.registerSingleton<IBackendConnection>(BackendConnection()).init();
   await GetIt.I.registerSingleton<IStorage>(Storage()).init();

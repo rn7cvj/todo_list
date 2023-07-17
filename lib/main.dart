@@ -1,3 +1,4 @@
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -35,7 +36,7 @@ void main() async {
 
   initCrashlytics();
 
-  await GetIt.I.registerSingleton<Settings>(Settings()).init();
+  await GetIt.I.registerSingleton<Settings>(Settings(FirebaseRemoteConfig.instance)).init();
 
   await GetIt.I.registerSingleton<IBackendConnection>(BackendConnection()).init();
   await GetIt.I.registerSingleton<IStorage>(Storage()).init();
