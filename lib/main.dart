@@ -27,11 +27,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setUpSystemUIOverlay();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  if (const String.fromEnvironment("USE_FIREBASE").isNotEmpty) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
-  initCrashlytics();
+    initCrashlytics();
+  }
 
   await GetIt.I.registerSingleton<Settings>(Settings()).init();
 

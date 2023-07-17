@@ -23,6 +23,8 @@ void initCrashlytics() {
     );
     return true;
   };
+
+  logger.i("Init crashlytics");
 }
 
 class HexColor extends Color {
