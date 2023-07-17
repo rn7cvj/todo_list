@@ -23,4 +23,20 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: arm-v8a
-        path: build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+        path: build/app/outputs/flutter-apk/app-arm64-v8a-full-release.apk
+
+  deploy:
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+        - name: Download artifact
+          uses: actions/download-artifact@v2
+          with:
+            name: arm-v8a
+        - name: Upload artifact to Firebase App Distribution
+          uses: wzieba/Firebase-Distribution-Github-Action@v1
+          with:
+            appId: ${{ secrets.FIRE_APP_ID }}
+            serviceCredentialsFileContent: ${{ secrets.FIRE_CREDENTIAL_FILE }}
+            groups: android_testers
+            file: app-arm64-v8a-full-release.apk
