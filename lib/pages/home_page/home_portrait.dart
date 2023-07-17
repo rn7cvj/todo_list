@@ -27,9 +27,9 @@ class HomePortrait extends StatelessWidget {
 
     contoller.setOnErrorHandler(
       (error) {
-        if (context.mounted)
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(error.lable)));
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.lable)));
+        }
       },
     );
 
@@ -38,8 +38,7 @@ class HomePortrait extends StatelessWidget {
         onRefresh: () async {
           var status = await contoller.tryToSync();
           if (status && context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(t.messages.connection_restore)));
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.messages.connection_restore)));
           }
         },
         child: CustomScrollView(
@@ -50,8 +49,7 @@ class HomePortrait extends StatelessWidget {
             SliverToBoxAdapter(
               child: Card(
                 //Переопределение скруглений для идентичности
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(appRoundRadiusMedium)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(appRoundRadiusMedium)),
                 //Анал огично
                 margin: const EdgeInsets.all(appMargingMedium),
                 child: Column(

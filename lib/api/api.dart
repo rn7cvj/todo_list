@@ -105,8 +105,7 @@ class Api extends IApi {
   }
 
   Future<void> syncData() async {
-    List<Map<String, dynamic>>? backendList =
-        await _backendConnection.getAllTasks();
+    List<Map<String, dynamic>>? backendList = await _backendConnection.getAllTasks();
 
     List<Map<String, dynamic>>? localList = await _storage.getAllTasks();
 
@@ -135,8 +134,7 @@ class Api extends IApi {
     await _storage.addNewTask(newTask.toJson());
 
     if (_apiStatus != ApiStatus.localStorageOnly) {
-      var res =
-          await _backendConnection.addNewTask(jsonEncode(newTask.toJson()));
+      var res = await _backendConnection.addNewTask(jsonEncode(newTask.toJson()));
       if (res == null) {
         _apiStatus == ApiStatus.localStorageOnly;
         onError!(ErrorTypes.failServerConnetcion);
@@ -208,8 +206,7 @@ class Api extends IApi {
   Future<Task?> updateTask(String uid, Task newTask) async {
     await _storage.updateTask(uid, newTask.toJson());
     if (_apiStatus != ApiStatus.localStorageOnly) {
-      var res = await _backendConnection.updateTask(
-          uid, jsonEncode(newTask.toJson()));
+      var res = await _backendConnection.updateTask(uid, jsonEncode(newTask.toJson()));
       if (res == null) {
         _apiStatus == ApiStatus.localStorageOnly;
         onError!(ErrorTypes.failServerConnetcion);

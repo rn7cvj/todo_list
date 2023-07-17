@@ -9,6 +9,6 @@ class NoInternetPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OrientationPage(landscapePage: NoInternetLandscape(), portraitPage: NoInternetPortrait());
+    return OrientationPage(landscapePage: const NoInternetLandscape(), portraitPage: NoInternetPortrait());
   }
 }

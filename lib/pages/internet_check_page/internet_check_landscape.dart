@@ -16,7 +16,7 @@ class InternetCheckLandscape extends StatelessWidget {
           child: Card(
             elevation: appElevationMedium,
             child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(appRoundRadiusMedium)),
+              borderRadius: BorderRadius.all(Radius.circular(appRoundRadiusMedium)),
               child: InternetCheckPortait(),
             ),
           ),

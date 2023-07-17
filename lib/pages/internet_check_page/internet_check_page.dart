@@ -33,6 +33,6 @@ class InternetCheckPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OrientationPage(landscapePage: InternetCheckLandscape(), portraitPage: InternetCheckPortait());
+    return const OrientationPage(landscapePage: InternetCheckLandscape(), portraitPage: InternetCheckPortait());
   }
 }

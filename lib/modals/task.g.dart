@@ -32,10 +32,10 @@ Map<String, dynamic> _$TaskToJson(Task instance) {
 
   writeNotNull(
       'deadline', TaskStore._dateTimeNullableToJson(instance.deadline));
-  val['created_at'] = TaskStore._dateTimeToJson(instance.created_at);
-  val['changed_at'] = TaskStore._dateTimeToJson(instance.changed_at);
+  val['created_at'] = TaskStore._dateTimeToJson(instance.createdAt);
+  val['changed_at'] = TaskStore._dateTimeToJson(instance.changedAt);
   val['done'] = instance.done;
-  val['last_updated_by'] = instance.last_updated_by;
+  val['last_updated_by'] = instance.lastUpdatedBy;
   return val;
 }
 

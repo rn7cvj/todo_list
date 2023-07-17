@@ -13,9 +13,9 @@ class Task extends TaskStore with _$Task {
     String text,
     TaskImportanceTypes importance,
     bool done,
-    DateTime created_at,
-    DateTime changed_at,
-    String last_updated_by, {
+    DateTime createdAt,
+    DateTime changedAt,
+    String lastUpdatedBy, {
     DateTime? deadline,
     String? hexColor,
   }) : super(
@@ -24,9 +24,9 @@ class Task extends TaskStore with _$Task {
           importance,
           deadline,
           done,
-          created_at,
-          changed_at,
-          last_updated_by,
+          createdAt,
+          changedAt,
+          lastUpdatedBy,
           hexColor,
         );
 
@@ -36,8 +36,8 @@ class Task extends TaskStore with _$Task {
 }
 
 abstract class TaskStore with Store {
-  TaskStore(this.id, this.text, this.importance, this.deadline, this.done,
-      this.created_at, this.changed_at, this.last_updated_by, this._hexColor);
+  TaskStore(this.id, this.text, this.importance, this.deadline, this.done, this.createdAt, this.changedAt,
+      this.lastUpdatedBy, this._hexColor);
 
   final String id;
 
@@ -48,38 +48,33 @@ abstract class TaskStore with Store {
   TaskImportanceTypes importance = TaskImportanceTypes.low;
 
   @observable
-  @JsonKey(
-      includeIfNull: false,
-      toJson: _dateTimeNullableToJson,
-      fromJson: _dateTimeNullablefromJson)
+  @JsonKey(includeIfNull: false, toJson: _dateTimeNullableToJson, fromJson: _dateTimeNullablefromJson)
   DateTime? deadline;
 
-  @JsonKey(toJson: _dateTimeToJson, fromJson: _dateTimefromJson)
-  DateTime created_at;
+  @JsonKey(name: "created_at", toJson: _dateTimeToJson, fromJson: _dateTimefromJson)
+  DateTime createdAt;
 
-  @JsonKey(toJson: _dateTimeToJson, fromJson: _dateTimefromJson)
-  DateTime changed_at;
+  @JsonKey(name: "changed_at", toJson: _dateTimeToJson, fromJson: _dateTimefromJson)
+  DateTime changedAt;
 
-  static int? _dateTimeNullableToJson(DateTime? value) =>
-      value?.toUtc().millisecondsSinceEpoch;
+  static int? _dateTimeNullableToJson(DateTime? value) => value?.toUtc().millisecondsSinceEpoch;
   static DateTime? _dateTimeNullablefromJson(int? value) =>
       value == null ? null : DateTime.fromMillisecondsSinceEpoch(value);
 
-  static int _dateTimeToJson(DateTime value) =>
-      value.toUtc().millisecondsSinceEpoch;
-  static DateTime _dateTimefromJson(int value) =>
-      DateTime.fromMillisecondsSinceEpoch(value);
+  static int _dateTimeToJson(DateTime value) => value.toUtc().millisecondsSinceEpoch;
+  static DateTime _dateTimefromJson(int value) => DateTime.fromMillisecondsSinceEpoch(value);
 
   @observable
   bool done = false;
 
   @JsonKey(includeIfNull: false)
-  String? _hexColor;
+  final String? _hexColor;
 
   @JsonKey(includeToJson: false)
   Color? get color => _hexColor == null ? null : HexColor(_hexColor!);
 
-  String last_updated_by;
+  @JsonKey(name: "last_updated_by")
+  String lastUpdatedBy;
 }
 
 enum TaskImportanceTypes {

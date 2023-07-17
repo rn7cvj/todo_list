@@ -9,6 +9,6 @@ class AddTaskPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OrientationPage(landscapePage: AddTaskLandscape(), portraitPage: AddTaskPortrait());
+    return OrientationPage(landscapePage: const AddTaskLandscape(), portraitPage: AddTaskPortrait());
   }
 }

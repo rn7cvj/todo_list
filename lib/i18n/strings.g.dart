@@ -26,10 +26,7 @@ enum AppLocale with BaseAppLocale<AppLocale, _StringsEn> {
   ru(languageCode: 'ru', build: _StringsRu.build);
 
   const AppLocale(
-      {required this.languageCode,
-      this.scriptCode,
-      this.countryCode,
-      required this.build}); // ignore: unused_element
+      {required this.languageCode, this.scriptCode, this.countryCode, required this.build}); // ignore: unused_element
 
   @override
   final String languageCode;
@@ -73,15 +70,12 @@ _StringsEn get t => LocaleSettings.instance.currentTranslations;
 class Translations {
   Translations._(); // no constructor
 
-  static _StringsEn of(BuildContext context) =>
-      InheritedLocaleData.of<AppLocale, _StringsEn>(context).translations;
+  static _StringsEn of(BuildContext context) => InheritedLocaleData.of<AppLocale, _StringsEn>(context).translations;
 }
 
 /// The provider for method B
-class TranslationProvider
-    extends BaseTranslationProvider<AppLocale, _StringsEn> {
-  TranslationProvider({required super.child})
-      : super(settings: LocaleSettings.instance);
+class TranslationProvider extends BaseTranslationProvider<AppLocale, _StringsEn> {
+  TranslationProvider({required super.child}) : super(settings: LocaleSettings.instance);
 
   static InheritedLocaleData<AppLocale, _StringsEn> of(BuildContext context) =>
       InheritedLocaleData.of<AppLocale, _StringsEn>(context);
@@ -105,23 +99,17 @@ class LocaleSettings extends BaseFlutterLocaleSettings<AppLocale, _StringsEn> {
   // static aliases (checkout base methods for documentation)
   static AppLocale get currentLocale => instance.currentLocale;
   static Stream<AppLocale> getLocaleStream() => instance.getLocaleStream();
-  static AppLocale setLocale(AppLocale locale,
-          {bool? listenToDeviceLocale = false}) =>
+  static AppLocale setLocale(AppLocale locale, {bool? listenToDeviceLocale = false}) =>
       instance.setLocale(locale, listenToDeviceLocale: listenToDeviceLocale);
-  static AppLocale setLocaleRaw(String rawLocale,
-          {bool? listenToDeviceLocale = false}) =>
-      instance.setLocaleRaw(rawLocale,
-          listenToDeviceLocale: listenToDeviceLocale);
+  static AppLocale setLocaleRaw(String rawLocale, {bool? listenToDeviceLocale = false}) =>
+      instance.setLocaleRaw(rawLocale, listenToDeviceLocale: listenToDeviceLocale);
   static AppLocale useDeviceLocale() => instance.useDeviceLocale();
   @Deprecated('Use [AppLocaleUtils.supportedLocales]')
   static List<Locale> get supportedLocales => instance.supportedLocales;
   @Deprecated('Use [AppLocaleUtils.supportedLocalesRaw]')
   static List<String> get supportedLocalesRaw => instance.supportedLocalesRaw;
   static void setPluralResolver(
-          {String? language,
-          AppLocale? locale,
-          PluralResolver? cardinalResolver,
-          PluralResolver? ordinalResolver}) =>
+          {String? language, AppLocale? locale, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver}) =>
       instance.setPluralResolver(
         language: language,
         locale: locale,
@@ -132,21 +120,14 @@ class LocaleSettings extends BaseFlutterLocaleSettings<AppLocale, _StringsEn> {
 
 /// Provides utility functions without any side effects.
 class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, _StringsEn> {
-  AppLocaleUtils._()
-      : super(baseLocale: _baseLocale, locales: AppLocale.values);
+  AppLocaleUtils._() : super(baseLocale: _baseLocale, locales: AppLocale.values);
 
   static final instance = AppLocaleUtils._();
 
   // static aliases (checkout base methods for documentation)
   static AppLocale parse(String rawLocale) => instance.parse(rawLocale);
-  static AppLocale parseLocaleParts(
-          {required String languageCode,
-          String? scriptCode,
-          String? countryCode}) =>
-      instance.parseLocaleParts(
-          languageCode: languageCode,
-          scriptCode: scriptCode,
-          countryCode: countryCode);
+  static AppLocale parseLocaleParts({required String languageCode, String? scriptCode, String? countryCode}) =>
+      instance.parseLocaleParts(languageCode: languageCode, scriptCode: scriptCode, countryCode: countryCode);
   static AppLocale findDeviceLocale() => instance.findDeviceLocale();
   static List<Locale> get supportedLocales => instance.supportedLocales;
   static List<String> get supportedLocalesRaw => instance.supportedLocalesRaw;
@@ -158,12 +139,8 @@ class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, _StringsEn> {
 class _StringsEn implements BaseTranslations<AppLocale, _StringsEn> {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsEn.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsEn.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.en,
           overrides: overrides ?? {},
@@ -231,8 +208,7 @@ class _StringsErrorsEn {
 
   // Translations
   String get noIntenet => 'No internet connection';
-  String get failServerConnetcion =>
-      'The server is temporarily unavailable, data will be synchronized later';
+  String get failServerConnetcion => 'The server is temporarily unavailable, data will be synchronized later';
 }
 
 // Path: home
@@ -264,11 +240,9 @@ class _StringsNointernetEn {
   final _StringsEn _root; // ignore: unused_field
 
   // Translations
-  String get error_text =>
-      'The server is temporarily unavailable, please check your internet connection';
+  String get error_text => 'The server is temporarily unavailable, please check your internet connection';
   String get continue_offline => 'Continue offline';
-  String get data_will_sync =>
-      'You can continue working offline, the data will be synced the next time you connect';
+  String get data_will_sync => 'You can continue working offline, the data will be synced the next time you connect';
 }
 
 // Path: settings
@@ -298,12 +272,8 @@ class _StringsUnknownEn {
 class _StringsRu implements _StringsEn {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  _StringsRu.build(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
+  _StringsRu.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
         $meta = TranslationMetadata(
           locale: AppLocale.ru,
           overrides: overrides ?? {},
@@ -398,8 +368,7 @@ class _StringsErrorsRu implements _StringsErrorsEn {
   @override
   String get noIntenet => 'Отсутствует подключение к интернету';
   @override
-  String get failServerConnetcion =>
-      'Сервер временно недоступен, данные будут синхронизированы позже';
+  String get failServerConnetcion => 'Сервер временно недоступен, данные будут синхронизированы позже';
 }
 
 // Path: home
@@ -427,8 +396,7 @@ class _StringsMessagesRu implements _StringsMessagesEn {
 
   // Translations
   @override
-  String get connection_restore =>
-      'Соединение восстановлено данные были синхронизированы';
+  String get connection_restore => 'Соединение восстановлено данные были синхронизированы';
 }
 
 // Path: nointernet
@@ -440,8 +408,7 @@ class _StringsNointernetRu implements _StringsNointernetEn {
 
   // Translations
   @override
-  String get error_text =>
-      'Сервер временно недоступен, пороверьте подключение к инернету';
+  String get error_text => 'Сервер временно недоступен, пороверьте подключение к инернету';
   @override
   String get continue_offline => 'Продолжить локально';
   @override

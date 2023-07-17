@@ -8,6 +8,6 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OrientationPage(landscapePage: SettingsLandscape(), portraitPage: SettingsPortrait());
+    return OrientationPage(landscapePage: const SettingsLandscape(), portraitPage: SettingsPortrait());
   }
 }

@@ -6,7 +6,7 @@ class NavigationState {
   final bool? _internetError;
   final bool? _internetCheck;
 
-  String? _editTaskId;
+  final String? _editTaskId;
 
   String get editTaskId => _editTaskId ?? "-1";
 
@@ -22,13 +22,7 @@ class NavigationState {
 
   bool get isUnknown => _unknown == true;
 
-  bool get isRoot =>
-      !isUnknown &&
-      !isAddTask &&
-      !isEditTask &&
-      !isInternetCheck &&
-      !isSettings &&
-      !isInternetError;
+  bool get isRoot => !isUnknown && !isAddTask && !isEditTask && !isInternetCheck && !isSettings && !isInternetError;
 
   NavigationState.internetCheck()
       : _unknown = false,
